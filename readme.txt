@@ -38,10 +38,9 @@ At this moment the title and submit box are always visible. You can change this 
 
 == Changelog ==
 
-= 0.4 ( t.b.a. / planning ) =
+= 0.4 ( 2012-7-7 ) =
 * Better UI admin
 * Know when a metabox is showed from the screen options
-* The sorting of metabox in the setting should be listen to in the edit screen
 * Start with translating the plugin
 * Improve deleting a tab from the setting screen
 
@@ -69,3 +68,4 @@ At this moment the title and submit box are always visible. You can change this 
 == TODO's ==
 
 * Let user be able to move meta boxes to a different tab
+* The sorting of metabox in the setting should be listen to in the edit screen
