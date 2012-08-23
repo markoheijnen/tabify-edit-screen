@@ -24,6 +24,8 @@ class Tabify_Edit_Screen_Admin {
 			wp_die( __( 'You do not have sufficient permissions to manage options for this site.' ) );
 		}
 
+		$this->load_plugin_support();
+
 		$this->update_settings();
 
 		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable' ), '1.0' );
@@ -42,17 +44,29 @@ class Tabify_Edit_Screen_Admin {
 		screen_icon();
 		echo '<h2>' . esc_html( get_admin_page_title() ) . '</h2>';
 
-		echo '<form method="post">';
+		echo '<form id="tabify-form" method="post">';
 		wp_nonce_field( plugin_basename( __FILE__ ), 'tabify_edit_screen_nonce' );
 
 		echo '<input type="hidden" id="tabify_edit_screen_nojs" name="tabify_edit_screen_nojs" value="1" />';
 
 		$posttypes = $this->get_posttypes();
 		$this->get_tabs( $posttypes );
+
+		echo '<div id="tabify-settings"><div id="tabifyboxes">';
 		$this->get_metaboxes( $posttypes );
 
-		echo '</form>';
+		echo '</div>';
 
+		if( apply_filters( 'tabify_support', true ) ) {
+			include 'support.php';
+			$support = new Tabify_Support( 'tabify-edit-screen' );
+
+			echo '<div id="tabify-support">';
+			$support->support_forum();
+			echo '</div>';
+		}
+
+		echo '</form>';
 		echo '</div>';
 	}
 
@@ -136,6 +150,19 @@ class Tabify_Edit_Screen_Admin {
 	}
 
 	/**
+	 * Load additional support for plugins that have unique code
+	 *
+	 * @since 0.4
+	 */
+	private function load_plugin_support() {
+		if( apply_filters( 'tabify_plugin_support', true ) ) {
+			include 'plugin-support.php';
+			new Tabify_Edit_Screen_Plugin_Support();
+		}
+	}
+
+
+	/**
 	 * Gets all the post types
 	 *
 	 * @since 0.1
@@ -152,7 +179,9 @@ class Tabify_Edit_Screen_Admin {
 
 		$posttypes = array();
 		foreach( $posttypes_objects as $posttype_object ) {
-			$posttypes[ $posttype_object->name ] = $posttype_object->label;
+			if( is_object( $posttype_object ) ) {
+				$posttypes[ $posttype_object->name ] = $posttype_object->label;
+			}
 		}
 
 		return $posttypes;
@@ -208,7 +237,7 @@ class Tabify_Edit_Screen_Admin {
 
 			$tab_id = 0;
 			foreach( $options[ $posttype ]['tabs'] as $tab ) {
-				echo '<div>';
+				echo '<div class="menu-item-handle tabify_tab">';
 
 				if( $tab['title'] == '' ) {
 					$tab['title'] = __( 'Choose title' );

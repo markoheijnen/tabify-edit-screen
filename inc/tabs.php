@@ -15,7 +15,8 @@ class Tabify_Edit_Screen_Tabs {
 	 */
 	function __construct( $items ) {
 		if( is_array( $items ) ) {
-			$this->items = $items;
+			do_action( 'tabify_tabs', $this );
+			$this->items = apply_filters( 'tabify_tabs', $items, $this );
 
 			if( isset( $_REQUEST['tab'] ) ) {
 				$this->active = esc_attr( $_REQUEST['tab'] );

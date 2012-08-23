@@ -1,17 +1,43 @@
 .js .tabifybox-hide { display: none; }
 
-.tabify_control {
-	display: inline-block;
+#tabify-settings {
+	margin-right: 300px;
 }
 
-.tabify_control h2 {
+#tabifyboxes {
 	float: left;
+	width: 100%;
+}
+
+#tabify-support {
+	float: right;
+	margin-right: -300px;
+	width: 280px;
+}
+
+.tabify_control .menu-item-handle {
+	overflow: visible;
+	width: auto;
+}
+
+
+.tabify_tab {
+	margin-bottom: 20px;
+	padding: 0px 10px 5px 10px;
+}
+
+.tabify_tab h2 {
+	float: left;
+	font-size: 20px;
+	line-height: 24px;
+	padding-bottom: 0px;
 }
 
 .tabify-remove-tab {
 	color: #BC0B0B;
 	float: right;
-	margin: 17px 5px 4px 0;
+	line-height: normal;
+	margin: 17px 5px 0px 0;
 }
 
 .tabify_control ul {
