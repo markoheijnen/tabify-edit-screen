@@ -5,6 +5,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 		add_action( 'tabify_add_meta_boxes', array( &$this, 'types' ) );
 		add_action( 'tabify_add_meta_boxes', array( &$this, 'acf' ) );
 		add_action( 'tabify_add_meta_boxes', array( &$this, 'wpseo' ) );
+		add_action( 'tabify_add_meta_boxes', array( &$this, 'members' ) );
 	}
 
 	/**
@@ -67,8 +68,20 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 * @since 0.4
 	 */
 	function wpseo( $posttype ) {
-		// WP SEO compatibility
 		if ( defined( 'WPSEO_PATH' ) )
 			require_once WPSEO_PATH . 'admin/class-metabox.php';
+	}
+	
+
+	/**
+	 * Load widgets created by Members
+	 *
+	 * @param string $posttype The posttype the metaboxes should be loaded from
+	 * 
+	 * @since 0.4
+	 */
+	function members( $posttype ) {
+		if ( function_exists( 'members_admin_setup' ) && !did_action( 'load-post.php' ) )
+			do_action( 'load-post.php' );
 	}
 }
