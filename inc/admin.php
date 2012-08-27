@@ -384,6 +384,8 @@ class Tabify_Edit_Screen_Admin {
 	 * @since 0.1
 	 */
 	private function load_default_metaboxes( $post_type ) {
+		$post_type_object = get_post_type_object( $post_type );
+		
 		add_meta_box( 'submitdiv', __('Publish'), 'post_submit_meta_box', $post_type, 'side', 'core' );
 
 		if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post_type, 'post-formats' ) )
