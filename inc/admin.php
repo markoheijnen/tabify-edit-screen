@@ -373,6 +373,8 @@ class Tabify_Edit_Screen_Admin {
 				}
 			}
 		}
+		
+		$this->metaboxes = apply_filters( 'tabify_metaboxes', $this->metaboxes, $posttypes );
 
 		return $this->metaboxes;
 	}
@@ -427,10 +429,8 @@ class Tabify_Edit_Screen_Admin {
 
 		add_meta_box('slugdiv', __('Slug'), 'post_slug_meta_box', $post_type, 'normal', 'core');
 
-		if ( post_type_supports($post_type, 'author') ) {
-			if ( is_super_admin() || current_user_can( $post_type_object->cap->edit_others_posts ) )
-				add_meta_box('authordiv', __('Author'), 'post_author_meta_box', $post_type, 'normal', 'core');
-		}
+		if ( post_type_supports($post_type, 'author') )
+			add_meta_box('authordiv', __('Author'), 'post_author_meta_box', $post_type, 'normal', 'core');
 
 		if ( post_type_supports($post_type, 'revisions') )
 			add_meta_box('revisionsdiv', __('Revisions'), 'post_revisions_meta_box', $post_type, 'normal', 'core');
