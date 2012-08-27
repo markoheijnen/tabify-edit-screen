@@ -4,6 +4,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	function __construct() {
 		add_action( 'tabify_add_meta_boxes', array( &$this, 'types' ) );
 		add_action( 'tabify_add_meta_boxes', array( &$this, 'acf' ) );
+		add_action( 'tabify_add_meta_boxes', array( &$this, 'wpseo' ) );
 	}
 
 	/**
@@ -56,5 +57,18 @@ class Tabify_Edit_Screen_Plugin_Support {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Load widgets created by WordPress SEO
+	 *
+	 * @param string $posttype The posttype the metaboxes should be loaded from
+	 * 
+	 * @since 0.4
+	 */
+	function wpseo( $posttype ) {
+		// WP SEO compatibility
+		if ( defined( 'WPSEO_PATH' ) )
+			require_once WPSEO_PATH . 'admin/class-metabox.php';
 	}
 }
