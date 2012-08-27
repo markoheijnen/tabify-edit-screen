@@ -373,6 +373,8 @@ class Tabify_Edit_Screen_Admin {
 				}
 			}
 		}
+		
+		$this->metaboxes = apply_filters( 'tabify_metaboxes', $this->metaboxes, $posttypes );
 
 		return $this->metaboxes;
 	}
