@@ -11,15 +11,12 @@ Author URI: http://markoheijnen.com
 include 'inc/admin.php';
 include 'inc/tabs.php';
 
-include 'inc/plugin-support.php';
-
 class Tabify_Edit_Screen {
 	private $admin;
 	private $editscreen_tabs;
 
 	function __construct() {
 		$admin = new Tabify_Edit_Screen_Admin();
-		new Tabify_Edit_Screen_Plugin_Support();
 
 		add_action( 'admin_menu', array( &$admin, 'admin_menu' ) );
 

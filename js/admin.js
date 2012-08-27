@@ -38,7 +38,7 @@ jQuery(function($) {
 
 		var counter = $( '.tabifybox-' + posttype + ' .tabify_control' ).children().length;
 
-		var html = '<div>';
+		var html = '<div class="menu-item-handle tabify_tab">';
 		html += '<h2><span>' + title + '</span><input type="text" name="tabify[' + posttype + '][tabs][' + counter + '][title]" value="' + title + '" style="display: none;" /></h2>';
 		html += '<a href="#" class="tabify-remove-tab">' + tabify_l10.remove + '</a><div class="clear"></div>';
 		html += '<ul></ul></div>';

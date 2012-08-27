@@ -2,18 +2,35 @@
 
 class Tabify_Edit_Screen_Plugin_Support {
 	function __construct() {
-		add_action( 'tabify_add_meta_boxes', array( &$this, 'load_metaboxes' ) );
+		add_action( 'tabify_add_meta_boxes', array( &$this, 'types' ) );
+		add_action( 'tabify_add_meta_boxes', array( &$this, 'acf' ) );
 	}
 
-	function load_metaboxes( $posttype ) {
-		//Support for types
+	/**
+	 * Load widgets created by Types
+	 *
+	 * @param string $posttype The posttype the metaboxes should be loaded from
+	 * 
+	 * @since 0.4
+	 */
+	function types( $posttype ) {
 		if( function_exists( 'wpcf_admin_post_page_load_hook' ) ) {
 			$_GET['post_type'] = $posttype;
 			wpcf_admin_post_page_load_hook();
 			unset( $_GET['post_type'] );
 		}
+	}
 
+	/**
+	 * Load widgets created by ACF
+	 *
+	 * @param string $posttype The posttype the metaboxes should be loaded from
+	 * 
+	 * @since 0.4
+	 */
+	function acf() {
 		global $acf;
+
 		if ( is_object( $acf ) ) {
 			$acfs_objects = $acf->get_field_groups();
 
