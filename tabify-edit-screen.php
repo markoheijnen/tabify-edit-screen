@@ -8,21 +8,23 @@ Version: 0.4-dev
 Author URI: http://markoheijnen.com
 */
 
-include 'inc/admin.php';
-include 'inc/tabs.php';
-
 class Tabify_Edit_Screen {
 	private $admin;
 	private $editscreen_tabs;
 
 	function __construct() {
-		$admin = new Tabify_Edit_Screen_Admin();
+		if( is_admin() ) {
+			include 'inc/admin.php';
+			include 'inc/tabs.php';
 
-		add_action( 'admin_menu', array( &$admin, 'admin_menu' ) );
+			$admin = new Tabify_Edit_Screen_Admin();
 
-		add_filter( 'redirect_post_location', array( &$this, 'redirect_add_current_tab' ), 10, 2 );
+			add_action( 'admin_menu', array( &$admin, 'admin_menu' ) );
 
-		add_action( 'admin_head', array( &$this, 'show_tabs' ), 10 );
+			add_filter( 'redirect_post_location', array( &$this, 'redirect_add_current_tab' ), 10, 2 );
+
+			add_action( 'admin_head', array( &$this, 'show_tabs' ), 10 );
+		}
 	}
 
 	/**

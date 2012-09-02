@@ -4,7 +4,8 @@ class Tabify_Edit_Screen_Tabs {
 	private $base_url = '';
 
 	private $active = '';
-	private $items = array();
+	private $items  = array();
+	private $type; 
 
 	/**
 	 * construct method
@@ -13,10 +14,12 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @since 0.1
 	 */
-	function __construct( $items ) {
+	function __construct( $items, $type = 'horizontal' ) {
 		if( is_array( $items ) ) {
-			do_action( 'tabify_tabs', $this );
+			do_action( 'tabify_tabs', $this, $type );
+
 			$this->items = apply_filters( 'tabify_tabs', $items, $this );
+			$this->type  = $type;
 
 			if( isset( $_REQUEST['tab'] ) ) {
 				$this->active = esc_attr( $_REQUEST['tab'] );
@@ -53,7 +56,14 @@ class Tabify_Edit_Screen_Tabs {
 	 * @since 0.1
 	 */
 	public function get_tabs_with_container( $show_current_tab_input = true ) {
-		$return  = '<h2 class="nav-tab-wrapper" style="padding-left: 20px;">';
+		$class = 'tab-' .  $this->type;
+
+		if( 'horizontal' == $this->type ) {
+			$class .= ' nav-tab-wrapper';
+		}
+
+
+		$return  = '<h2 class="' . $class . '">';
 
 		if( $show_current_tab_input == true ) {
 			$return .= $this->get_tabs_current_tab_input();
@@ -107,18 +117,5 @@ class Tabify_Edit_Screen_Tabs {
 		}
 
 		return $return;
-	}
-
-	/**
-	 * Get all the metaboxes that should always be showed
-	 *
-	 * @return array All the metaboxes id's in an array
-	 *
-	 * @since 0.1
-	 */
-	public function get_default_metaboxes( $post_type = '' ) {
-		$defaults = array( 'titlediv', 'submitdiv' ); //, 'postdivrich'
-		$defaults = apply_filters( 'tabify_default_metaboxes', $defaults, $post_type );
-		return apply_filters( 'tabify_default_metaboxes_' . $post_type , $defaults );
 	}
 }

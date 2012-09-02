@@ -1,17 +1,39 @@
+.tab-vertical {
+
+}
+.tab-vertical a {
+	background: #eee;
+	border-color: #DFDFDF;
+	border-width: 1px;
+	display: block;
+	margin: 0 0 10px 0;
+	font-size: 16px;
+	line-height: 20px;
+
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.tab-vertical .nav-tab:hover,
+.tab-vertical .nav-tab-active {
+	border-color: #ccc;
+}
+
+
 .js .tabifybox-hide { display: none; }
 
 #tabify-settings {
-	margin-right: 300px;
+	margin-left: 300px;
 }
 
 #tabifyboxes {
-	float: left;
+	float: right;
 	width: 100%;
 }
 
-#tabify-support {
-	float: right;
-	margin-right: -300px;
+#tabify-submenu {
+	float: left;
+	margin-left: -300px;
 	width: 280px;
 }
 
