@@ -38,11 +38,18 @@ At this moment the title and submit box are always visible. You can change this 
 
 == Changelog ==
 
-= 0.4 ( 2012-7-7 ) =
+= Current progress =
 * Better UI admin
 * Know when a metabox is showed from the screen options
 * Start with translating the plugin
-* Improve deleting a tab from the setting screen
+* Improved deleting a tab from the setting screen
+
+= 0.4 ( 2012-9-3 ) =
+* Fix possible bug for not showing author metabox in the settings screen
+* Fix notice on edit screen when no items where inside a tab
+* Ability to modify tabs through the filter tabify_tabs
+* Ability to remove plugin support
+* Added plugin support for Advanced Custom Fields, Members and WordPress SEO. ( can be removed in the future )
 
 = 0.3 (2012-4-7) =
 * Add support for the plugin "Types"
