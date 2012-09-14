@@ -1,6 +1,6 @@
 jQuery(function($) {
-	tabify_show_tab( $( '#current_tab' ).val() );
-	$('.tabify-tabs').tabify_tabs({});
+	//tabify_show_tab( $( '#current_tab' ).val() );
+	$('.tabify-tabs').not('.js-disabled').tabify_tabs({});
 });
 
 
@@ -21,15 +21,15 @@ jQuery(function($) {
 					var id = evt.target.id.replace( 'tab-', "");
 					tabify_show_tab( id );
 				});
-			});
 
-			function tabify_show_tab( id ) {
-				if( id && id.length != 0 ) {
-					$( ".tabifybox" ).hide();
-					$( ".tabifybox-" + id ).show();
-					$( "#current_tab" ).val( id );
+				function tabify_show_tab( id ) {
+					if( id && id.length != 0 ) {
+						$( ".tabifybox" ).hide();
+						$( ".tabifybox-" + id ).show();
+						$( "#current_tab" ).val( id );
+					}
 				}
-			}
+			});
 		}
 	});	
 })(jQuery);

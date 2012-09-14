@@ -2,10 +2,11 @@
 
 class Tabify_Edit_Screen_Tabs {
 	private $base_url = '';
-
 	private $active = '';
+
 	private $items  = array();
-	private $type; 
+	private $type;
+	private $javascript_support;
 
 	/**
 	 * construct method
@@ -14,12 +15,13 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @since 0.1
 	 */
-	function __construct( $items, $type = 'horizontal' ) {
+	function __construct( $items, $type = 'horizontal', $javascript_support = true ) {
 		if( is_array( $items ) ) {
 			do_action( 'tabify_tabs', $this, $type );
 
-			$this->items = apply_filters( 'tabify_tabs', $items, $this );
-			$this->type  = $type;
+			$this->items              = apply_filters( 'tabify_tabs', $items, $this );
+			$this->type               = $type;
+			$this->javascript_support = $javascript_support;
 
 			if( isset( $_REQUEST['tab'] ) ) {
 				$this->active = esc_attr( $_REQUEST['tab'] );
@@ -57,6 +59,10 @@ class Tabify_Edit_Screen_Tabs {
 	 */
 	public function get_tabs_with_container( $show_current_tab_input = true ) {
 		$class = 'tabify-tabs tab-' .  $this->type;
+
+		if( ! $this->javascript_support ) {
+			$class .= ' js-disabled';
+		}
 
 		if( 'horizontal' == $this->type ) {
 			$class .= ' nav-tab-wrapper';
