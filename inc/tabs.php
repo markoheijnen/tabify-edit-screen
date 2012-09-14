@@ -56,7 +56,7 @@ class Tabify_Edit_Screen_Tabs {
 	 * @since 0.1
 	 */
 	public function get_tabs_with_container( $show_current_tab_input = true ) {
-		$class = 'tab-' .  $this->type;
+		$class = 'tabify-tabs tab-' .  $this->type;
 
 		if( 'horizontal' == $this->type ) {
 			$class .= ' nav-tab-wrapper';
