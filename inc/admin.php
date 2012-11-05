@@ -153,7 +153,7 @@ class Tabify_Edit_Screen_Admin {
 	 * @since 0.4
 	 */
 	private function load_plugin_support() {
-		if( apply_filters( 'tabify_plugin_support', true ) ) {
+		if( apply_filters( 'tabify_plugin_support', false ) ) {
 			include 'plugin-support.php';
 			new Tabify_Edit_Screen_Plugin_Support();
 		}
