@@ -19,7 +19,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 */
 	protected function load_sections() {
 		$args = array(
-			'show_ui' => 'true'
+			'show_ui' => true
 		);
 
 		$posttypes_objects = get_post_types( $args, 'objects' );
