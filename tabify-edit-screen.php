@@ -4,6 +4,7 @@ Plugin Name: Tabify edit screen
 Plugin URI: http://wp-rockstars.com/plugin/tabify-edit-screen
 Description: Enables tabs in the edit screen and manage them from the back-end
 Author: Marko Heijnen
+Text Domain: tabify-edit-screen
 Version: 0.4-dev
 Author URI: http://markoheijnen.com
 */
@@ -24,7 +25,13 @@ class Tabify_Edit_Screen {
 			add_filter( 'redirect_post_location', array( &$this, 'redirect_add_current_tab' ), 10, 2 );
 
 			add_action( 'admin_head', array( &$this, 'show_tabs' ), 10 );
+
+			add_action( 'plugins_loaded', array( &$this, 'load_translation' ) );
 		}
+	}
+
+	function load_translation() {
+		load_plugin_textdomain( 'tabify-edit-screen', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
