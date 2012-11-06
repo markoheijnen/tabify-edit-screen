@@ -32,7 +32,7 @@ class Tabify_Edit_Screen_Tabs {
 
 			$this->base_url = remove_query_arg( $this->get_arg, $_SERVER["REQUEST_URI"] );
 
-			if( empty( $this->active ) || !isset( $items[ $this->active ] ) ) {
+			if( empty( $this->active ) || ! isset( $items[ $this->active ] ) ) {
 				$this->active = key( $items );
 			}
 
