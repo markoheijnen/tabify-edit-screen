@@ -58,7 +58,7 @@ class Tabify_Edit_Screen_Admin {
 
 		$this->tabs = new Tabify_Edit_Screen_Tabs( $tabs, 'horizontal', 'tab', false );
 
-		if( count( $tabs ) > 0 ) {
+		if( count( $tabs ) > 1 ) {
 			echo $this->tabs->get_tabs_with_container();
 		}
 
