@@ -48,24 +48,37 @@ class Tabify_Edit_Screen_Admin {
 
 		echo '<input type="hidden" id="tabify_edit_screen_nojs" name="tabify_edit_screen_nojs" value="1" />';
 
-		$this->get_tabs();
-
 		include 'settings-base.php';
 		include 'settings-posttype.php';
-		$settings_posttype = new Tabify_Edit_Screen_Settings_Posttypes();
 
-		echo '<div id="tabify-settings">';
-			echo '<div id="tabifyboxes">';
-			echo $settings_posttype->get_section();
+
+		$tabs = array(
+			'posttypes' => array( 'title' => __('Post types'), 'class' => 'Tabify_Edit_Screen_Settings_Posttypes' )
+		);
+		$tabs = apply_filters( 'tabify-edit-screen-settings-tabs', $tabs );
+
+		$this->tabs = new Tabify_Edit_Screen_Tabs( $tabs, 'horizontal', 'tab', false );
+
+		if( count( $tabs ) > 0 ) {
+			echo $this->tabs->get_tabs_with_container();
+		}
+
+		if( isset( $tabs[ $this->tabs->get_current_tab() ] ) ) {
+			$settings_posttype = new $tabs[ $this->tabs->get_current_tab() ]['class']();
+
+			echo '<div id="tabify-settings">';
+				echo '<div id="tabifyboxes">';
+				echo $settings_posttype->get_section();
+				echo '</div>';
+
+				echo '<div id="tabify-submenu">';
+				echo $settings_posttype->get_sections_menu();
+				echo '</div>';
 			echo '</div>';
 
-			echo '<div id="tabify-submenu">';
-			echo $settings_posttype->get_sections_menu();
+			echo '</form>';
 			echo '</div>';
-		echo '</div>';
-
-		echo '</form>';
-		echo '</div>';
+		}
 	}
 
 	/**
@@ -159,16 +172,5 @@ class Tabify_Edit_Screen_Admin {
 			include 'plugin-support.php';
 			new Tabify_Edit_Screen_Plugin_Support();
 		}
-	}
-
-
-	/**
-	 * Echo the tabs for the settings page
-	 *
-	 * @since 0.1
-	 */
-	private function get_tabs() {
-		$this->tabs = new Tabify_Edit_Screen_Tabs( array( 'posttypes' => __('Post types') ), 'horizontal', 'tab', false );
-		echo $this->tabs->get_tabs_with_container();
 	}
 }
