@@ -69,7 +69,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 */
 	function wpseo( $posttype ) {
 		if ( defined( 'WPSEO_PATH' ) && is_file( WPSEO_PATH . 'admin/class-metabox.php' ) )
-			require_once WPSEO_PATH . 'admin/class-metabox.php';
+			include_once WPSEO_PATH . 'admin/class-metabox.php';
 	}
 	
 
