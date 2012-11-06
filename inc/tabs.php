@@ -2,6 +2,8 @@
 
 class Tabify_Edit_Screen_Tabs {
 	private $base_url = '';
+	private $get_arg = 'tab';
+
 	private $active = '';
 
 	private $items  = array();
@@ -15,19 +17,20 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @since 0.1
 	 */
-	function __construct( $items, $type = 'horizontal', $javascript_support = true ) {
+	function __construct( $items, $type = 'horizontal', $get_arg = 'tab', $javascript_support = true ) {
 		if( is_array( $items ) ) {
 			do_action( 'tabify_tabs', $this, $type );
 
 			$this->items              = apply_filters( 'tabify_tabs', $items, $this );
 			$this->type               = $type;
+			$this->get_arg            = $get_arg;
 			$this->javascript_support = $javascript_support;
 
-			if( isset( $_REQUEST['tab'] ) ) {
-				$this->active = esc_attr( $_REQUEST['tab'] );
+			if( isset( $_REQUEST[ $this->get_arg ] ) ) {
+				$this->active = esc_attr( $_REQUEST[ $this->get_arg ] );
 			}
 
-			$this->base_url = remove_query_arg( 'tab', $_SERVER["REQUEST_URI"] );
+			$this->base_url = remove_query_arg( $this->get_arg, $_SERVER["REQUEST_URI"] );
 
 			if( empty( $this->active ) || !isset( $items[ $this->active ] ) ) {
 				$this->active = key( $items );
@@ -115,10 +118,10 @@ class Tabify_Edit_Screen_Tabs {
 			}
 
 			if( $this->active == $key ) {
-				$return .= '<a id="tab-' . $key . '" href="' . $this->base_url . '&tab=' . $key . '" class="tabify-tab nav-tab nav-tab-active">' . $title . '</a>';
+				$return .= '<a id="tab-' . $key . '" href="' . $this->base_url . '&' . $this->get_arg . '=' . $key . '" class="tabify-tab nav-tab nav-tab-active">' . $title . '</a>';
 			}
 			else {
-				$return .= '<a id="tab-' . $key . '" href="' . $this->base_url . '&tab=' . $key . '" class="tabify-tab nav-tab">' . $title . '</a>';
+				$return .= '<a id="tab-' . $key . '" href="' . $this->base_url . '&' . $this->get_arg . '=' . $key . '" class="tabify-tab nav-tab">' . $title . '</a>';
 			}
 		}
 

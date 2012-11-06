@@ -166,7 +166,7 @@ class Tabify_Edit_Screen_Admin {
 	 * @since 0.1
 	 */
 	private function get_tabs() {
-		$this->tabs = new Tabify_Edit_Screen_Tabs( array( 'posttypes' => __('Post types') ), 'horizontal', false );
+		$this->tabs = new Tabify_Edit_Screen_Tabs( array( 'posttypes' => __('Post types') ), 'horizontal', 'tab', false );
 		echo $this->tabs->get_tabs_with_container();
 	}
 }

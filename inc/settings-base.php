@@ -11,7 +11,7 @@ class Tabify_Edit_Screen_Settings_Base {
 		$this->base_url = remove_query_arg( array( 'type', 'section' ), $_SERVER["REQUEST_URI"] );
 
 		
-		$this->tabs = new Tabify_Edit_Screen_Tabs( $this->sections, 'vertical' );
+		$this->tabs = new Tabify_Edit_Screen_Tabs( $this->sections, 'vertical', 'subtab' );
 	}
 
 	protected function load_sections() {
@@ -24,16 +24,6 @@ class Tabify_Edit_Screen_Settings_Base {
 
 	public function get_sections_menu() {
 		echo $this->tabs->get_tabs_with_container();
-		return;
-
-		$html = '<ul>';
-
-		$sections = $this->get_sections();
-		foreach( $sections as $section_key => $section_title ) {
-			echo '<li><a href="' . $this->base_url . '&tab=' . $this->type . '&section=' . $section_key . '">' . $section_title . '</a></li>';
-		}
-
-		echo '</ul>';
 	}
 
 	public function get_section() {

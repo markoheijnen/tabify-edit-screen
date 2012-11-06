@@ -58,7 +58,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 				);
 			}
 
-			if( $posttype == 'post' ) { //$this->tabs->get_current_tab()
+			if( $posttype == $this->tabs->get_current_tab() ) {
 				echo '<div class="tabifybox tabifybox-' . $posttype . '">';
 			}
 			else {
@@ -87,7 +87,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 
 				echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
 				if( isset( $tab['metaboxes'] ) && count( $tab['metaboxes'] ) > 0 ) { echo ' style="display: none;"'; }
-				echo '>' . __( 'Remove', 'tabify-edit-screen' ) . '</a>';
+				echo '>' . __( 'Remove' ) . '</a>';
 				echo '<div class="clear"></div>';
 
 				echo '<ul>';
