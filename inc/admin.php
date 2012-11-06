@@ -79,6 +79,8 @@ class Tabify_Edit_Screen_Admin {
 			$options = $_POST['tabify'];
 			$options = $this->escape( $options );
 
+			$options = apply_filters( 'tabify-settings-update', $options );
+
 			update_option( 'tabify-edit-screen', $options );
 		}
 	}
