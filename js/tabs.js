@@ -19,14 +19,14 @@ jQuery(function($) {
 					$( this, obj ).addClass( 'nav-tab-active' );
 
 					var id = evt.target.id.replace( 'tab-', "");
-					tabify_show_tab( id );
+					tabify_show_tab( id, $( this ).closest('.tabify-tabs') );
 				});
 
-				function tabify_show_tab( id ) {
+				function tabify_show_tab( id, holder ) {
 					if( id && id.length != 0 ) {
 						$( ".tabifybox" ).hide();
 						$( ".tabifybox-" + id ).show();
-						$( "#current_tab" ).val( id );
+						$( ".current_tab", holder ).val( id );
 					}
 				}
 			});

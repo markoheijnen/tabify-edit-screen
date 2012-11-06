@@ -99,7 +99,7 @@ class Tabify_Edit_Screen_Tabs {
 	 * @since 0.2
 	 */
 	public function get_tabs_current_tab_input() {
-		return '<input type="hidden" id="current_tab" name="tab" value="' . $this->active. '" />';
+		return '<input type="hidden" class="current_tab" name="' . $this->get_arg . '" value="' . $this->active. '" />';
 	}
 
 	/**
