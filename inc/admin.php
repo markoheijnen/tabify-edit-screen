@@ -1,5 +1,8 @@
 <?php
 
+include 'settings-base.php';
+include 'settings-posttype.php';
+
 class Tabify_Edit_Screen_Admin {
 	private $tabs;
 	private $options;
@@ -47,10 +50,6 @@ class Tabify_Edit_Screen_Admin {
 		wp_nonce_field( plugin_basename( __FILE__ ), 'tabify_edit_screen_nonce' );
 
 		echo '<input type="hidden" id="tabify_edit_screen_nojs" name="tabify_edit_screen_nojs" value="1" />';
-
-		include 'settings-base.php';
-		include 'settings-posttype.php';
-
 
 		$tabs = array(
 			'posttypes' => array( 'title' => __('Post types'), 'class' => 'Tabify_Edit_Screen_Settings_Posttypes' )

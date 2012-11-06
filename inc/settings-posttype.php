@@ -246,4 +246,17 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		if ( post_type_supports($post_type, 'revisions') )
 			add_meta_box('revisionsdiv', __('Revisions'), 'post_revisions_meta_box', $post_type, 'normal', 'core');
 	}
+
+	/**
+	 * Get all the metaboxes that should always be showed
+	 *
+	 * @return array All the metaboxes id's in an array
+	 *
+	 * @since 0.4
+	 */
+	public function get_default_metaboxes( $post_type = '' ) {
+		$defaults = array( 'titlediv', 'submitdiv' ); //, 'postdivrich'
+		$defaults = apply_filters( 'tabify_default_metaboxes', $defaults, $post_type );
+		return apply_filters( 'tabify_default_metaboxes_' . $post_type , $defaults );
+	}
 }

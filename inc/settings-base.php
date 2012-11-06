@@ -60,18 +60,4 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo '</span>';
 		echo '</li>';
 	}
-
-
-	/**
-	 * Get all the metaboxes that should always be showed
-	 *
-	 * @return array All the metaboxes id's in an array
-	 *
-	 * @since 0.4
-	 */
-	protected function get_default_metaboxes( $post_type = '' ) {
-		$defaults = array( 'titlediv', 'submitdiv' ); //, 'postdivrich'
-		$defaults = apply_filters( 'tabify_default_metaboxes', $defaults, $post_type );
-		return apply_filters( 'tabify_default_metaboxes_' . $post_type , $defaults );
-	}
 }
