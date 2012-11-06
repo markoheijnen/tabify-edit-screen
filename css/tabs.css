@@ -55,6 +55,10 @@
 	padding-bottom: 0px;
 }
 
+#tabifyboxes #create_tab {
+	margin-right: 10px;
+}
+
 .tabify-remove-tab {
 	color: #BC0B0B;
 	float: right;
