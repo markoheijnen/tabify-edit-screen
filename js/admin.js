@@ -25,7 +25,7 @@ jQuery(function($) {
 
 				var sender_children = $( ui.sender ).children().length;
 				if( sender_children == 0 ) {
-					ui.sender.closest( 'div' ).find( '.tabify-remove-tab ' ).show();
+					ui.sender.closest( 'div' ).find( '.tabify-remove-tab' ).show();
 				}
 			}
 		});
@@ -33,7 +33,7 @@ jQuery(function($) {
 
 	$( "#create_tab" ).on("click", function() {
 		var title = tabify_l10.choose_title;
-		var posttype = $( '.nav-tab-active' ).attr( 'id' );
+		var posttype = $( '#tabify-submenu .nav-tab-active' ).attr( 'id' );
 		posttype = posttype.replace( 'tab-', "");
 
 		var counter = $( '.tabifybox-' + posttype + ' .tabify_control' ).children().length;
