@@ -1,0 +1,116 @@
+# Translation of Tabify Edit Screen in Dutch
+# This file is distributed under the same license as the Tabify Edit Screen package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2012-11-06 06:10:22+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: Tabify Edit Screen\n"
+
+#: inc/admin.php:13
+msgid "Tabify edit screen"
+msgstr "Tabify edit screen"
+
+#: inc/admin.php:23
+msgid "You do not have sufficient permissions to manage options for this site."
+msgstr "Je hebt onvoldoende rechten om instellingen van deze site te beheren."
+
+#: inc/admin.php:33 inc/settings-posttype.php:90
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: inc/admin.php:33 inc/settings-posttype.php:84
+msgid "Choose title"
+msgstr "Kies titel"
+
+#: inc/admin.php:169
+msgid "Post types"
+msgstr "Post types"
+
+#: inc/settings-posttype.php:56
+msgid "Others"
+msgstr "Overige"
+
+#: inc/settings-posttype.php:74
+msgid "Show tabs in this post type."
+msgstr "Toon tabs bij deze post type."
+
+#: inc/settings-posttype.php:144
+msgid "Create a new tab"
+msgstr "Creëer een nieuwe tab"
+
+#: inc/settings-posttype.php:164
+msgid "Title"
+msgstr "Titel"
+
+#: inc/settings-posttype.php:168
+msgid "Editor"
+msgstr "Editor"
+
+#: inc/settings-posttype.php:199
+msgid "Publish"
+msgstr "Publiceren"
+
+#: inc/settings-posttype.php:202
+msgctxt "post format"
+msgid "Format"
+msgstr "Notatie"
+
+#: inc/settings-posttype.php:219
+msgid "Page Attributes"
+msgstr "Pagina-attributen"
+
+#: inc/settings-posttype.php:219
+msgid "Attributes"
+msgstr "Attributen"
+
+#: inc/settings-posttype.php:222
+msgid "Featured Image"
+msgstr "Uitgelichte afbeelding"
+
+#: inc/settings-posttype.php:225
+msgid "Excerpt"
+msgstr "Samenvatting"
+
+#: inc/settings-posttype.php:228
+msgid "Send Trackbacks"
+msgstr "Trackbacks verzenden"
+
+#: inc/settings-posttype.php:231
+msgid "Custom Fields"
+msgstr "Extra velden"
+
+#: inc/settings-posttype.php:235
+msgid "Discussion"
+msgstr "Reacties"
+
+#: inc/settings-posttype.php:238
+msgid "Comments"
+msgstr "Reacties"
+
+#: inc/settings-posttype.php:240
+msgid "Slug"
+msgstr "Slug"
+
+#: inc/settings-posttype.php:243
+msgid "Author"
+msgstr "Auteur"
+
+#: inc/settings-posttype.php:246
+msgid "Revisions"
+msgstr "Revisies"
+
+msgid "http://wp-rockstars.com/plugin/tabify-edit-screen"
+msgstr "http://wp-rockstars.com/plugin/tabify-edit-screen"
+
+msgid "Enables tabs in the edit screen and manage them from the back-end"
+msgstr "Geeft tabs support voor de edit scherm en volledig te beheren vanuit de back-end"
+
+msgid "Marko Heijnen"
+msgstr "Marko Heijnen"
+
+msgid "http://markoheijnen.com"
+msgstr "http://markoheijnen.com"
