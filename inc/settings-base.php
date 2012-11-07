@@ -46,23 +46,25 @@ class Tabify_Edit_Screen_Settings_Base {
 	 *
 	 * @since 0.4
 	 */
-	protected function list_show_metabox( $metabox_id, $metabox_title, $tab_id, $posttype, $default_metaboxes ) {
+	protected function list_show_metabox( $metabox_id, $metabox_title, $tab_id, $type, $default_metaboxes ) {
+		$options = $this->get_options( $this->type );
+
 		if( in_array( $metabox_id, $default_metaboxes ) || empty( $metabox_title ) )
 			echo '<li class="tabifybox-hide">';
 		else
 			echo '<li class="menu-item-handle">' . $metabox_title;
 
-		echo '<input type="hidden" name="tabify[' . $this->type . '][' . $posttype . '][tabs][' . $tab_id . '][metaboxes][]" value="' . $metabox_id . '" />';
+		echo '<input type="hidden" name="tabify[' . $this->type . '][' . $type . '][tabs][' . $tab_id . '][metaboxes][]" value="' . $metabox_id . '" />';
 
 		echo '<span class="item-order hide-if-js">';
-		echo '<select name="tabify[' . $this->type . '][' . $posttype . '][tabs][' . $tab_id . '][metaboxes_tab][]">';
-		$amount_tabs = count( $this->options[ $posttype ]['tabs'] );
+		echo '<select name="tabify[' . $this->type . '][' . $type . '][tabs][' . $tab_id . '][metaboxes_tab][]">';
+		$amount_tabs = count( $options[ $type ]['tabs'] );
 		for( $i = 0; $i < $amount_tabs; $i++ ) {
 			if( $i == $tab_id ) {
-				echo '<option value="' . $i . '" selected="selected">' . $this->options[ $posttype ]['tabs'][ $i ]['title'] . '</option>';
+				echo '<option value="' . $i . '" selected="selected">' . $options[ $type ]['tabs'][ $i ]['title'] . '</option>';
 			}
 			else {
-				echo '<option value="' . $i . '">' . $this->options[ $posttype ]['tabs'][ $i ]['title'] . '</option>';
+				echo '<option value="' . $i . '">' . $options[ $type ]['tabs'][ $i ]['title'] . '</option>';
 			}
 		}
 		echo '</select>';
