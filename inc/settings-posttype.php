@@ -45,7 +45,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		$metaboxes = $this->get_metaboxes();
 		$this->metaboxes = apply_filters( 'tabify_metaboxes', $this->metaboxes, $posttypes );
 
-		$this->options = $options = get_option( 'tabify-edit-screen', array() );
+		$options = $this->get_options( 'posttypes' );
 
 		foreach( $posttypes as $posttype => $label ) {
 			$default_metaboxes = $this->get_default_metaboxes( $posttype );

@@ -66,6 +66,9 @@ class Tabify_Edit_Screen {
 			$post_type = $screen->post_type;
 			$options   = get_option( 'tabify-edit-screen', array() );
 
+			if( isset( $options['posttypes'] ) )
+				$options = $options['posttypes'];
+
 			if( isset( $options[ $post_type ], $options[ $post_type ]['show'] ) && $options[ $post_type ]['show'] == 1 ) {
 				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $options[ $post_type ]['tabs'] );
 				$default_metaboxes = Tabify_Edit_Screen_Settings_Posttypes::get_default_metaboxes( $post_type );
@@ -113,6 +116,9 @@ class Tabify_Edit_Screen {
 		global $post_type;
 
 		$options = get_option( 'tabify-edit-screen', array() );
+
+		if( isset( $options['posttypes'] ) )
+			$options = $options['posttypes'];
 
 		if( isset( $options[ $post_type ], $options[ $post_type ]['show'] ) && $options[ $post_type ]['show'] == 1 ) {
 			$tabs = $this->editscreen_tabs->get_tabs_with_container( false );

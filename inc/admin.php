@@ -89,7 +89,7 @@ class Tabify_Edit_Screen_Admin {
 	private function update_settings() {
 		if( $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['tabify'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'tabify_edit_screen_nonce' ) ) {
 			$options = $_POST['tabify'];
-			$options = $this->escape( $options['posttypes'] );
+			$options['posttypes'] = $this->escape( $options['posttypes'] );
 
 			$options = apply_filters( 'tabify-settings-update', $options );
 

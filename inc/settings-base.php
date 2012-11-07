@@ -5,12 +5,13 @@ class Tabify_Edit_Screen_Settings_Base {
 	private $sections;
 	private $base_url;
 
+	private $options;
+
 	function __construct( $type ) {
 		$this->type = $type;
 		$this->sections = $this->load_sections();
 		$this->base_url = remove_query_arg( array( 'type', 'section' ), $_SERVER["REQUEST_URI"] );
 
-		
 		$this->tabs = new Tabify_Edit_Screen_Tabs( $this->sections, 'vertical', 'subtab' );
 	}
 
@@ -28,6 +29,16 @@ class Tabify_Edit_Screen_Settings_Base {
 
 	public function get_section() {
 		echo '';
+	}
+
+	protected function get_options( $type = null ) {
+		if( ! $this->options )
+			$this->options = get_option( 'tabify-edit-screen', array() );
+
+		if( $type && isset( $this->options[ $type ] ) )
+			return $this->options[ $type ];
+
+		return $this->options;
 	}
 
 	/**
