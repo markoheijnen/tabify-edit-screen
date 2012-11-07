@@ -4,7 +4,7 @@ Donate link: http://wp-rockstars.com/plugins/tabify-edit-screen/
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
 Tested up to: 3.4
-Stable tag: 0.3
+Stable tag: 0.4
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -39,17 +39,22 @@ At this moment the title and submit box are always visible. You can change this 
 == Changelog ==
 
 = Current progress =
-* Better UI admin
 * Know when a metabox is showed from the screen options
 * Start with translating the plugin
 * Improved deleting a tab from the setting screen
 
-= 0.4 ( 2012-9-3 ) =
+= 0.4 ( 2012-11-9 ) =
+* Complete fresh new UI for the settings screen
 * Fix possible bug for not showing author metabox in the settings screen
 * Fix notice on edit screen when no items where inside a tab
+* Fix issue that not all post types are showing
+* Ability to remove plugin support and isn't on by default anymore. Can be enabled with the filter "tabify_plugin_support"
+* Added plugin support for Members and WordPress SEO. (Thanks sc0ttkclark for his help )
+* Added Dutch translation
+
 * Ability to modify tabs through the filter tabify_tabs
-* Ability to remove plugin support
-* Added plugin support for Advanced Custom Fields, Members and WordPress SEO. ( can be removed in the future )
+* Ability to add more tab support like post types with the filter 'tabify-edit-screen-settings-tabs'
+* Ability to add more options with the action 'tabify-settings-posttype' and filter 'tabify-settings-update'
 
 = 0.3 (2012-4-7) =
 * Add support for the plugin "Types"
