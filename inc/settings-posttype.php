@@ -10,6 +10,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 */
 	function __construct() {
 		parent::__construct('posttypes');
+
+		add_filter( 'tabify-settings-update', array( $this, 'save_settings' ) );
 	}
 
 	/**
@@ -188,6 +190,76 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		}
 
 		return $this->metaboxes;
+	}
+
+	function save_settings( $options ) {
+		$options['posttypes'] = $this->escape( $options['posttypes'] );
+
+		return $options;
+	}
+
+	/**
+	 * Sanitize the options array to be how we expect it to be
+	 *
+	 * @since 0.2
+	 *
+	 * @param array $posttypes Raw options array
+	 * @return array filtered options array
+	 */
+	private function escape( $posttypes ) {
+		$posttypes_keys = array_keys( $posttypes );
+		$amount_posttypes = count( $posttypes );
+		for( $i = 0; $i < $amount_posttypes; $i++ ) {
+			$key = $posttypes_keys[ $i ];
+
+			if( isset( $posttypes[ $key ]['show'] ) && $posttypes[ $key ]['show'] == 1 ) {
+				$posttypes[ $key ]['show'] = intval( $posttypes[ $key ]['show'] );
+			}
+			else {
+				$posttypes[ $key ]['show'] = 0;
+			}
+
+			$amount_tabs = count( $posttypes[ $key ]['tabs'] );
+			for( $j = 0; $j < $amount_tabs; $j++ ) {
+				$posttypes[ $key ]['tabs'][ $j ]['title'] = esc_attr( wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['title'] ) );
+
+				if( !isset( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'] ) || count( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'] ) == 0 ) {
+					if( $posttypes[ $key ]['tabs'][ $j ]['title'] == '' ) {
+						unset( $posttypes[ $key ]['tabs'][ $j ] );
+					}
+					continue;
+				}
+
+				$amount_metaboxes = count( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'] );
+				for( $k = 0; $k < $amount_metaboxes; $k++ ) {
+					// Should the metabox be moved. Only applies when browser doesn't support Javascript
+					if(
+						isset( $posttypes[ $key ]['tabs'][ $j ]['metaboxes_tab'][ $k ] ) &&
+						$posttypes[ $key ]['tabs'][ $j ]['metaboxes_tab'][ $k ] != $j &&
+						isset( $posttypes[ $key ]['tabs'][ intval( $posttypes[ $key ]['tabs'][ $j ]['metaboxes_tab'][ $k ] ) ] )
+					) {
+						$new_tab_key = intval( $posttypes[ $key ]['tabs'][ $j ]['metaboxes_tab'][ $k ] );
+
+						if( ! isset( $posttypes[ $key ]['tabs'][ $new_tab_key ]['metaboxes'] ) ) {
+							$posttypes[ $key ]['tabs'][ $new_tab_key ]['metaboxes'] = array();
+							$metaboxes_in_new_tab = 0;
+						}
+						else { 
+							$metaboxes_in_new_tab = count( $posttypes[ $key ]['tabs'][ $new_tab_key ]['metaboxes'] );
+						}
+
+						$posttypes[ $key ]['tabs'][ $new_tab_key ]['metaboxes'][ $k ] = esc_attr( wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'][ $k ] ) );
+						unset( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'][ $k ] );
+					}
+					else {
+						$posttypes[ $key ]['tabs'][ $j ]['metaboxes'][ $k ] = esc_attr( wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'][ $k ] ) );
+					}
+				}
+				$posttypes[ $key ]['tabs'][ $j ]['metaboxes'] = array_values( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'] );
+			}
+		}
+
+		return $posttypes;
 	}
 
 	/**
