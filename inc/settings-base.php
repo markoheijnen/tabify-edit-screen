@@ -36,17 +36,15 @@ class Tabify_Edit_Screen_Settings_Base {
 	 * @since 0.4
 	 */
 	protected function list_show_metabox( $metabox_id, $metabox_title, $tab_id, $posttype, $default_metaboxes ) {
-		if( in_array( $metabox_id, $default_metaboxes ) || empty( $metabox_title ) ) {
+		if( in_array( $metabox_id, $default_metaboxes ) || empty( $metabox_title ) )
 			echo '<li class="tabifybox-hide">';
-		}
-		else {
+		else
 			echo '<li class="menu-item-handle">' . $metabox_title;
-		}
 
-		echo '<input type="hidden" name="tabify[' . $posttype . '][tabs][' . $tab_id . '][metaboxes][]" value="' . $metabox_id . '" />';
+		echo '<input type="hidden" name="tabify[' . $this->type . '][' . $posttype . '][tabs][' . $tab_id . '][metaboxes][]" value="' . $metabox_id . '" />';
 
 		echo '<span class="item-order hide-if-js">';
-		echo '<select name="tabify[' . $posttype . '][tabs][' . $tab_id . '][metaboxes_tab][]">';
+		echo '<select name="tabify[' . $this->type . '][' . $posttype . '][tabs][' . $tab_id . '][metaboxes_tab][]">';
 		$amount_tabs = count( $this->options[ $posttype ]['tabs'] );
 		for( $i = 0; $i < $amount_tabs; $i++ ) {
 			if( $i == $tab_id ) {
