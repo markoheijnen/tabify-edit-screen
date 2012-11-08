@@ -3,7 +3,7 @@ Contributors: markoheijnen
 Donate link: http://wp-rockstars.com/plugins/tabify-edit-screen/
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
-Tested up to: 3.4
+Tested up to: 3.5
 Stable tag: 0.4
 
 Enable tabs in the edit screen and manage them from the back-end.
