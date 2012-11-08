@@ -49,6 +49,7 @@ At this moment the title and submit box are always visible. You can change this 
 * Fix possible bug for not showing author metabox in the settings screen
 * Fix notice on edit screen when no items where inside a tab
 * Fix issue that not all post types are showing
+* Now able to hide a metabox as an user and that the plugin will listen to that. Thank Elles for nagging me about to fix that ;)
 * Ability to remove plugin support and isn't on by default anymore. Can be enabled with the filter "tabify_plugin_support"
 * Added plugin support for Members and WordPress SEO. (Thanks sc0ttkclark for his help )
 * Added Dutch translation
