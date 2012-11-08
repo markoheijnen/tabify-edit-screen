@@ -25,8 +25,15 @@ jQuery(function($) {
 				function tabify_show_tab( id, holder ) {
 					if( id && id.length != 0 ) {
 						$( ".tabifybox" ).hide();
-						$( ".tabifybox-" + id ).show();
+						//$( ".tabifybox-" + id ).show();
 						$( ".current_tab", holder ).val( id );
+
+						$( ".tabifybox-" + id ).each( function( index ) {
+							var checkbox = $( '#' + $(this).attr('id') + '-hide' );
+
+							if( checkbox.attr('type') != 'checkbox' || checkbox.is(':checked') )
+								$(this).show();
+						});
 					}
 				}
 			});
