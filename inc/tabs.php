@@ -82,7 +82,12 @@ class Tabify_Edit_Screen_Tabs {
 		$return .=  '</h2>';
 
 		//When tabs are requested also enqueue the javascript and css code
-		wp_register_script( 'tabify-edit-screen', plugins_url( '/js/tabs.js', dirname( __FILE__ ) ), array( 'jquery' ), '1.0' );
+		$required = array( 'jquery' );
+
+		if ( 'post' == get_current_screen()->base )
+			$required[] = 'postbox';
+
+		wp_register_script( 'tabify-edit-screen', plugins_url( '/js/tabs.js', dirname( __FILE__ ) ), $required, '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen' );
 
 		wp_register_style( 'tabify-edit-screen', plugins_url( '/css/tabs.css', dirname( __FILE__ ) ), array( ), '1.0' );
