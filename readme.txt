@@ -14,8 +14,7 @@ When you've got lots of post meta-boxes, your post edit screen can become diffic
 
 The plugin is still in active development, and I'm always looking for ways to improve it. 
 
-Known issue: currently the plugin ignores the "show on screen" values from the Screen options. I'm currently working to fix this issue.
-
+There are still lots of things changing in the code base. There are some hooks you can use but they can change from implementation till 1.0. I will always try to maintain backwards-compatible but till 1.0 I can't be sure for that.
 
 == Installation ==
 

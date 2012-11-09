@@ -63,23 +63,28 @@ class Tabify_Edit_Screen_Tabs {
 	public function get_tabs_with_container( $show_current_tab_input = true ) {
 		$class = 'tabify-tabs tab-' .  $this->type;
 
-		if( ! $this->javascript_support ) {
+		if( ! $this->javascript_support )
 			$class .= ' js-disabled';
-		}
 
-		if( 'horizontal' == $this->type ) {
-			$class .= ' nav-tab-wrapper';
-		}
+		$return  = '<div class="' . $class . '">';
 
 
-		$return  = '<h2 class="' . $class . '">';
+		if( 'horizontal' == $this->type )
+			$return .= '<h2 class="nav-tab-wrapper">';
+		else
+			$return .= '<h2>';
 
 		if( $show_current_tab_input == true ) {
 			$return .= $this->get_tabs_current_tab_input();
 		}
 
 		$return .= $this->get_tabs();
-		$return .=  '</h2>';
+
+		$return .= '</h2>';
+
+		$return .= apply_filters( 'tabify_tabs_under', '', $this->type );
+
+		$return .= '</div>';
 
 		//When tabs are requested also enqueue the javascript and css code
 		$required = array( 'jquery' );
