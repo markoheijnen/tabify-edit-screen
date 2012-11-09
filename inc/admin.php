@@ -54,7 +54,7 @@ class Tabify_Edit_Screen_Admin {
 		$tabs = array(
 			'posttypes' => array( 'title' => __('Post types'), 'class' => 'Tabify_Edit_Screen_Settings_Posttypes' )
 		);
-		$tabs = apply_filters( 'tabify-edit-screen-settings-tabs', $tabs );
+		$tabs = apply_filters( 'tabify_settings_tabs', $tabs );
 
 		$this->tabs = new Tabify_Edit_Screen_Tabs( $tabs, 'horizontal', 'tab', false );
 
@@ -90,7 +90,7 @@ class Tabify_Edit_Screen_Admin {
 	private function update_settings() {
 		if( $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['tabify'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'tabify_edit_screen_nonce' ) ) {
 			$options = $_POST['tabify'];
-			$options = apply_filters( 'tabify-settings-update', $options );
+			$options = apply_filters( 'tabify_settings_update', $options );
 
 			update_option( 'tabify-edit-screen', $options );
 		}

@@ -74,7 +74,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 
 			echo '<div class="tabifybox-options">';
 			echo '<p><input type="checkbox" name="tabify[posttypes][' . $posttype . '][show]" value="1" ' . $checked . '/> ' . __( 'Show tabs in this post type.', 'tabify-edit-screen' ) . '</p>';
-			do_action( 'tabify-settings-posttype', $posttype, $options[ $posttype ] );
+			do_action( 'tabify_settings_posttype', $posttype, $options[ $posttype ] );
 			echo '</div>';
 
 			echo '<div class="tabify_control">';
