@@ -58,13 +58,15 @@ class Tabify_Edit_Screen_Settings_Base {
 
 		echo '<span class="item-order hide-if-js">';
 		echo '<select name="tabify[' . $this->type . '][' . $type . '][tabs][' . $tab_id . '][metaboxes_tab][]">';
-		$amount_tabs = count( $options[ $type ]['tabs'] );
-		for( $i = 0; $i < $amount_tabs; $i++ ) {
-			if( $i == $tab_id ) {
-				echo '<option value="' . $i . '" selected="selected">' . $options[ $type ]['tabs'][ $i ]['title'] . '</option>';
-			}
-			else {
-				echo '<option value="' . $i . '">' . $options[ $type ]['tabs'][ $i ]['title'] . '</option>';
+
+		if( isset( $options[ $type ] ) ) {
+			$amount_tabs = count( $options[ $type ]['tabs'] );
+
+			for( $i = 0; $i < $amount_tabs; $i++ ) {
+				if( $i == $tab_id )
+					echo '<option value="' . $i . '" selected="selected">' . $options[ $type ]['tabs'][ $i ]['title'] . '</option>';
+				else
+					echo '<option value="' . $i . '">' . $options[ $type ]['tabs'][ $i ]['title'] . '</option>';
 			}
 		}
 		echo '</select>';
