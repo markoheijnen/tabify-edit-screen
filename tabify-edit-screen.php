@@ -73,14 +73,16 @@ class Tabify_Edit_Screen {
 				$options = $options['posttypes'];
 
 			if( isset( $options[ $post_type ], $options[ $post_type ]['show'] ) && $options[ $post_type ]['show'] == 1 ) {
-				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $options[ $post_type ]['tabs'] );
-				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_metaboxes( $post_type );
-
-
+				add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 				add_action( 'dbx_post_sidebar', array( $this, 'add_form_inputfield' ) );
 				add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
+
+				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $options[ $post_type ]['tabs'] );
+				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_metaboxes( $post_type );
+
 				$this->load_tabs();
+
 
 				foreach( $options[ $post_type ]['tabs'] as $tab_index => $tab ) {
 					$class = 'tabifybox tabifybox-' . $tab_index;
@@ -108,6 +110,12 @@ class Tabify_Edit_Screen {
 				}
 			}
 		}
+	}
+
+	function add_admin_body_class( $body ) {
+		$body .= ' tabify_tab' . $this->tab_location;
+
+		return $body;
 	}
 
 	/**
