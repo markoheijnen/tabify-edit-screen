@@ -2,9 +2,9 @@
 
 class Tabify_Edit_Screen_Plugin_Support {
 	function __construct() {
-		add_action( 'tabify_add_meta_boxes', array( &$this, 'types' ) );
-		add_action( 'tabify_add_meta_boxes', array( &$this, 'wpseo' ) );
-		add_action( 'tabify_add_meta_boxes', array( &$this, 'members' ) );
+		add_action( 'tabify_add_meta_boxes', array( $this, 'types' ) );
+		add_action( 'tabify_add_meta_boxes', array( $this, 'wpseo' ) );
+		add_action( 'tabify_add_meta_boxes', array( $this, 'members' ) );
 	}
 
 	/**

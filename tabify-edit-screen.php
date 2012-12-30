@@ -21,13 +21,13 @@ class Tabify_Edit_Screen {
 
 			$admin = new Tabify_Edit_Screen_Admin();
 
-			add_action( 'admin_menu', array( &$admin, 'admin_menu' ) );
+			add_action( 'admin_menu', array( $admin, 'admin_menu' ) );
 
-			add_filter( 'redirect_post_location', array( &$this, 'redirect_add_current_tab' ), 10, 2 );
+			add_filter( 'redirect_post_location', array( $this, 'redirect_add_current_tab' ), 10, 2 );
 
-			add_action( 'admin_head', array( &$this, 'show_tabs' ), 10 );
+			add_action( 'admin_head', array( $this, 'show_tabs' ), 10 );
 
-			add_action( 'plugins_loaded', array( &$this, 'load_translation' ) );
+			add_action( 'plugins_loaded', array( $this, 'load_translation' ) );
 		}
 	}
 
@@ -77,7 +77,7 @@ class Tabify_Edit_Screen {
 				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_metaboxes( $post_type );
 
 
-				add_action( 'dbx_post_sidebar', array( &$this, 'add_form_inputfield' ) );
+				add_action( 'dbx_post_sidebar', array( $this, 'add_form_inputfield' ) );
 				add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
 				$this->load_tabs();
