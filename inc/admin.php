@@ -28,8 +28,6 @@ class Tabify_Edit_Screen_Admin {
 
 		$this->load_plugin_support();
 
-		$this->update_settings();
-
 		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable' ), '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen-admin' );
 
@@ -65,6 +63,8 @@ class Tabify_Edit_Screen_Admin {
 		if( isset( $tabs[ $this->tabs->get_current_tab() ] ) ) {
 			$class_name = $tabs[ $this->tabs->get_current_tab() ]['class'];
 			$settings_screen = new $class_name();
+
+			$this->update_settings();
 
 			echo '<div id="tabify-settings">';
 				echo '<div id="tabifyboxes">';

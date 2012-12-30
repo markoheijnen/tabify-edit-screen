@@ -11,7 +11,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	function __construct() {
 		parent::__construct('posttypes');
 
-		add_filter( 'tabify-settings-update', array( $this, 'save_settings' ) );
+		add_filter( 'tabify_settings_update', array( $this, 'save_settings' ) );
 	}
 
 	/**
@@ -221,7 +221,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 
 			$amount_tabs = count( $posttypes[ $key ]['tabs'] );
 			for( $j = 0; $j < $amount_tabs; $j++ ) {
-				$posttypes[ $key ]['tabs'][ $j ]['title'] = esc_attr( wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['title'] ) );
+				$posttypes[ $key ]['tabs'][ $j ]['title'] = stripslashes( $posttypes[ $key ]['tabs'][ $j ]['title'] );
+				$posttypes[ $key ]['tabs'][ $j ]['title'] = esc_attr( wp_strip_all_tags(  $posttypes[ $key ]['tabs'][ $j ]['title'] ) );
 
 				if( !isset( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'] ) || count( $posttypes[ $key ]['tabs'][ $j ]['metaboxes'] ) == 0 ) {
 					if( $posttypes[ $key ]['tabs'][ $j ]['title'] == '' ) {
