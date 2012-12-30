@@ -5,7 +5,7 @@ Plugin URI: http://wp-rockstars.com/plugin/tabify-edit-screen
 Description: Enables tabs in the edit screen and manage them from the back-end
 Author: Marko Heijnen
 Text Domain: tabify-edit-screen
-Version: 0.4
+Version: 0.5
 Author URI: http://markoheijnen.com
 */
 
@@ -71,7 +71,7 @@ class Tabify_Edit_Screen {
 
 			if( isset( $options[ $post_type ], $options[ $post_type ]['show'] ) && $options[ $post_type ]['show'] == 1 ) {
 				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $options[ $post_type ]['tabs'] );
-				$default_metaboxes = Tabify_Edit_Screen_Settings_Posttypes::get_default_metaboxes( $post_type );
+				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_metaboxes( $post_type );
 
 				add_action( 'admin_print_footer_scripts', array( &$this, 'generate_javascript' ), 9 );
 				add_action( 'dbx_post_sidebar', array( &$this, 'add_form_inputfield' ) );
@@ -79,15 +79,13 @@ class Tabify_Edit_Screen {
 				foreach( $options[ $post_type ]['tabs'] as $tab_index => $tab ) {
 					$class = 'tabifybox tabifybox-' . $tab_index;
 
-					if( $this->editscreen_tabs->get_current_tab() != $tab_index ) {
+					if( $this->editscreen_tabs->get_current_tab() != $tab_index )
 						$class .= ' tabifybox-hide';
-					}
 
 					if( isset( $tab['metaboxes'] ) ) {
 						foreach( $tab['metaboxes'] as $metabox_id_fallback => $metabox_id ) {
-							if( intval( $metabox_id_fallback ) == 0 && $metabox_id_fallback !== 0 ) {
+							if( intval( $metabox_id_fallback ) == 0 && $metabox_id_fallback !== 0 )
 								$metabox_id = $metabox_id_fallback;
-							}
 
 							if( ! in_array( $metabox_id, $default_metaboxes ) ) {
 								if( $metabox_id == 'titlediv' || $metabox_id == 'postdivrich' ) {
