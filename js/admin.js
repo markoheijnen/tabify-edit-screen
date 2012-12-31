@@ -4,7 +4,10 @@ jQuery(function($) {
 	$( "#tabify_edit_screen_nojs" ).remove();
 
 	$( ".tabify_control" ).sortable({
-		scroll : false
+		scroll : false,
+		update: function(event, ui) {
+			tabify_admin_fix_sortable();
+		}
 	});
 
 	// Initialize sortables
@@ -20,13 +23,6 @@ jQuery(function($) {
 				var parts = $( 'input', ui.item ).attr('name').split( '][' );
 				parts[3] = item.closest( 'div' ).index();
 				$( 'input', ui.item ).attr( 'name', parts.join( '][' ) );
-
-				item.closest( 'div' ).find( '.tabify-remove-tab ' ).hide();
-
-				var sender_children = $( ui.sender ).children().length;
-				if( sender_children == 0 ) {
-					ui.sender.closest( 'div' ).find( '.tabify-remove-tab' ).show();
-				}
 			}
 		});
 	}
@@ -65,6 +61,75 @@ jQuery(function($) {
 	// Delete a tab when it is empty
 	$( document ).on( "click", ".tabify-remove-tab", function( evt ) {
 		evt.preventDefault();
-		$( this ).closest( 'div' ).remove();
+
+		if( $(this).css('opacity') != 1 )
+			return;
+
+		var parent = $( this ).closest('.tabify_tab');
+		var sender_children = parent.find('.ui-sortable').children().length;
+
+		if( 0 == sender_children ) {
+			parent.hide( function(){
+				$(this).remove();
+			});
+		}
+		else {
+			$(this).fadeOut();
+
+			var html = '<div class="tabify-remove-accept">Verplaats de meta boxes naar <select>';
+
+			$('.tabifybox:visible .tabify_tab').each(function(index) {
+				if( ! $(this).is(parent) )
+					html += '<option value="' + index + '">' + $(this).find('h2').text() + '</option>';
+			});
+
+			html += '</select>';
+			html += ' <input type="button" class="button" value="' + tabify_l10.remove + '" />';
+			html += ' &nbsp; <a href="">Annuleer</a>';
+			html += '</div>';
+
+			$(html).insertAfter(this).show('blind');
+		}
 	});
+
+	$( document ).on( "click", ".tabify-remove-accept input", function( evt ) {
+		var parent = $( this ).closest('.tabify_tab');
+		var tab_holder = $( this ).closest('.tabify_control').children().eq( parent.find('select option:selected').val() ).find('.ui-sortable');
+
+		parent.hide( function(){
+			parent.find('.ui-sortable').children().each(function(index) {
+				$(this).hide();
+				tab_holder.append(this);
+				$(this).show('blind');
+			});
+
+			$(this).remove();
+			tabify_admin_fix_sortable();
+		});
+	});
+
+	$( document ).on( "click", ".tabify-remove-accept a", function( evt ) {
+		evt.preventDefault();
+
+		var parent = $( this ).closest('.tabify_tab');
+
+		parent.find('.tabify-remove-tab').fadeIn();
+		parent.find('.tabify-remove-accept').hide('blind');
+	});
+
+	function tabify_admin_fix_sortable() {
+		$('.tabifybox:visible .tabify_tab').each(function(index) {
+			var parent_index = $(this).index();
+
+			var parts = $( 'h2 input', this ).attr('name').split( '][' );
+			parts[3]  = parent_index;
+			$( 'h2 input', this ).attr( 'name', parts.join( '][' ) );
+
+			$(this).find('.ui-sortable').children().each(function(index) {
+				var parts = $( 'input', this ).attr('name').split( '][' );
+				parts[3]  = parent_index;
+				$( 'input', this ).attr( 'name', parts.join( '][' ) );
+			});
+		});
+	}
 });

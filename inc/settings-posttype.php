@@ -88,9 +88,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 				}
 				echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[posttypes][' . $posttype . '][tabs][' . $tab_id . '][title]" value="' . $tab['title'] . '" class="hide-if-js" /></h2>';
 
-				echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
-				if( isset( $tab['metaboxes'] ) && count( $tab['metaboxes'] ) > 0 ) { echo ' style="display: none;"'; }
-				echo '>' . __( 'Remove' ) . '</a>';
+				echo '<a href="#" class="tabify-remove-tab hide-if-no-js">' . __( 'Remove' ) . '</a>';
 				echo '<div class="clear"></div>';
 
 				echo '<ul>';
