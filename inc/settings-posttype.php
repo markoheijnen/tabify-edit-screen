@@ -80,6 +80,11 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 			echo '<div class="tabify_control">';
 
 			$tab_id = 0;
+			$remove = false;
+
+			if( 1 < count( $options[ $posttype ]['tabs'] ) )
+				$remove = true;
+
 			foreach( $options[ $posttype ]['tabs'] as $tab ) {
 				echo '<div class="menu-item-handle tabify_tab">';
 
@@ -88,7 +93,10 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 				}
 				echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[posttypes][' . $posttype . '][tabs][' . $tab_id . '][title]" value="' . $tab['title'] . '" class="hide-if-js" /></h2>';
 
-				echo '<a href="#" class="tabify-remove-tab hide-if-no-js">' . __( 'Remove' ) . '</a>';
+				echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
+				if( ! $remove ) { echo ' style="display: none;"'; }
+				echo '>' . __( 'Remove' ) . '</a>';
+
 				echo '<div class="clear"></div>';
 
 				echo '<ul>';

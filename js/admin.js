@@ -28,6 +28,8 @@ jQuery(function($) {
 	}
 
 	$( "#create_tab" ).on("click", function() {
+		$('.tabifybox:visible .tabify-remove-tab').fadeIn();
+
 		var title = tabify_l10.choose_title;
 		var posttype = $( '#tabify-submenu .nav-tab-active' ).attr( 'id' );
 		posttype = posttype.replace( 'tab-', "");
@@ -71,6 +73,7 @@ jQuery(function($) {
 		if( 0 == sender_children ) {
 			parent.hide( function(){
 				$(this).remove();
+				tabify_admin_hide_delete();
 			});
 		}
 		else {
@@ -105,13 +108,14 @@ jQuery(function($) {
 
 			$(this).remove();
 			tabify_admin_fix_sortable();
+			tabify_admin_hide_delete();
 		});
 	});
 
 	$( document ).on( "click", ".tabify-remove-accept a", function( evt ) {
 		evt.preventDefault();
 
-		var parent = $( this ).closest('.tabify_tab');
+		var parent = $(this).closest('.tabify_tab');
 
 		parent.find('.tabify-remove-tab').fadeIn();
 		parent.find('.tabify-remove-accept').hide('blind');
@@ -131,5 +135,11 @@ jQuery(function($) {
 				$( 'input', this ).attr( 'name', parts.join( '][' ) );
 			});
 		});
+	}
+
+	function tabify_admin_hide_delete() {
+		var amount = $('.tabifybox:visible .tabify_control').children().length;
+		if( 1 >= amount)
+			$('.tabifybox:visible .tabify-remove-tab').fadeOut();
 	}
 });
