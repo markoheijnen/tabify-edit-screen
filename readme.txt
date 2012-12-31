@@ -4,7 +4,7 @@ Donate link: http://wp-rockstars.com/plugins/tabify-edit-screen/
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
 Tested up to: 3.5
-Stable tag: 0.5
+Stable tag: 0.5.1
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -35,12 +35,20 @@ At this moment the title and submit box are always visible. You can change this 
 Yes, you can use the filter 'tabify_tab_location' and passing the value 'after_title' to it.
 You can also check on the second argument what the location is. Now always 'posttype'
 
+= Can it work with Types, WordPress SEO or Members =
+Yes, it can work with those plugins trough a filter. Their plugins using weird auto load magic or have extra checks that will not be run on our settings page.
+
+add_filter( 'tabify_plugin_support', '__return_true' );
+
 == Screenshots ==
 
 1. How it would look like after enabling this plugin
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.5.1 ( 2012-12-31 ) =
+* Move tabs to top again. That is the default state
 
 = 0.5 ( 2012-12-31 ) =
 * Improved deleting a tab from the setting screen
