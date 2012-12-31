@@ -31,7 +31,12 @@ class Tabify_Edit_Screen_Admin {
 		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable' ), '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen-admin' );
 
-		$data = array( 'remove' => __( 'Remove', 'tabify-edit-screen' ), 'choose_title' => __( 'Choose title', 'tabify-edit-screen' ) );
+		$data = array(
+			'remove' => __( 'Remove', 'tabify-edit-screen' ),
+			'cancel' => __( 'Cancel', 'tabify-edit-screen' ),
+			'choose_title' => __( 'Choose title', 'tabify-edit-screen' ),
+			'move_meta_boxes' => __( 'Move meta boxes to', 'tabify-edit-screen' )
+		);
 		wp_localize_script( 'tabify-edit-screen-admin', 'tabify_l10', $data );
 
 		if( ! wp_script_is( 'jquery-touch-punch', 'registered' ) ) {

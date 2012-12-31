@@ -79,7 +79,7 @@ jQuery(function($) {
 		else {
 			$(this).fadeOut();
 
-			var html = '<div class="tabify-remove-accept">Verplaats de meta boxes naar <select>';
+			var html = '<div class="tabify-remove-accept">' + tabify_l10.move_meta_boxes + ' <select>';
 
 			$('.tabifybox:visible .tabify_tab').each(function(index) {
 				if( ! $(this).is(parent) )
@@ -88,7 +88,7 @@ jQuery(function($) {
 
 			html += '</select>';
 			html += ' <input type="button" class="button" value="' + tabify_l10.remove + '" />';
-			html += ' &nbsp; <a href="">Annuleer</a>';
+			html += ' &nbsp; <a href="">' + tabify_l10.cancel + '</a>';
 			html += '</div>';
 
 			$(html).insertAfter(this).show('blind');
