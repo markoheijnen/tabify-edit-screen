@@ -4,7 +4,7 @@ Donate link: http://wp-rockstars.com/plugins/tabify-edit-screen/
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
 Tested up to: 3.5
-Stable tag: 0.5.1
+Stable tag: 0.5.2
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -46,6 +46,9 @@ add_filter( 'tabify_plugin_support', '__return_true' );
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.5.2 ( 2012-12-31 ) =
+* Default tabs was broken
 
 = 0.5.1 ( 2012-12-31 ) =
 * Move tabs to top again. That is the default state
