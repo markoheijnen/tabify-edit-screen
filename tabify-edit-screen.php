@@ -128,7 +128,8 @@ class Tabify_Edit_Screen {
 		if( 'after_title' == $this->tab_location )
 			add_action( 'edit_form_after_title', array( $this, 'output_tabs' ), 9 );
 		else { //default
-			$func = create_function('', 'echo "$(\"#post\").before(\"' . $tabs . '\");";');
+			$tabs = $this->editscreen_tabs->get_tabs_with_container( false );
+			$func = create_function('', 'echo "$(\'#post\').before(\'' . addslashes( $tabs ) . '\');";');
 			add_action( 'tabify_custom_javascript' , $func );
 		}
 	}
