@@ -30,6 +30,11 @@ At this moment the title and submit box are always visible. You can change this 
  * tabify_default_metaboxes - $defaults, $post_type
  * tabify_default_metaboxes_$post_type - $defaults
 
+= Can I place the tabs under the title input field? =
+
+Yes, you can use the filter 'tabify_tab_location' and passing the value 'after_title' to it.
+You can also check on the second argument what the location is. Now always 'posttype'
+
 == Screenshots ==
 
 1. How it would look like after enabling this plugin
@@ -37,10 +42,18 @@ At this moment the title and submit box are always visible. You can change this 
 
 == Changelog ==
 
-= Current progress =
-* Improved deleting a tab from the setting screen (0.5)
-* Be able to support Types/Views with my plugin (0.5)
-* Same sorting from the settings screen as in the post edit screen (0.6)
+= 0.5 ( 2012-12-31 ) =
+* Improved deleting a tab from the setting screen
+* Fix bugs caused when deleting a tab and moving metaboxes to different tabs
+* Make CSS more explicit so that plugins like ACF don't show up on first load. (Thanks elliotcondon)
+* Ability to place the tabs under the title input field with the filter 'tabify_tab_location' and passing 'after_title'
+* Add body class for tab location
+* Fix update settings and adding slashes to the title
+* Removing several referenced hooks
+* Fix some notices on edge cases
+* Fix javascript error on settings page
+
+* Also created a repository for a forked Types that works with this plugin: https://github.com/markoheijnen/types/tree/use-hook-add_meta_boxes
 
 = 0.4.1 ( 2012-11-9 ) =
 * Fix javascript code so you are now able to create new tabs again
@@ -83,4 +96,4 @@ At this moment the title and submit box are always visible. You can change this 
 == TODO's ==
 
 * Let user be able to move meta boxes to a different tab
-* The sorting of metabox in the setting should be listen to in the edit screen
+* Same sorting from the settings screen as in the post edit screen
