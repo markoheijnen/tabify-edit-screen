@@ -39,7 +39,7 @@ jQuery(function($) {
 		}
 	});
 
-	if( 'undefined' !== typeof variable ) {
+	if( 'undefined' !== typeof postboxes ) {
 		postboxes.save_state = function( page ) {
 			var closed = $('.postbox').filter('.closed').map(function() { return this.id; }).get().join(','),
 				hidden = $('.hide-postbox-tog').not(':checked').map(function() { return this.value; }).get().join(',');
