@@ -19,8 +19,12 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
 	 */
 	function test_wp_version() {
 		
-		if ( !getenv( 'TRAVIS_PHP_VERSION' ) )
+		if ( ! getenv( 'TRAVIS_PHP_VERSION' ) )
 			$this->markTestSkipped( 'Not running on Travis CI' );
+
+		// check that we have the https wrapper (php 5.2 on travis-ci does not)
+		if ( ! in_array( 'https', stream_get_wrappers() ) )
+			$this->markTestSkipped( 'Test skipped since https wrapper unavailable.' );
 		
 		//grab the requested version
 		$requested_version = getenv( 'WP_VERSION' );
