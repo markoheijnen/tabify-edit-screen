@@ -10,6 +10,7 @@ Author URI: http://markoheijnen.com
 */
 
 class Tabify_Edit_Screen {
+	public  $version = '0.6';
 	private $admin;
 	private $editscreen_tabs;
 	private $tab_location = 'default';
@@ -79,7 +80,7 @@ class Tabify_Edit_Screen {
 
 
 				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $options[ $post_type ]['tabs'] );
-				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_metaboxes( $post_type );
+				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post_type );
 
 				$this->load_tabs();
 

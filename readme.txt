@@ -48,6 +48,8 @@ add_filter( 'tabify_plugin_support', '__return_true' );
 == Changelog ==
 
 = 0.6 ( 2013-02-xx ) =
+* Complete rewrite of settings screen. Most of HTML is now in the base class
+
 * Added French translation
 * Updated Dutch translation
 
