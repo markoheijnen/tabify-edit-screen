@@ -113,7 +113,8 @@ class Tabify_Edit_Screen {
 	}
 
 	function add_admin_body_class( $body ) {
-		$body .= ' tabify_tab' . $this->tab_location;
+		if( $this->tab_location )
+			$body .= ' tabify_tab' . $this->tab_location;
 
 		return $body;
 	}
