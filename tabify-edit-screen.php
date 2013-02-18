@@ -81,18 +81,15 @@ class Tabify_Edit_Screen {
 				add_action( 'dbx_post_sidebar', array( $this, 'add_form_inputfield' ) );
 				add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
-				$all_metaboxes = array();
-				foreach( $wp_meta_boxes[ $post_type ] as $priorities ) {
-					foreach( $priorities as $priority => $_metaboxes ) {
-						foreach( $_metaboxes as $metabox ) {
-							$all_metaboxes[ $metabox['id'] ] = $metabox['title'];
-						}
-					}
-				}
-
-
 				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $options[ $post_type ]['tabs'] );
 				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post_type );
+				$all_metaboxes         = array();
+
+				foreach( $wp_meta_boxes[ $post_type ] as $priorities )
+					foreach( $priorities as $priority => $_metaboxes )
+						foreach( $_metaboxes as $metabox )
+							if( ! in_array( $metabox['id'], $default_metaboxes ) )
+								$all_metaboxes[ $metabox['id'] ] = $metabox['title'];
 
 				$this->load_tabs();
 
@@ -118,7 +115,7 @@ class Tabify_Edit_Screen {
 									add_action( 'tabify_custom_javascript' , $func );
 								}
 								else {
-									$func = create_function('$args', 'array_push($args, "' . $class . '"); return $args;');
+									$func = create_function( '$args', 'array_push( $args, "' . $class . '" ); return $args;' );
 									add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, $func );
 
 									if( isset( $all_metaboxes[ $metabox_id ] ) )
@@ -126,6 +123,14 @@ class Tabify_Edit_Screen {
 								}
 							}
 						}
+					}
+				}
+
+				// Metaboxes that aren't attachted
+				if( apply_filters( 'tabify_show_unattached_metaboxes', true ) ) {
+					foreach( $all_metaboxes as $metabox_id => $metabox_title ) {
+						$func = create_function( '$args', 'array_push( $args, "' . $class . '" ); return $args;' );
+						add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, $func );
 					}
 				}
 			}
