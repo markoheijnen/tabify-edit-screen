@@ -46,7 +46,7 @@ class Tabify_Edit_Screen_Admin {
 		
 		echo '<div class="wrap">';
 
-		screen_icon();
+		screen_icon('options-general');
 		echo '<h2>' . esc_html( get_admin_page_title() ) . '</h2>';
 
 		echo '<form id="tabify-form" method="post">';
