@@ -113,7 +113,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 			$amount_tabs = count( $posttypes[ $key ]['tabs'] );
 			for( $j = 0; $j < $amount_tabs; $j++ ) {
 				$posttypes[ $key ]['tabs'][ $j ]['title'] = stripslashes( $posttypes[ $key ]['tabs'][ $j ]['title'] );
-				$posttypes[ $key ]['tabs'][ $j ]['title'] = esc_attr( wp_strip_all_tags(  $posttypes[ $key ]['tabs'][ $j ]['title'] ) );
+				$posttypes[ $key ]['tabs'][ $j ]['title'] = wp_strip_all_tags(  $posttypes[ $key ]['tabs'][ $j ]['title'] );
 
 				if( !isset( $posttypes[ $key ]['tabs'][ $j ]['items'] ) || count( $posttypes[ $key ]['tabs'][ $j ]['items'] ) == 0 ) {
 					if( $posttypes[ $key ]['tabs'][ $j ]['title'] == '' ) {
@@ -140,11 +140,11 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 							$metaboxes_in_new_tab = count( $posttypes[ $key ]['tabs'][ $new_tab_key ]['items'] );
 						}
 
-						$posttypes[ $key ]['tabs'][ $new_tab_key ]['items'][ $k ] = esc_attr( wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] ) );
+						$posttypes[ $key ]['tabs'][ $new_tab_key ]['items'][ $k ] = wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] );
 						unset( $posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] );
 					}
 					else {
-						$posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] = esc_attr( wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] ) );
+						$posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] = wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] );
 					}
 				}
 				$posttypes[ $key ]['tabs'][ $j ]['items'] = array_values( $posttypes[ $key ]['tabs'][ $j ]['items'] );

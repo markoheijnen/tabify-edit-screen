@@ -82,10 +82,10 @@ class Tabify_Edit_Screen_Settings_Base {
 
 				echo '<div class="menu-item-handle tabify_tab">';
 
-				if( $tab['title'] == '' ) {
+				if( $tab['title'] == '' )
 					$tab['title'] = __( 'Choose title' );
-				}
-				echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][title]" value="' . $tab['title'] . '" class="hide-if-js" /></h2>';
+
+				echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][title]" value="' . esc_html( $tab['title'] ) . '" class="hide-if-js" /></h2>';
 
 				echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
 				if( ! $remove ) { echo ' style="display: none;"'; }
@@ -166,6 +166,8 @@ class Tabify_Edit_Screen_Settings_Base {
 	protected function list_show_items( $item_id, $item_title, $tab_id, $type, $default_items ) {
 		$options = $this->get_options( $this->type );
 
+		$item_title = esc_html( $item_title );
+
 		if( in_array( $item_id, $default_items ) || empty( $item_title ) )
 			echo '<li class="tabifybox-hide">';
 		else
@@ -181,9 +183,9 @@ class Tabify_Edit_Screen_Settings_Base {
 
 			for( $i = 0; $i < $amount_tabs; $i++ ) {
 				if( $i == $tab_id )
-					echo '<option value="' . $i . '" selected="selected">' . $options[ $type ]['tabs'][ $i ]['title'] . '</option>';
+					echo '<option value="' . $i . '" selected="selected">' . esc_html( $options[ $type ]['tabs'][ $i ]['title'] ) . '</option>';
 				else
-					echo '<option value="' . $i . '">' . $options[ $type ]['tabs'][ $i ]['title'] . '</option>';
+					echo '<option value="' . $i . '">' . esc_html( $options[ $type ]['tabs'][ $i ]['title'] ) . '</option>';
 			}
 		}
 		echo '</select>';
