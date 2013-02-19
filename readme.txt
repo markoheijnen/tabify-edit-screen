@@ -49,6 +49,10 @@ add_filter( 'tabify_plugin_support', '__return_true' );
 
 = 0.6 ( 2013-02-xx ) =
 * Complete rewrite of settings screen. Most of HTML is now in the base class
+* All unattached metaboxes will be moved to the last tab
+* Fix setting current tab when editing a post
+* Added some extra string escaping
+* Specify screen icon
 
 * Added French translation
 * Updated Dutch translation
