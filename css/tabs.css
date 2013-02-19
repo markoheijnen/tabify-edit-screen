@@ -25,7 +25,7 @@
 
 
 #tabify-settings {
-	margin-left: 300px;
+	margin: 0 5px 0 300px;
 }
 
 #tabifyboxes {
@@ -37,11 +37,6 @@
 	float: left;
 	margin-left: -300px;
 	width: 280px;
-}
-
-.tabify_control .menu-item-handle {
-	overflow: visible;
-	width: auto;
 }
 
 
@@ -71,6 +66,15 @@
 .tabify-remove-accept {
 	clear: both;
 	display:none;
+}
+
+.tabify_control .tabify_tab {
+	background: #f9f9f9;
+}
+
+.tabify_control .menu-item-handle {
+	overflow: visible;
+	width: auto;
 }
 
 .tabify_control ul {
