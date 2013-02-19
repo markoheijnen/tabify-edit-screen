@@ -55,12 +55,11 @@ class Tabify_Edit_Screen_Tabs {
 	/**
 	 * Get the HTML code of the tabs container including the tabs
 	 *
-	 * @param boolean $show_current_tab_input If you want to have the the hidden input field for current tab
 	 * @return string The HTML of the tabs
 	 *
 	 * @since 0.1
 	 */
-	public function get_tabs_with_container( $show_current_tab_input = true ) {
+	public function get_tabs_with_container() {
 		$class = 'tabify-tabs tab-' .  $this->type;
 
 		if( ! $this->javascript_support )
@@ -74,10 +73,7 @@ class Tabify_Edit_Screen_Tabs {
 		else
 			$return .= '<h2>';
 
-		if( $show_current_tab_input == true ) {
-			$return .= $this->get_tabs_current_tab_input();
-		}
-
+		$return .= $this->get_tabs_current_tab_input();
 		$return .= $this->get_tabs();
 
 		$return .= '</h2>';

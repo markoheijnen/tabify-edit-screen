@@ -78,7 +78,6 @@ class Tabify_Edit_Screen {
 			// This posttype has tabs
 			if( isset( $options[ $post_type ], $options[ $post_type ]['show'] ) && $options[ $post_type ]['show'] == 1 ) {
 				add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
-				add_action( 'dbx_post_sidebar', array( $this, 'add_form_inputfield' ) );
 				add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
 				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $options[ $post_type ]['tabs'] );
@@ -154,20 +153,10 @@ class Tabify_Edit_Screen {
 		if( 'after_title' == $this->tab_location )
 			add_action( 'edit_form_after_title', array( $this, 'output_tabs' ), 9 );
 		else { //default
-			$tabs = $this->editscreen_tabs->get_tabs_with_container( false );
-			$func = create_function('', 'echo "$(\'#post\').before(\'' . addslashes( $tabs ) . '\');";');
+			$tabs = $this->editscreen_tabs->get_tabs_with_container();
+			$func = create_function('', 'echo "$(\'#post\').prepend(\'' . addslashes( $tabs ) . '\');";');
 			add_action( 'tabify_custom_javascript' , $func );
 		}
-	}
-
-	/**
-	 * Outputs the tabs
-	 *
-	 * @since 0.5
-	 *
-	 */
-	function output_tabs() {
-		echo $this->editscreen_tabs->get_tabs_with_container( false );
 	}
 
 	/**
@@ -177,8 +166,6 @@ class Tabify_Edit_Screen {
 	 *
 	 */
 	function generate_javascript() {
-		$tabs = $this->editscreen_tabs->get_tabs_with_container( false );
-
 		echo '<script type="text/javascript">';
 		echo 'jQuery(function($) {';
 		do_action( 'tabify_custom_javascript' );
