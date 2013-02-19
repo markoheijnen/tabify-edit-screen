@@ -126,8 +126,19 @@ class Tabify_Edit_Screen {
 				}
 
 				// Metaboxes that aren't attachted
-				if( apply_filters( 'tabify_show_unattached_metaboxes', true ) ) {
+				if( apply_filters( 'tabify_unattached_metaboxes_show', true, $post_type ) ) {
 					foreach( $all_metaboxes as $metabox_id => $metabox_title ) {
+						$last_index                 = $tab_index;
+						$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', 1, $post_type );
+
+						if( $unattached_metaboxes_index < 0 || $unattached_metaboxes_index > $last_index )
+							$unattached_metaboxes_index = $last_index;
+
+						$class = 'tabifybox tabifybox-' . $unattached_metaboxes_index;
+
+						if( $this->editscreen_tabs->get_current_tab() != $unattached_metaboxes_index )
+							$class .= ' tabifybox-hide';
+
 						$func = create_function( '$args', 'array_push( $args, "' . $class . '" ); return $args;' );
 						add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, $func );
 					}
