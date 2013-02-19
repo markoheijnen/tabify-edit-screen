@@ -160,6 +160,16 @@ class Tabify_Edit_Screen {
 	}
 
 	/**
+	 * Outputs the tabs
+	 *
+	 * @since 0.5
+	 *
+	 */
+	function output_tabs() {
+		echo $this->editscreen_tabs->get_tabs_with_container( false );
+	}
+
+	/**
 	 * Generate the javascript for the edit screen
 	 *
 	 * @since 0.1
@@ -171,16 +181,6 @@ class Tabify_Edit_Screen {
 		do_action( 'tabify_custom_javascript' );
 		echo '});';
 		echo '</script>';
-	}
-
-	/**
-	 * Show the inputfield for current tab inside the form of the edit screen
-	 *
-	 * @since 0.2
-	 *
-	 */
-	function add_form_inputfield() {
-		echo $this->editscreen_tabs->get_tabs_current_tab_input();
 	}
 }
 
