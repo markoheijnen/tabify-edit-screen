@@ -5,6 +5,16 @@
  */
 class Tabify_Tests_Core extends WP_UnitTestCase {
 
+	function setUp() {
+		parent::setUp();
+		set_current_screen( 'post' );
+	}
+
+	function tearDown() {
+		parent::tearDown();
+		set_current_screen( 'front' );
+	}
+
 	function test_Tabify_Edit_Screen__redirect_add_current_tab() {
 		global $tabify_edit_screen;
 
