@@ -1,9 +1,9 @@
 === Tabify Edit Screen ===
 Contributors: markoheijnen
-Donate link: http://wp-rockstars.com/plugins/tabify-edit-screen/
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CQFB8UMDTEGGG
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
-Tested up to: 3.5
+Tested up to: 3.6
 Stable tag: 0.6
 
 Enable tabs in the edit screen and manage them from the back-end.
@@ -47,14 +47,14 @@ add_filter( 'tabify_plugin_support', '__return_true' );
 
 == Changelog ==
 
-= 0.6 ( 2013-02-xx ) =
+= 0.6 ( 2013-02-24 ) =
 * Complete rewrite of settings screen. Most of HTML is now in the base class
 * All unattached metaboxes will be moved to the last tab
 * Fix setting current tab when editing a post
 * Added some extra string escaping
 * Specify screen icon
 
-* Added French translation
+* Added French translation by Jean-Christophe Brebion
 * Updated Dutch translation
 
 = 0.5.3 ( 2013-01-07 ) =
@@ -116,8 +116,3 @@ add_filter( 'tabify_plugin_support', '__return_true' );
 
 = 0.1 (2012-4-2) =
 * First version to show people the possibilities
-
-== TODO's ==
-
-* Let user be able to move meta boxes to a different tab
-* Same sorting from the settings screen as in the post edit screen

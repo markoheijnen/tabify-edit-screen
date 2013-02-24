@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Tabify edit screen
-Plugin URI: http://wp-rockstars.com/plugin/tabify-edit-screen
+Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
 Description: Enables tabs in the edit screen and manage them from the back-end
 Author: Marko Heijnen
 Text Domain: tabify-edit-screen
-Version: 0.6-beta
+Version: 0.6
 Author URI: http://markoheijnen.com
 */
 
