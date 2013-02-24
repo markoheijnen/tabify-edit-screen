@@ -40,6 +40,9 @@ Yes, it can work with those plugins trough a filter. Their plugins using weird a
 
 add_filter( 'tabify_plugin_support', '__return_true' );
 
+= What happen with new metaboxes =
+At this moment new metaboxes are places on the last tab. You can go to the settings screen to reorder the metabox. You can change which tab it should go like with meta boxes that don't show up like Types or WordPress SEO. You do this with the filter 'tabify_unattached_metaboxes_index'.
+
 == Screenshots ==
 
 1. How it would look like after enabling this plugin
