@@ -129,7 +129,7 @@ class Tabify_Edit_Screen {
 				if( apply_filters( 'tabify_unattached_metaboxes_show', true, $post_type ) ) {
 					foreach( $all_metaboxes as $metabox_id => $metabox_title ) {
 						$last_index                 = $tab_index;
-						$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', 1, $post_type );
+						$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', $last_index, $post_type );
 
 						if( $unattached_metaboxes_index < 0 || $unattached_metaboxes_index > $last_index )
 							$unattached_metaboxes_index = $last_index;
