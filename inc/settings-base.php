@@ -171,7 +171,7 @@ class Tabify_Edit_Screen_Settings_Base {
 		if( in_array( $item_id, $default_items ) || empty( $item_title ) )
 			echo '<li class="tabifybox-hide">';
 		else
-			echo '<li class="menu-item-handle">' . $item_title;
+			echo '<li class="menu-item-handle"><span class="item-title">' . $item_title . '</span>';
 
 		echo '<input type="hidden" name="tabify[' . $this->type . '][' . $type . '][tabs][' . $tab_id . '][items][]" value="' . $item_id . '" />';
 
