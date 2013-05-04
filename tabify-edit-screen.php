@@ -5,12 +5,12 @@ Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
 Description: Enables tabs in the edit screen and manage them from the back-end
 Author: Marko Heijnen
 Text Domain: tabify-edit-screen
-Version: 0.6
+Version: 0.7
 Author URI: http://markoheijnen.com
 */
 
 class Tabify_Edit_Screen {
-	public  $version = '0.6';
+	public  $version = '0.7';
 	public  $admin;
 	private $editscreen_tabs;
 	private $tab_location = 'default';
@@ -47,9 +47,9 @@ class Tabify_Edit_Screen {
 	 *
 	 */
 	function redirect_add_current_tab( $location, $post_id ) {
-		if( isset( $_REQUEST['tab'] ) ) {
+		if( isset( $_REQUEST['tab'] ) )
 			$location = add_query_arg( 'tab', esc_attr( $_REQUEST['tab'] ), $location );
-		}
+
 		return $location;
 	}
 
@@ -164,7 +164,9 @@ class Tabify_Edit_Screen {
 		if( 'after_title' == $this->tab_location )
 			add_action( 'edit_form_after_title', array( $this, 'output_tabs' ), 9 );
 		else { //default
-			$tabs = $this->editscreen_tabs->get_tabs_with_container();
+			$tabs  = $this->submit_button();
+			$tabs .= $this->editscreen_tabs->get_tabs_with_container();
+
 			$func = create_function('', 'echo "$(\'#post\').prepend(\'' . addslashes( $tabs ) . '\');";');
 			add_action( 'tabify_custom_javascript' , $func );
 		}
@@ -177,7 +179,47 @@ class Tabify_Edit_Screen {
 	 *
 	 */
 	function output_tabs() {
-		echo $this->editscreen_tabs->get_tabs_with_container( false );
+		echo $this->submit_button();
+		echo $this->editscreen_tabs->get_tabs_with_container();
+	}
+
+	/**
+	 * Add submit button when the submitbox isn't showed on every tab
+	 *
+	 * @since 0.7
+	 *
+	 */
+	function submit_button() {
+		$post = get_post();
+
+		$default = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post->post_type );
+
+		if( in_array( 'submitdiv', $default ) )
+			return;
+		
+		$text = '';
+		$post_type_object = get_post_type_object( $post->post_type );
+		$can_publish      = current_user_can( $post_type_object->cap->publish_posts );
+
+
+		if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 == $post->ID ) {
+			if ( $can_publish ) {
+				if ( ! empty($post->post_date_gmt) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) {
+					$text = __( 'Schedule' );
+				}
+				else {
+					$text = __( 'Publish' );
+				}
+			}
+			else {
+				$text = __( 'Submit for Review' );
+			}
+		}
+		else {
+			$text = __('Update');
+		}
+
+		return get_submit_button( $text, 'secondary', 'second-submit', false );
 	}
 
 	/**

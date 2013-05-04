@@ -92,6 +92,11 @@
 	text-decoration: none;
 }
 
+#second-submit {
+	float: right;
+	margin-top: 14px;
+}
+
 
 /*.postbox-container .meta-box-sortables.empty-container,*/
 #side-sortables.empty-container {
