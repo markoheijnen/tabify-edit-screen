@@ -104,3 +104,13 @@
 	border: 0px;
 	height: auto;
 }
+
+
+
+.admin-color-mp6 .tab-vertical a {
+	background: #ddd;
+}
+
+.admin-color-mp6 .tab-vertical .nav-tab-active {
+	background: #fff;
+}
