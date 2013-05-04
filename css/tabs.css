@@ -19,9 +19,10 @@
 	border-color: #ccc;
 }
 
-#poststuff .tabifybox-hide, .tabifybox-hide { display: none; }
-
-
+.js #poststuff .tabifybox-hide,
+.js .tabifybox-hide {
+	display: none;
+}
 
 
 #tabify-settings {
