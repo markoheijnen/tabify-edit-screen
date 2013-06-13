@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 0.6
+Stable tag: 0.7
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -49,6 +49,13 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.7 ( 2013-06-14 ) =
+* When submit box isn't always showed then do show a submit button in the tabs
+* Only hide metaboxes when there is javascript support
+* Change some styling when MP6 is been used
+* Add extra span around meta box titles in the settings page to look better in MP6
+* Add WPML support
 
 = 0.6 ( 2013-02-24 ) =
 * Complete rewrite of settings screen. Most of HTML is now in the base class
