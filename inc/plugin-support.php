@@ -43,7 +43,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 * @since 0.4
 	 */
 	function members( $posttype ) {
-		if ( function_exists( 'members_admin_setup' ) && !did_action( 'load-post.php' ) )
+		if ( function_exists( 'members_admin_setup' ) && ! did_action( 'load-post.php' ) )
 			do_action( 'load-post.php' );
 	}
 }
