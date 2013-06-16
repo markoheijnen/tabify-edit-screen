@@ -17,4 +17,4 @@ before_script:
     - export WP_TESTS_DIR=/tmp/wordpress-tests/
     - ./bin/install-wp-tests wordpress_test root '' $WP_VERSION 
 
-script: phpunit
+script: ./tests/phpunit
