@@ -13,11 +13,8 @@ env:
     - WP_VERSION=3.5.1 WP_MULTISITE=1
     - WP_VERSION=3.4.2 WP_MULTISITE=1
 
-before_install:
-    - git submodule update --init --recursive
-
 before_script:
-    - wget -nv https://raw.github.com/benbalter/wordpress-plugin-tests/setup/setup.sh
-    - source setup.sh
+    - export WP_TESTS_DIR=/tmp/wordpress-tests/
+    - ./bin/install-wp-tests wordpress_test root '' $WP_VERSION 
 
 script: phpunit

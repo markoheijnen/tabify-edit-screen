@@ -15,4 +15,4 @@ $GLOBALS['wp_tests_options'] = array(
 	'active_plugins' => array( basename( dirname( dirname( __FILE__ ) ) ) . '/tabify-edit-screen.php' ),
 );
 
-require dirname( __FILE__ ) . '/lib/bootstrap.php';
+require getenv( 'WP_TESTS_DIR' ) . '/lib/bootstrap.php';

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# runs the unit tests and generates a Code Coverage Analysis document: /tmp/tabify-edit-screen-coverage/index.html
+
+rm -rf /tmp/tabify-edit-screen-coverage
+
+phpunit --coverage-html /tmp/tabify-edit-screen-coverage
+
+x-www-browser /tmp/tabify-edit-screen-coverage/index.html
