@@ -55,7 +55,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 * Only hide metaboxes when there is javascript support
 * Change some styling when MP6 is been used
 * Add extra span around meta box titles in the settings page to look better in MP6
-* Add WPML support
+* Add support for WPML
 
 = 0.6 ( 2013-02-24 ) =
 * Complete rewrite of settings screen. Most of HTML is now in the base class
