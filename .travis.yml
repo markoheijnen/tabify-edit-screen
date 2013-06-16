@@ -9,12 +9,10 @@ env:
     - WP_VERSION=master WP_MULTISITE=0
     - WP_VERSION=3.5.1 WP_MULTISITE=0
     - WP_VERSION=3.4.2 WP_MULTISITE=0
-    - WP_VERSION=master WP_MULTISITE=1
-    - WP_VERSION=3.5.1 WP_MULTISITE=1
-    - WP_VERSION=3.4.2 WP_MULTISITE=1
 
 before_script:
     - export WP_TESTS_DIR=/tmp/wordpress-tests/
-    - ./bin/install-wp-tests wordpress_test root '' $WP_VERSION 
+    - ./bin/install-wp-tests wordpress_test root '' $WP_VERSION
+    - cd tests
 
-script: ./tests/phpunit
+script: phpunit
