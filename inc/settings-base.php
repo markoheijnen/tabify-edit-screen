@@ -45,7 +45,7 @@ class Tabify_Edit_Screen_Settings_Base {
 			if( ! isset( $options[ $section ] ) ) {
 				$options[ $section ] = array (
 					'tabs' => array(
-						array( 'title' => __( 'Others' ), 'items' => array() )
+						array( 'title' => __( 'Others', 'tabify-edit-screen' ), 'items' => array() )
 					)
 				);
 			}
@@ -83,13 +83,13 @@ class Tabify_Edit_Screen_Settings_Base {
 				echo '<div class="menu-item-handle tabify_tab">';
 
 				if( $tab['title'] == '' )
-					$tab['title'] = __( 'Choose title' );
+					$tab['title'] = __( 'Choose title', 'tabify-edit-screen' );
 
 				echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][title]" value="' . esc_html( $tab['title'] ) . '" class="hide-if-js" /></h2>';
 
 				echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
 				if( ! $remove ) { echo ' style="display: none;"'; }
-				echo '>' . __( 'Remove' ) . '</a>';
+				echo '>' . __( 'Remove', 'tabify-edit-screen' ) . '</a>';
 
 				echo '<div class="clear"></div>';
 

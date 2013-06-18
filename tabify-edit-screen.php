@@ -204,7 +204,7 @@ class Tabify_Edit_Screen {
 
 		if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 == $post->ID ) {
 			if ( $can_publish ) {
-				if ( ! empty($post->post_date_gmt) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) {
+				if ( ! empty( $post->post_date_gmt ) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) {
 					$text = __( 'Schedule' );
 				}
 				else {

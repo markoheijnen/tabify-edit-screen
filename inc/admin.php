@@ -55,7 +55,7 @@ class Tabify_Edit_Screen_Admin {
 		echo '<input type="hidden" id="tabify_edit_screen_nojs" name="tabify_edit_screen_nojs" value="1" />';
 
 		$tabs = array(
-			'posttypes' => array( 'title' => __('Post types'), 'class' => 'Tabify_Edit_Screen_Settings_Posttypes' )
+			'posttypes' => array( 'title' => __('Post types', 'tabify-edit-screen' ), 'class' => 'Tabify_Edit_Screen_Settings_Posttypes' )
 		);
 		$tabs = apply_filters( 'tabify_settings_tabs', $tabs );
 
