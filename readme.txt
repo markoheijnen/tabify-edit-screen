@@ -1,5 +1,5 @@
 === Tabify Edit Screen ===
-Contributors: markoheijnen
+Contributors: CodeKitchen, markoheijnen
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CQFB8UMDTEGGG
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
