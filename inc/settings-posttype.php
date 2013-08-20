@@ -218,7 +218,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 *
 	 * @since 0.4
 	 */
-	public function get_default_items( $post_type = '' ) {
+	public static function get_default_items( $post_type = '' ) {
 		$defaults = array( 'titlediv', 'submitdiv' ); //, 'postdivrich'
 		$defaults = apply_filters( 'tabify_default_metaboxes', $defaults, $post_type );
 		return apply_filters( 'tabify_default_metaboxes_' . $post_type , $defaults );
