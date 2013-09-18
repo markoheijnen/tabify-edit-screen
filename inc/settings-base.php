@@ -182,6 +182,9 @@ class Tabify_Edit_Screen_Settings_Base {
 			$amount_tabs = count( $options[ $type ]['tabs'] );
 
 			for( $i = 0; $i < $amount_tabs; $i++ ) {
+				if( ! isset( $options[ $type ]['tabs'][ $i ] ) )
+					continue;
+
 				if( $i == $tab_id )
 					echo '<option value="' . $i . '" selected="selected">' . esc_html( $options[ $type ]['tabs'][ $i ]['title'] ) . '</option>';
 				else

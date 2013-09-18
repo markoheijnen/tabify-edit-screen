@@ -112,17 +112,21 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 
 			$amount_tabs = count( $posttypes[ $key ]['tabs'] );
 			for( $j = 0; $j < $amount_tabs; $j++ ) {
+				if( ! isset( $posttypes[ $key ]['tabs'][ $j ] ) )
+					continue;
+
 				$posttypes[ $key ]['tabs'][ $j ]['title'] = stripslashes( $posttypes[ $key ]['tabs'][ $j ]['title'] );
 				$posttypes[ $key ]['tabs'][ $j ]['title'] = wp_strip_all_tags(  $posttypes[ $key ]['tabs'][ $j ]['title'] );
 
 				if( !isset( $posttypes[ $key ]['tabs'][ $j ]['items'] ) || count( $posttypes[ $key ]['tabs'][ $j ]['items'] ) == 0 ) {
-					if( $posttypes[ $key ]['tabs'][ $j ]['title'] == '' ) {
+					if( $posttypes[ $key ]['tabs'][ $j ]['title'] == '' )
 						unset( $posttypes[ $key ]['tabs'][ $j ] );
-					}
+
 					continue;
 				}
 
 				$amount_metaboxes = count( $posttypes[ $key ]['tabs'][ $j ]['items'] );
+
 				for( $k = 0; $k < $amount_metaboxes; $k++ ) {
 					// Should the metabox be moved. Only applies when browser doesn't support Javascript
 					if(
