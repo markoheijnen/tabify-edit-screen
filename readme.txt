@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 0.7
+Stable tag: 0.7.1
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -49,6 +49,11 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.7.1 ( 2013-09-26 ) =
+* Fix possible issues with meta boxes showing on every tab
+* Add textdomain to the right places
+* Fix (strict) notices in code
 
 = 0.7 ( 2013-06-14 ) =
 * When submit box isn't always showed then do show a submit button in the tabs
