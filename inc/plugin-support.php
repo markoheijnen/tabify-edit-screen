@@ -1,6 +1,7 @@
 <?php
 
 class Tabify_Edit_Screen_Plugin_Support {
+
 	function __construct() {
 		add_action( 'tabify_add_meta_boxes', array( $this, 'types' ) );
 		add_action( 'tabify_add_meta_boxes', array( $this, 'wpseo' ) );
@@ -13,7 +14,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 *
 	 * @param string $posttype The posttype the metaboxes should be loaded from
 	 * 
-	 * @since 0.4
+	 * @since 0.4.0
 	 */
 	function types( $posttype ) {
 		if( function_exists( 'wpcf_admin_post_page_load_hook' ) ) {
@@ -28,7 +29,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 *
 	 * @param string $posttype The posttype the metaboxes should be loaded from
 	 * 
-	 * @since 0.4
+	 * @since 0.4.0
 	 */
 	function wpseo( $posttype ) {
 		if ( defined( 'WPSEO_PATH' ) && is_file( WPSEO_PATH . 'admin/class-metabox.php' ) )
@@ -41,7 +42,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 *
 	 * @param string $posttype The posttype the metaboxes should be loaded from
 	 * 
-	 * @since 0.4
+	 * @since 0.4.0
 	 */
 	function members( $posttype ) {
 		if ( function_exists( 'members_admin_setup' ) && ! did_action( 'load-post.php' ) )
@@ -53,7 +54,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 *
 	 * @param string $posttype The posttype the metaboxes should be loaded from
 	 * 
-	 * @since 0.7
+	 * @since 0.7.0
 	 */
 	function wpml( $posttype ) {
 		global $sitepress, $post;
@@ -65,4 +66,5 @@ class Tabify_Edit_Screen_Plugin_Support {
 			$post = null;
 		}
 	}
+
 }

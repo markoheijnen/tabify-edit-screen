@@ -15,7 +15,7 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @param array $items All the tab items
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	function __construct( $items, $type = 'horizontal', $get_arg = 'tab', $javascript_support = true ) {
 		if( is_array( $items ) ) {
@@ -46,7 +46,7 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @return string Current tab name
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	public function get_current_tab() {
 		return $this->active;
@@ -57,7 +57,7 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @return string The HTML of the tabs
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	public function get_tabs_with_container() {
 		$class = 'tabify-tabs tab-' .  $this->type;
@@ -102,7 +102,7 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @return string The HTML of the hidden input field
 	 *
-	 * @since 0.2
+	 * @since 0.2.0
 	 */
 	public function get_tabs_current_tab_input() {
 		return '<input type="hidden" class="current_tab" name="' . $this->get_arg . '" value="' . $this->active. '" />';
@@ -113,7 +113,7 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @return string The HTML of the hidden input field
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	private function get_tabs() {
 		$return = '';
@@ -133,4 +133,5 @@ class Tabify_Edit_Screen_Tabs {
 
 		return $return;
 	}
+
 }

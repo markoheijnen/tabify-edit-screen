@@ -3,8 +3,8 @@ Contributors: CodeKitchen, markoheijnen
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CQFB8UMDTEGGG
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
-Tested up to: 3.6
-Stable tag: 0.7.1
+Tested up to: 3.8
+Stable tag: 0.8
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -50,19 +50,22 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 == Changelog ==
 
+= 0.8.0 ( 2013-12-25 ) =
+* Fix 3.8 styling
+
 = 0.7.1 ( 2013-09-26 ) =
 * Fix possible issues with meta boxes showing on every tab
 * Add textdomain to the right places
 * Fix (strict) notices in code
 
-= 0.7 ( 2013-06-14 ) =
+= 0.7.0 ( 2013-06-14 ) =
 * When submit box isn't always showed then do show a submit button in the tabs
 * Only hide metaboxes when there is javascript support
 * Change some styling when MP6 is been used
 * Add extra span around meta box titles in the settings page to look better in MP6
 * Add support for WPML
 
-= 0.6 ( 2013-02-24 ) =
+= 0.6.0 ( 2013-02-24 ) =
 * Complete rewrite of settings screen. Most of HTML is now in the base class
 * All unattached metaboxes will be moved to the last tab
 * Fix setting current tab when editing a post
@@ -81,7 +84,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 = 0.5.1 ( 2012-12-31 ) =
 * Move tabs to top again. That is the default state
 
-= 0.5 ( 2012-12-31 ) =
+= 0.5.0 ( 2012-12-31 ) =
 * Improved deleting a tab from the setting screen
 * Fix bugs caused when deleting a tab and moving metaboxes to different tabs
 * Make CSS more explicit so that plugins like ACF don't show up on first load. (Thanks elliotcondon)
@@ -97,7 +100,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 = 0.4.1 ( 2012-11-9 ) =
 * Fix javascript code so you are now able to create new tabs again
 
-= 0.4 ( 2012-11-9 ) =
+= 0.4.0 ( 2012-11-9 ) =
 * Complete fresh new UI for the settings screen
 * Fix possible bug for not showing author metabox in the settings screen
 * Fix notice on edit screen when no items where inside a tab
@@ -111,7 +114,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 * Ability to add more tab support like post types with the filter 'tabify-edit-screen-settings-tabs'
 * Ability to add more options with the action 'tabify-settings-posttype' and filter 'tabify-settings-update'
 
-= 0.3 (2012-4-7) =
+= 0.3.0 ( 2012-4-7 ) =
 * Add support for the plugin "Types"
 * Removed the filter tabify_default_metaboxes_$posttype and changed it for the action tabify_add_meta_boxes
 * Improved the way to delete a tab by showing a remove link ( Javascript only )
@@ -119,7 +122,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 * The text in javascript is now also translatable
 * Removed duplicated code
 
-= 0.2 (2012-4-6) =
+= 0.2.0 ( 2012-4-6 ) =
 * Added security checks on the setting screen
 * Create a new tab now also works on all post types
 * When you save the changes you go back to the selected tab. This also work for the edit screens
@@ -129,5 +132,5 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 * The setting page now can be changed from a touch device
 * Fix issue where you couldn't move metaboxes in a new created tab
 
-= 0.1 (2012-4-2) =
+= 0.1.0 ( 2012-4-2 ) =
 * First version to show people the possibilities

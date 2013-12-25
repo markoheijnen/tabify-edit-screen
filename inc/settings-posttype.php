@@ -5,7 +5,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	/**
 	 * Loads the base with the type
 	 *
-	 * @since 0.4
+	 * @since 0.4.0
 	 */
 	function __construct() {
 		parent::__construct('posttypes');
@@ -20,7 +20,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	/**
 	 * Loads all the posttypes as sections
 	 *
-	 * @since 0.4
+	 * @since 0.4.0
 	 */
 	protected function load_sections() {
 		$args = array(
@@ -43,7 +43,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	/**
 	 * Gets all the metaboxes that are registered
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	private function get_metaboxes() {
 		global $wp_meta_boxes;
@@ -92,7 +92,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	/**
 	 * Sanitize the options array to be how we expect it to be
 	 *
-	 * @since 0.2
+	 * @since 0.2.0
 	 *
 	 * @param array $posttypes Raw options array
 	 * @return array filtered options array
@@ -162,7 +162,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * Gets all the default WordPress metaboxes
 	 * Little bit hackish but it works. Hopefully one day there will be a method for this in core.
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	private function load_default_metaboxes( $post_type ) {
 		add_meta_box( 'submitdiv', __('Publish'), 'post_submit_meta_box', $post_type, 'side', 'core' );
@@ -220,11 +220,12 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 *
 	 * @return array All the metaboxes id's in an array
 	 *
-	 * @since 0.4
+	 * @since 0.4.0
 	 */
 	public static function get_default_items( $post_type = '' ) {
 		$defaults = array( 'titlediv', 'submitdiv' ); //, 'postdivrich'
 		$defaults = apply_filters( 'tabify_default_metaboxes', $defaults, $post_type );
 		return apply_filters( 'tabify_default_metaboxes_' . $post_type , $defaults );
 	}
+
 }

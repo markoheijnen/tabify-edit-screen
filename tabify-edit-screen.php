@@ -5,12 +5,12 @@ Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
 Description: Enables tabs in the edit screen and manage them from the back-end
 Author: Marko Heijnen
 Text Domain: tabify-edit-screen
-Version: 0.7.1
+Version: 0.8.0
 Author URI: http://markoheijnen.com
 */
 
 class Tabify_Edit_Screen {
-	public  $version = '0.7.1';
+	public  $version = '0.8.0';
 	public  $admin;
 	private $editscreen_tabs;
 	private $tab_location = 'default';
@@ -43,7 +43,7 @@ class Tabify_Edit_Screen {
 	 * @param int $post_id The post id
 	 * @return string $location The new location the user will be sent to
 	 *
-	 * @since 0.2
+	 * @since 0.2.0
 	 *
 	 */
 	function redirect_add_current_tab( $location, $post_id ) {
@@ -58,7 +58,7 @@ class Tabify_Edit_Screen {
 	 * This will load the tab class, tab options and actions
 	 * It will also will add the required classes to all the metaboxes
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 *
 	 */
 	function show_tabs() {
@@ -157,7 +157,7 @@ class Tabify_Edit_Screen {
 	/**
 	 * Check where tabs should be loaded and fire the right action and callback for it
 	 *
-	 * @since 0.5
+	 * @since 0.5.0
 	 *
 	 */
 	private function load_tabs() {
@@ -175,7 +175,7 @@ class Tabify_Edit_Screen {
 	/**
 	 * Outputs the tabs
 	 *
-	 * @since 0.5
+	 * @since 0.5.0
 	 *
 	 */
 	function output_tabs() {
@@ -186,7 +186,7 @@ class Tabify_Edit_Screen {
 	/**
 	 * Add submit button when the submitbox isn't showed on every tab
 	 *
-	 * @since 0.7
+	 * @since 0.7.0
 	 *
 	 */
 	function submit_button() {
@@ -225,7 +225,7 @@ class Tabify_Edit_Screen {
 	/**
 	 * Generate the javascript for the edit screen
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 *
 	 */
 	function generate_javascript() {
@@ -235,7 +235,7 @@ class Tabify_Edit_Screen {
 		echo '});';
 		echo '</script>';
 	}
-}
 
+}
 
 $tabify_edit_screen = new Tabify_Edit_Screen();

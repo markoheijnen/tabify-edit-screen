@@ -32,7 +32,7 @@ class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Echo all the items
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	public function get_section() {
 		$sections = $this->get_sections();
@@ -161,7 +161,7 @@ class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Show the items for the sortable list
 	 *
-	 * @since 0.4
+	 * @since 0.4.0
 	 */
 	protected function list_show_items( $item_id, $item_title, $tab_id, $type, $default_items ) {
 		$options = $this->get_options( $this->type );
@@ -195,4 +195,5 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo '</span>';
 		echo '</li>';
 	}
+
 }

@@ -10,7 +10,7 @@ class Tabify_Edit_Screen_Admin {
 	/**
 	 * Adds a option page to manage all the tabs
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	public function admin_menu() {
 		add_options_page( __( 'Tabify edit screen', 'tabify-edit-screen' ), __( 'Tabify edit screen', 'tabify-edit-screen' ), 'manage_options', 'tabify-edit-screen', array( $this, 'edit_screen' ) );
@@ -19,7 +19,7 @@ class Tabify_Edit_Screen_Admin {
 	/**
 	 * Option page that handles the form request
 	 *
-	 * @since 0.1
+	 * @since 0.1.0
 	 */
 	public function edit_screen() {
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -89,7 +89,7 @@ class Tabify_Edit_Screen_Admin {
 	/**
 	 * Updates settings
 	 *
-	 * @since 0.2
+	 * @since 0.2.0
 	 *
 	 */
 	private function update_settings() {
@@ -105,7 +105,7 @@ class Tabify_Edit_Screen_Admin {
 	/**
 	 * Load additional support for plugins that have unique code
 	 *
-	 * @since 0.4
+	 * @since 0.4.0
 	 */
 	private function load_plugin_support() {
 		if( apply_filters( 'tabify_plugin_support', false ) ) {
@@ -113,4 +113,5 @@ class Tabify_Edit_Screen_Admin {
 			new Tabify_Edit_Screen_Plugin_Support();
 		}
 	}
+
 }
