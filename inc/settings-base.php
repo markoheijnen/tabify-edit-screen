@@ -181,8 +181,11 @@ class Tabify_Edit_Screen_Settings_Base {
 			echo '<li class="tabifybox-hide">';
 		}
 		else {
-			echo '<li class="menu-item-handle"><span class="item-title">' . $item_title . '</span>';
+			echo '<li>';
 		}
+
+		echo '<dl class="menu-item-bar"><dt class="menu-item-handle">';
+		echo '<span class="item-title">' . $item_title . '</span>';
 
 		echo '<input type="hidden" name="tabify[' . $this->type . '][' . $type . '][tabs][' . $tab_id . '][items][]" value="' . $item_id . '" />';
 
@@ -208,7 +211,7 @@ class Tabify_Edit_Screen_Settings_Base {
 
 		echo '</select>';
 		echo '</span>';
-		echo '</li>';
+		echo '</dt></dl></li>';
 	}
 
 }
