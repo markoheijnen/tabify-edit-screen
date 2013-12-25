@@ -15,13 +15,13 @@ class Tabify_Edit_Screen {
 	private $editscreen_tabs;
 	private $tab_location = 'default';
 
-	function __construct() {
-		if( is_admin() ) {
+	public function __construct() {
+		if ( is_admin() ) {
 			add_action( 'plugins_loaded', array( $this, 'load_translation' ) );
 		}
 	}
 
-	function load_translation() {
+	public function load_translation() {
 		include 'inc/admin.php';
 		include 'inc/tabs.php';
 
@@ -46,9 +46,10 @@ class Tabify_Edit_Screen {
 	 * @since 0.2.0
 	 *
 	 */
-	function redirect_add_current_tab( $location, $post_id ) {
-		if( isset( $_REQUEST['tab'] ) )
+	public function redirect_add_current_tab( $location, $post_id ) {
+		if ( isset( $_REQUEST['tab'] ) ) {
 			$location = add_query_arg( 'tab', esc_attr( $_REQUEST['tab'] ), $location );
+		}
 
 		return $location;
 	}
@@ -61,22 +62,23 @@ class Tabify_Edit_Screen {
 	 * @since 0.1.0
 	 *
 	 */
-	function show_tabs() {
+	public function show_tabs() {
 		global $wp_meta_boxes;
 
 		$screen = get_current_screen();
 
-		if( 'post' == $screen->base ) {
+		if ( 'post' == $screen->base ) {
 			$this->tab_location = apply_filters( 'tabify_tab_location', $this->tab_location, 'posttype' );
 
 			$post_type = $screen->post_type;
 			$options   = get_option( 'tabify-edit-screen', array() );
 
-			if( isset( $options['posttypes'] ) )
+			if ( isset( $options['posttypes'] ) ) {
 				$options = $options['posttypes'];
+			}
 
 			// This posttype has tabs
-			if( isset( $options[ $post_type ], $options[ $post_type ]['show'] ) && $options[ $post_type ]['show'] == 1 ) {
+			if ( isset( $options[ $post_type ], $options[ $post_type ]['show'] ) && $options[ $post_type ]['show'] == 1 ) {
 				add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 				add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
@@ -84,32 +86,38 @@ class Tabify_Edit_Screen {
 				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post_type );
 				$all_metaboxes         = array();
 
-				foreach( $wp_meta_boxes[ $post_type ] as $priorities )
-					foreach( $priorities as $priority => $_metaboxes )
-						foreach( $_metaboxes as $metabox )
-							if( ! in_array( $metabox['id'], $default_metaboxes ) )
+				foreach ( $wp_meta_boxes[ $post_type ] as $priorities ) {
+					foreach ( $priorities as $priority => $_metaboxes ) {
+						foreach ( $_metaboxes as $metabox ) {
+							if ( ! in_array( $metabox['id'], $default_metaboxes ) ) {
 								$all_metaboxes[ $metabox['id'] ] = $metabox['title'];
+							}
+						}
+					}
+				}
 
 				$this->load_tabs();
 
-				foreach( $options[ $post_type ]['tabs'] as $tab_index => $tab ) {
+				foreach ( $options[ $post_type ]['tabs'] as $tab_index => $tab ) {
 					$class = 'tabifybox tabifybox-' . $tab_index;
 
-					if( $this->editscreen_tabs->get_current_tab() != $tab_index )
+					if ( $this->editscreen_tabs->get_current_tab() != $tab_index ) {
 						$class .= ' tabifybox-hide';
+					}
 
 					// Backwards compatibily from 0.5 to 0.6
-					if( ! isset( $tab['items'] ) && isset( $tab['metaboxes'] ) )
+					if ( ! isset( $tab['items'] ) && isset( $tab['metaboxes'] ) ) {
 						$tab['items'] = $tab['metaboxes'];
+					}
 
-
-					if( isset( $tab['items'] ) ) {
-						foreach( $tab['items'] as $metabox_id_fallback => $metabox_id ) {
-							if( intval( $metabox_id_fallback ) == 0 && $metabox_id_fallback !== 0 )
+					if ( isset( $tab['items'] ) ) {
+						foreach ( $tab['items'] as $metabox_id_fallback => $metabox_id ) {
+							if ( intval( $metabox_id_fallback ) == 0 && $metabox_id_fallback !== 0 ) {
 								$metabox_id = $metabox_id_fallback;
+							}
 
-							if( ! in_array( $metabox_id, $default_metaboxes ) ) {
-								if( $metabox_id == 'titlediv' || $metabox_id == 'postdivrich' ) {
+							if ( ! in_array( $metabox_id, $default_metaboxes ) ) {
+								if ( $metabox_id == 'titlediv' || $metabox_id == 'postdivrich' ) {
 									$func = create_function('', 'echo "jQuery(\"#' . $metabox_id . '\").addClass(\"' . $class . '\");";');
 									add_action( 'tabify_custom_javascript' , $func );
 								}
@@ -117,8 +125,9 @@ class Tabify_Edit_Screen {
 									$func = create_function( '$args', 'array_push( $args, "' . $class . '" ); return $args;' );
 									add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, $func );
 
-									if( isset( $all_metaboxes[ $metabox_id ] ) )
+									if ( isset( $all_metaboxes[ $metabox_id ] ) ) {
 										unset( $all_metaboxes[ $metabox_id ] );
+									}
 								}
 							}
 						}
@@ -126,18 +135,20 @@ class Tabify_Edit_Screen {
 				}
 
 				// Metaboxes that aren't attachted
-				if( apply_filters( 'tabify_unattached_metaboxes_show', true, $post_type ) ) {
-					foreach( $all_metaboxes as $metabox_id => $metabox_title ) {
+				if ( apply_filters( 'tabify_unattached_metaboxes_show', true, $post_type ) ) {
+					foreach ( $all_metaboxes as $metabox_id => $metabox_title ) {
 						$last_index                 = $tab_index;
 						$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', $last_index, $post_type );
 
-						if( $unattached_metaboxes_index < 0 || $unattached_metaboxes_index > $last_index )
+						if ( $unattached_metaboxes_index < 0 || $unattached_metaboxes_index > $last_index ) {
 							$unattached_metaboxes_index = $last_index;
+						}
 
 						$class = 'tabifybox tabifybox-' . $unattached_metaboxes_index;
 
-						if( $this->editscreen_tabs->get_current_tab() != $unattached_metaboxes_index )
+						if ( $this->editscreen_tabs->get_current_tab() != $unattached_metaboxes_index ) {
 							$class .= ' tabifybox-hide';
+						}
 
 						$func = create_function( '$args', 'array_push( $args, "' . $class . '" ); return $args;' );
 						add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, $func );
@@ -148,8 +159,9 @@ class Tabify_Edit_Screen {
 	}
 
 	function add_admin_body_class( $body ) {
-		if( $this->tab_location )
+		if ( $this->tab_location ) {
 			$body .= ' tabify_tab' . $this->tab_location;
+		}
 
 		return $body;
 	}
@@ -161,13 +173,14 @@ class Tabify_Edit_Screen {
 	 *
 	 */
 	private function load_tabs() {
-		if( 'after_title' == $this->tab_location )
+		if ( 'after_title' == $this->tab_location ) {
 			add_action( 'edit_form_after_title', array( $this, 'output_tabs' ), 9 );
+		}
 		else { //default
 			$tabs  = $this->submit_button();
 			$tabs .= $this->editscreen_tabs->get_tabs_with_container();
+			$func  = create_function('', 'echo "$(\'#post\').prepend(\'' . addslashes( $tabs ) . '\');";');
 
-			$func = create_function('', 'echo "$(\'#post\').prepend(\'' . addslashes( $tabs ) . '\');";');
 			add_action( 'tabify_custom_javascript' , $func );
 		}
 	}
@@ -194,8 +207,9 @@ class Tabify_Edit_Screen {
 
 		$default = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post->post_type );
 
-		if( in_array( 'submitdiv', $default ) )
+		if ( in_array( 'submitdiv', $default ) ) {
 			return;
+		}
 		
 		$text = '';
 		$post_type_object = get_post_type_object( $post->post_type );

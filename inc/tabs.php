@@ -17,8 +17,8 @@ class Tabify_Edit_Screen_Tabs {
 	 *
 	 * @since 0.1.0
 	 */
-	function __construct( $items, $type = 'horizontal', $get_arg = 'tab', $javascript_support = true ) {
-		if( is_array( $items ) ) {
+	public function __construct( $items, $type = 'horizontal', $get_arg = 'tab', $javascript_support = true ) {
+		if ( is_array( $items ) ) {
 			do_action( 'tabify_tabs', $this, $type );
 
 			$this->items              = apply_filters( 'tabify_tabs', $items, $this );
@@ -26,18 +26,19 @@ class Tabify_Edit_Screen_Tabs {
 			$this->get_arg            = $get_arg;
 			$this->javascript_support = $javascript_support;
 
-			if( isset( $_REQUEST[ $this->get_arg ] ) ) {
+			if ( isset( $_REQUEST[ $this->get_arg ] ) ) {
 				$this->active = esc_attr( $_REQUEST[ $this->get_arg ] );
 			}
 
 			$this->base_url = remove_query_arg( $this->get_arg, $_SERVER["REQUEST_URI"] );
 
-			if( empty( $this->active ) || ! isset( $items[ $this->active ] ) ) {
+			if ( empty( $this->active ) || ! isset( $items[ $this->active ] ) ) {
 				$this->active = key( $items );
 			}
 
 			return true;
 		}
+
 		return false;
 	}
 
@@ -62,16 +63,19 @@ class Tabify_Edit_Screen_Tabs {
 	public function get_tabs_with_container() {
 		$class = 'tabify-tabs tab-' .  $this->type;
 
-		if( ! $this->javascript_support )
+		if ( ! $this->javascript_support ) {
 			$class .= ' js-disabled';
+		}
 
 		$return  = '<div class="' . $class . '">';
 
 
-		if( 'horizontal' == $this->type )
+		if ( 'horizontal' == $this->type ) {
 			$return .= '<h2 class="nav-tab-wrapper">';
-		else
+		}
+		else {
 			$return .= '<h2>';
+		}
 
 		$return .= $this->get_tabs_current_tab_input();
 		$return .= $this->get_tabs();
@@ -85,13 +89,14 @@ class Tabify_Edit_Screen_Tabs {
 		//When tabs are requested also enqueue the javascript and css code
 		$required = array( 'jquery' );
 
-		if ( 'post' == get_current_screen()->base )
+		if ( 'post' == get_current_screen()->base ) {
 			$required[] = 'postbox';
+		}
 
 		wp_register_script( 'tabify-edit-screen', plugins_url( '/js/tabs.js', dirname( __FILE__ ) ), $required, '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen' );
 
-		wp_register_style( 'tabify-edit-screen', plugins_url( '/css/tabs.css', dirname( __FILE__ ) ), array( ), '1.0' );
+		wp_register_style( 'tabify-edit-screen', plugins_url( '/css/tabs.css', dirname( __FILE__ ) ), array(), '1.0' );
 		wp_enqueue_style( 'tabify-edit-screen' );
 
 		return $return;
@@ -105,7 +110,7 @@ class Tabify_Edit_Screen_Tabs {
 	 * @since 0.2.0
 	 */
 	public function get_tabs_current_tab_input() {
-		return '<input type="hidden" class="current_tab" name="' . $this->get_arg . '" value="' . $this->active. '" />';
+		return '<input type="hidden" class="current_tab" name="' . $this->get_arg . '" value="' . $this->active . '" />';
 	}
 
 	/**
@@ -118,12 +123,12 @@ class Tabify_Edit_Screen_Tabs {
 	private function get_tabs() {
 		$return = '';
 
-		foreach( $this->items as $key => $title ) {
-			if( is_array( $title ) ) {
+		foreach ( $this->items as $key => $title ) {
+			if ( is_array( $title ) ) {
 				$title = $title['title'];
 			}
 
-			if( $this->active == $key ) {
+			if ( $this->active == $key ) {
 				$return .= '<a id="tab-' . $key . '" href="' . $this->base_url . '&' . $this->get_arg . '=' . $key . '" class="tabify-tab nav-tab nav-tab-active">' . $title . '</a>';
 			}
 			else {

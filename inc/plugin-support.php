@@ -16,7 +16,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 * 
 	 * @since 0.4.0
 	 */
-	function types( $posttype ) {
+	public function types( $posttype ) {
 		if( function_exists( 'wpcf_admin_post_page_load_hook' ) ) {
 			$_GET['post_type'] = $posttype;
 			wpcf_admin_post_page_load_hook();
@@ -31,9 +31,10 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 * 
 	 * @since 0.4.0
 	 */
-	function wpseo( $posttype ) {
-		if ( defined( 'WPSEO_PATH' ) && is_file( WPSEO_PATH . 'admin/class-metabox.php' ) )
+	public function wpseo( $posttype ) {
+		if ( defined( 'WPSEO_PATH' ) && is_file( WPSEO_PATH . 'admin/class-metabox.php' ) ) {
 			include_once WPSEO_PATH . 'admin/class-metabox.php';
+		}
 	}
 	
 
@@ -44,9 +45,10 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 * 
 	 * @since 0.4.0
 	 */
-	function members( $posttype ) {
-		if ( function_exists( 'members_admin_setup' ) && ! did_action( 'load-post.php' ) )
+	public function members( $posttype ) {
+		if ( function_exists( 'members_admin_setup' ) && ! did_action( 'load-post.php' ) ) {
 			do_action( 'load-post.php' );
+		}
 	}
 	
 	/**
@@ -56,7 +58,7 @@ class Tabify_Edit_Screen_Plugin_Support {
 	 * 
 	 * @since 0.7.0
 	 */
-	function wpml( $posttype ) {
+	public function wpml( $posttype ) {
 		global $sitepress, $post;
 
 		if ( defined('ICL_SITEPRESS_VERSION') && $sitepress && ! $post ) {
