@@ -3,8 +3,8 @@ Contributors: CodeKitchen, markoheijnen, tara-van-der-wel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CQFB8UMDTEGGG
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
-Tested up to: 3.8
-Stable tag: 0.8
+Tested up to: 3.8.1
+Stable tag: 0.8.1
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -49,6 +49,10 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.8.1 ( 2014-03-26 ) =
+* Allow some HTML in the tab title.
+* Fix border issue on the pos type selection in the settings page
 
 = 0.8.0 ( 2013-12-25 ) =
 * Fix 3.8 styling
