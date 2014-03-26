@@ -3,8 +3,7 @@
 }
 .tab-vertical a {
 	background: #eee;
-	border-color: #DFDFDF;
-	border-width: 1px;
+	border: 1px solid #DFDFDF;
 	display: block;
 	margin: 0 0 10px 0;
 	font-size: 16px;
