@@ -98,8 +98,21 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @return array filtered options array
 	 */
 	private function escape( $posttypes ) {
-		$posttypes_keys   = array_keys( $posttypes );
-		$amount_posttypes = count( $posttypes );
+		$posttypes_keys    = array_keys( $posttypes );
+		$amount_posttypes  = count( $posttypes );
+
+		$kses_allowed_html = array(
+			'b' => array(),
+			'em'     => array(),
+			'i' => array(),
+			'span'   => array(
+				'style' => true
+			),
+			'strong' => array(
+				'style' => true
+			)
+		);
+		$kses_allowed_html = apply_filters( 'tabify_posttype_escape_kses', $kses_allowed_html );
 
 		for ( $i = 0; $i < $amount_posttypes; $i++ ) {
 			$key = $posttypes_keys[ $i ];
@@ -118,7 +131,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 				}
 
 				$posttypes[ $key ]['tabs'][ $j ]['title'] = stripslashes( $posttypes[ $key ]['tabs'][ $j ]['title'] );
-				$posttypes[ $key ]['tabs'][ $j ]['title'] = wp_strip_all_tags(  $posttypes[ $key ]['tabs'][ $j ]['title'] );
+				$posttypes[ $key ]['tabs'][ $j ]['title'] = wp_kses( $posttypes[ $key ]['tabs'][ $j ]['title'], $kses_allowed_html );
 
 				if ( ! isset( $posttypes[ $key ]['tabs'][ $j ]['items'] ) || count( $posttypes[ $key ]['tabs'][ $j ]['items'] ) == 0 ) {
 					if ( $posttypes[ $key ]['tabs'][ $j ]['title'] == '' ) {
@@ -154,6 +167,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 						$posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] = wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] );
 					}
 				}
+
 				$posttypes[ $key ]['tabs'][ $j ]['items'] = array_values( $posttypes[ $key ]['tabs'][ $j ]['items'] );
 			}
 		}
