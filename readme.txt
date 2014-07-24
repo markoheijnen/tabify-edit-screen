@@ -50,6 +50,9 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 == Changelog ==
 
+= 0.8.2 ( 2014-07- ) =
+* Additional plugin support for WordPress SEO
+
 = 0.8.1 ( 2014-03-26 ) =
 * Allow some HTML in the tab title.
 * Fix border issue on the pos type selection in the settings page

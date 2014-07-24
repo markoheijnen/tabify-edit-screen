@@ -4,9 +4,11 @@ class Tabify_Edit_Screen_Plugin_Support {
 
 	function __construct() {
 		add_action( 'tabify_add_meta_boxes', array( $this, 'types' ) );
-		add_action( 'tabify_add_meta_boxes', array( $this, 'wpseo' ) );
 		add_action( 'tabify_add_meta_boxes', array( $this, 'members' ) );
 		add_action( 'tabify_add_meta_boxes', array( $this, 'wpml' ) );
+
+		add_filter( 'wpseo_always_register_metaboxes_on_admin', '__return_true' );
+		add_action( 'tabify_add_meta_boxes', array( $this, 'wpseo' ) ); // The old way, will be removed in 1.0
 	}
 
 	/**
