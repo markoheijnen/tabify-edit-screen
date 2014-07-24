@@ -158,7 +158,7 @@ class Tabify_Edit_Screen {
 		}
 	}
 
-	function add_admin_body_class( $body ) {
+	public function add_admin_body_class( $body ) {
 		if ( $this->tab_location ) {
 			$body .= ' tabify_tab' . $this->tab_location;
 		}
@@ -191,7 +191,7 @@ class Tabify_Edit_Screen {
 	 * @since 0.5.0
 	 *
 	 */
-	function output_tabs() {
+	public function output_tabs() {
 		echo $this->submit_button();
 		echo $this->editscreen_tabs->get_tabs_with_container();
 	}
@@ -202,7 +202,7 @@ class Tabify_Edit_Screen {
 	 * @since 0.7.0
 	 *
 	 */
-	function submit_button() {
+	private function submit_button() {
 		$post = get_post();
 
 		$default = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post->post_type );
@@ -242,7 +242,7 @@ class Tabify_Edit_Screen {
 	 * @since 0.1.0
 	 *
 	 */
-	function generate_javascript() {
+	public function generate_javascript() {
 		echo '<script type="text/javascript">';
 		echo 'jQuery(function($) {';
 		do_action( 'tabify_custom_javascript' );

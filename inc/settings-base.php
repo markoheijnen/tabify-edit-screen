@@ -76,7 +76,7 @@ class Tabify_Edit_Screen_Settings_Base {
 				$remove = true;
 			}
 
-			foreach( $options[ $section ]['tabs'] as $tab ) {
+			foreach ( $options[ $section ]['tabs'] as $tab ) {
 				// Backwards compatibily from 0.5 to 0.6
 				if ( ! isset( $tab['items'] ) && isset( $tab['metaboxes'] ) ) {
 					$tab['items'] = $tab['metaboxes'];
@@ -130,8 +130,8 @@ class Tabify_Edit_Screen_Settings_Base {
 							continue;
 						}
 
-							$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
-							$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
+						$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
+						$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
 
 						$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
 					}
