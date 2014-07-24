@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 0.8.1
+Stable tag: 0.8.2
 
 Enable tabs in the edit screen and manage them from the back-end.
 
