@@ -252,4 +252,4 @@ class Tabify_Edit_Screen {
 
 }
 
-$tabify_edit_screen = new Tabify_Edit_Screen();
+$GLOBALS['tabify_edit_screen'] = new Tabify_Edit_Screen();
