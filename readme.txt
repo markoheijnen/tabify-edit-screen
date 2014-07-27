@@ -50,7 +50,8 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 == Changelog ==
 
-= 0.8.2 ( 2014-07- ) =
+= 0.8.2 ( 2014-07-27 ) =
+* Make the settings UI responsive and made some other little UI improvements. 
 * Additional plugin support for WordPress SEO
 
 = 0.8.1 ( 2014-03-26 ) =

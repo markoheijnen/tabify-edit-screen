@@ -48,8 +48,18 @@
 .tabify_tab h2 {
 	float: left;
 	font-size: 20px;
+	font-weight: 600;
 	line-height: 24px;
 	padding-bottom: 0px;
+}
+.tabify_tab h2 span {
+	display: inline-block;
+	margin-top: 5px;
+}
+.tabify_tab h2 input {
+	font-size: 20px;
+	margin: 0;
+	width: 100%;
 }
 
 #tabifyboxes #create_tab {
@@ -82,16 +92,6 @@
 	padding: 6px 0px 0px;
 }
 
-.tabify_control .item-order {
-	float: right;
-	margin-top: 0px;
-	margin-right: 10px;
-}
-
-.tabify_control .item-order a {
-	text-decoration: none;
-}
-
 #second-submit {
 	float: right;
 	margin-top: 14px;
@@ -112,4 +112,15 @@
 
 .admin-color-mp6 .tab-vertical .nav-tab-active {
 	background: #fff;
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media screen and ( max-width: 782px ) {
+	#tabify-settings, #tabify-submenu  {
+		margin-left: 0;
+		width: 100%;
+	}
 }

@@ -82,12 +82,12 @@ class Tabify_Edit_Screen_Admin {
 			$this->update_settings();
 
 			echo '<div id="tabify-settings">';
-				echo '<div id="tabifyboxes">';
-				echo $settings_screen->get_section();
-				echo '</div>';
-
 				echo '<div id="tabify-submenu">';
 				echo $settings_screen->get_sections_menu();
+				echo '</div>';
+
+				echo '<div id="tabifyboxes">';
+				echo $settings_screen->get_section();
 				echo '</div>';
 			echo '</div>';
 
