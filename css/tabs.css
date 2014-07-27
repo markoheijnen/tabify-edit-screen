@@ -29,7 +29,8 @@
 }
 
 #tabifyboxes {
-	float: right;
+	float: left;
+	max-width: 1000px;
 	width: 100%;
 }
 
