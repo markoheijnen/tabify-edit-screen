@@ -115,6 +115,26 @@
 }
 
 
+/* =Javascript enabled
+-------------------------------------------------------------- */
+
+.js .menu-item-handle .item-title {
+	margin-right: 0;
+}
+
+/* =Javascript disabled
+-------------------------------------------------------------- */
+
+.tabify_control .item-order {
+	float: right;
+	margin-top:-26px;
+	margin-right: 10px;
+}
+
+.tabify_control .item-order a {
+	text-decoration: none;
+}
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
