@@ -10,7 +10,7 @@ class Test_Plugin extends WP_UnitTestCase {
 		$cur = get_preferred_from_update_core();
 		list( $display_version ) = explode( '-', $cur->version );
 
-		$this->assertEquals( $readme_data['tested_up_to'], $display_version );
+		$this->assertTrue( version_compare( $readme_data['tested_up_to'], $display_version, '>=' ) );
 	}
 
 	public function test_stable_tag() {
