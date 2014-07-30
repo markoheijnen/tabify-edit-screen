@@ -26,4 +26,5 @@ class Tabify_Tests_Core extends WP_UnitTestCase {
 
 		$this->assertNull( $tabify_edit_screen->show_tabs() );
 	}
+
 }
