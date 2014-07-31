@@ -1,118 +1,53 @@
-# Translation of Tabify edit screen in Dutch
-# This file is distributed under the same license as the Tabify edit screen package.
+# Translation of Tabify Edit Screen in Dutch
+# This file is distributed under the same license as the Tabify Edit Screen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-02-24 18:57:42+0000\n"
+"PO-Revision-Date: 2013-09-26 17:12:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/0.1\n"
-"Project-Id-Version: Tabify edit screen\n"
+"Project-Id-Version: Tabify Edit Screen\n"
 
-#: inc/admin.php:16
+msgid "http://rocksta.rs/plugin/tabify-edit-screen"
+msgstr "http://rocksta.rs/plugin/tabify-edit-screen"
+
+#: inc/admin.php:25
 msgid "Tabify edit screen"
 msgstr "Tabify edit screen"
 
-#: inc/admin.php:26
-msgid "You do not have sufficient permissions to manage options for this site."
-msgstr "Je hebt onvoldoende rechten om instellingen van deze site te beheren."
-
-#: inc/admin.php:35 inc/settings-posttype.php:98
+#: inc/admin.php:42 inc/settings-base.php:97
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: inc/admin.php:36
+#: inc/admin.php:43
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: inc/admin.php:37 inc/settings-posttype.php:92
+#: inc/admin.php:44 inc/settings-base.php:88
 msgid "Choose title"
 msgstr "Kies titel"
 
-#: inc/admin.php:38
+#: inc/admin.php:45
 msgid "Move meta boxes to"
 msgstr "Verplaats meta boxes naar"
 
-#: inc/admin.php:58
+#: inc/admin.php:66
 msgid "Post types"
 msgstr "Post types"
 
-#: inc/settings-posttype.php:58
+#: inc/settings-base.php:48
 msgid "Others"
 msgstr "Overige"
 
-#: inc/settings-posttype.php:76
+#: inc/settings-base.php:66
 msgid "Show tabs in this post type."
 msgstr "Toon tabs bij deze post type."
 
-#: inc/settings-posttype.php:153
+#: inc/settings-base.php:153
 msgid "Create a new tab"
 msgstr "Creëer een nieuwe tab"
-
-#: inc/settings-posttype.php:173
-msgid "Title"
-msgstr "Titel"
-
-#: inc/settings-posttype.php:177
-msgid "Editor"
-msgstr "Editor"
-
-#: inc/settings-posttype.php:279
-msgid "Publish"
-msgstr "Publiceren"
-
-#: inc/settings-posttype.php:282
-msgctxt "post format"
-msgid "Format"
-msgstr "Notatie"
-
-#: inc/settings-posttype.php:299
-msgid "Page Attributes"
-msgstr "Pagina-attributen"
-
-#: inc/settings-posttype.php:299
-msgid "Attributes"
-msgstr "Attributen"
-
-#: inc/settings-posttype.php:302
-msgid "Featured Image"
-msgstr "Uitgelichte afbeelding"
-
-#: inc/settings-posttype.php:305
-msgid "Excerpt"
-msgstr "Samenvatting"
-
-#: inc/settings-posttype.php:308
-msgid "Send Trackbacks"
-msgstr "Trackbacks verzenden"
-
-#: inc/settings-posttype.php:311
-msgid "Custom Fields"
-msgstr "Extra velden"
-
-#: inc/settings-posttype.php:315
-msgid "Discussion"
-msgstr "Reacties"
-
-#: inc/settings-posttype.php:318
-msgid "Comments"
-msgstr "Reacties"
-
-#: inc/settings-posttype.php:320
-msgid "Slug"
-msgstr "Slug"
-
-#: inc/settings-posttype.php:323
-msgid "Author"
-msgstr "Auteur"
-
-#: inc/settings-posttype.php:326
-msgid "Revisions"
-msgstr "Revisies"
-
-msgid "http://wp-rockstars.com/plugin/tabify-edit-screen"
-msgstr "http://wp-rockstars.com/plugin/tabify-edit-screen"
 
 msgid "Enables tabs in the edit screen and manage them from the back-end"
 msgstr "Geeft tabs support voor de edit scherm en volledig te beheren vanuit de back-end"
