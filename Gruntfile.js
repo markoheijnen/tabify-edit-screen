@@ -50,10 +50,16 @@ module.exports = function(grunt) {
 		},
 	});
 
+
 	// Load plugins
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-glotpress');
+
+
+	// Pre-commit task.
+	grunt.registerTask('precommit', 'Runs front-end dev/test tasks in preparation for a commit.',
+		['glotpress_download:core']);
 
 	// Build task.
 	grunt.registerTask('build', ['clean:all', 'glotpress_download:core', 'copy:files']);
