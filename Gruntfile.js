@@ -1,6 +1,7 @@
 /* jshint node:true */
 module.exports = function(grunt) {
 	var path = require('path'),
+		SOURCE_DIR = './',
 		BUILD_DIR = 'build/';
 
 	grunt.initConfig({
@@ -11,6 +12,30 @@ module.exports = function(grunt) {
 				expand: true,
 				cwd: BUILD_DIR,
 				src: []
+			}
+		},
+		copy: {
+			files: {
+				files: [
+					{
+						//dot: true,
+						expand: true,
+						cwd: SOURCE_DIR,
+						src: [
+							'**',
+							'!**/.{svn,git}/**', // Ignore version control directories.
+							'!**/output/**',
+
+							'!**/bin/**',
+							'!**/Gruntfile.js',
+							'!**/node_modules/**',
+							'!**/package.json',
+							'!**/phpunit.xml',
+							'!**/tests/**'
+						],
+						dest: BUILD_DIR
+					}
+				]
 			}
 		},
 		glotpress_download: {
@@ -27,10 +52,11 @@ module.exports = function(grunt) {
 
 	// Load plugins
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-glotpress');
 
 	// Build task.
-	grunt.registerTask('build', ['clean:all', 'glotpress_download:core']);
+	grunt.registerTask('build', ['clean:all', 'glotpress_download:core', 'copy:files']);
 
 	// Default task.
 	grunt.registerTask('default', ['build']);
