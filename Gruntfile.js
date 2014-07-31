@@ -45,6 +45,9 @@ module.exports = function(grunt) {
 					url: 'http://wp-translate.org',
 					slug: 'tabify-edit-screen',
 					textdomain: 'tabify-edit-screen',
+					filter: {
+						minimum_percentage: 70
+					}
 				}
 			}
 		},
