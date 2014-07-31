@@ -29,6 +29,18 @@ class Test_Plugin extends WP_UnitTestCase {
 		$this->assertEquals( $readme_data['stable_tag'], $plugin_data['Version'] );
 	}
 
+	public function test_package_json() {
+		$readme_data = $this->get_readme();
+		$file = dirname( dirname( __FILE__ ) ) . '/package.json';
+
+		if ( ! file_exists( $file ) ) {
+			$this->markTestSkipped( "This plugin doesn't have a package.json file" );
+		}
+
+		$data = json_decode( file_get_contents( $file ) );
+		$this->assertEquals( $readme_data['stable_tag'], $data->version );
+	}
+
 
 	private function get_readme() {
 		if( ! isset( $this->readme_data ) ) {
