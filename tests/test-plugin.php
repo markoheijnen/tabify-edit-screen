@@ -6,11 +6,20 @@ class Test_Plugin extends WP_UnitTestCase {
 	public function test_tested_up_to() {
 		$readme_data = $this->get_readme();
 
-		wp_version_check();
-		$cur = get_preferred_from_update_core();
-		list( $display_version ) = explode( '-', $cur->current );
+		try {
+			wp_version_check();
+		}
+		catch (Exception $e) {
+			$this->markTestSkipped( "There is not internet connection" );
+		}
 
-		$this->assertTrue( version_compare( $readme_data['tested_up_to'], $display_version, '>=' ) );
+		$cur = get_preferred_from_update_core();
+
+		if ( isset( $cur->current ) ) {
+			list( $display_version ) = explode( '-', $cur->current );
+
+			$this->assertTrue( version_compare( $readme_data['tested_up_to'], $display_version, '>=' ) );
+		}
 	}
 
 	public function test_stable_tag() {
