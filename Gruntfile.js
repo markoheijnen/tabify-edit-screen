@@ -24,14 +24,14 @@ module.exports = function(grunt) {
 						src: [
 							'**',
 							'!**/.{svn,git}/**', // Ignore version control directories.
-							'!**/output/**',
+							'!output/**',
 
-							'!**/bin/**',
-							'!**/Gruntfile.js',
-							'!**/node_modules/**',
-							'!**/package.json',
-							'!**/phpunit.xml',
-							'!**/tests/**'
+							'!bin/**',
+							'!Gruntfile.js',
+							'!node_modules/**',
+							'!package.json',
+							'!phpunit.xml',
+							'!tests/**'
 						],
 						dest: BUILD_DIR
 					}
