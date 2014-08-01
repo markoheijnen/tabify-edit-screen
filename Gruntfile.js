@@ -38,6 +38,18 @@ module.exports = function(grunt) {
 				]
 			}
 		},
+		cssmin: {
+			core: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: SOURCE_DIR,
+				ext: '.min.css',
+				src: [
+					'css/*.css',
+					'!css/*.min.css',
+				]
+			},
+		},
 		glotpress_download: {
 			core: {
 				options: {
@@ -57,12 +69,13 @@ module.exports = function(grunt) {
 	// Load plugins
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-glotpress');
 
 
 	// Pre-commit task.
 	grunt.registerTask('precommit', 'Runs front-end dev/test tasks in preparation for a commit.',
-		['glotpress_download:core']);
+		['glotpress_download:core', 'cssmin:core']);
 
 	// Build task.
 	grunt.registerTask('build', ['clean:all', 'glotpress_download:core', 'copy:files']);
