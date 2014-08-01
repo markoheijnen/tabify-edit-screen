@@ -63,6 +63,18 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		uglify: {
+			core: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: SOURCE_DIR,
+				ext: '.min.js',
+				src: [
+					'js/*.js',
+					'!js/*.min.js',
+				]
+			}
+		},
 	});
 
 
@@ -70,15 +82,16 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-glotpress');
 
 
 	// Pre-commit task.
 	grunt.registerTask('precommit', 'Runs front-end dev/test tasks in preparation for a commit.',
-		['glotpress_download:core', 'cssmin:core']);
+		['glotpress_download:core', 'cssmin:core', 'uglify:core']);
 
 	// Build task.
-	grunt.registerTask('build', ['clean:all', 'glotpress_download:core', 'copy:files']);
+	grunt.registerTask('build', ['clean:all', 'glotpress_download:core', 'uglify:core', 'copy:files']);
 
 	// Default task.
 	grunt.registerTask('default', ['build']);
