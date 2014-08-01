@@ -35,7 +35,7 @@ class Tabify_Edit_Screen_Admin {
 			wp_die( __( 'You do not have sufficient permissions to manage options for this site.' ) );
 		}
 
-		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable' ), '1.0' );
+		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable', 'jquery-touch-punch' ), '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen-admin' );
 
 		$data = array(
@@ -45,11 +45,6 @@ class Tabify_Edit_Screen_Admin {
 			'move_meta_boxes' => __( 'Move meta boxes to', 'tabify-edit-screen' )
 		);
 		wp_localize_script( 'tabify-edit-screen-admin', 'tabify_l10', $data );
-
-		if ( ! wp_script_is( 'jquery-touch-punch', 'registered' ) ) {
-			wp_register_script( 'jquery-touch-punch', plugins_url( '/js/jquery.ui.touch-punch.js', dirname( __FILE__ ) ), array( 'jquery-ui-widget', 'jquery-ui-mouse' ), '0.2.2', 1 ); 
-		}
-		wp_enqueue_script( 'jquery-touch-punch' );
 		
 		echo '<div class="wrap">';
 
