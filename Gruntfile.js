@@ -63,6 +63,14 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		makepot: {
+			core: {
+				options: {
+					domainPath: '/languages',
+					type: 'wp-plugin',
+				}
+			}
+		},
 		uglify: {
 			core: {
 				expand: true,
@@ -84,14 +92,15 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-glotpress');
+	grunt.loadNpmTasks('grunt-wp-i18n');
 
 
 	// Pre-commit task.
 	grunt.registerTask('precommit', 'Runs front-end dev/test tasks in preparation for a commit.',
-		['glotpress_download:core', 'cssmin:core', 'uglify:core']);
+		['glotpress_download:core', 'makepot:core', 'cssmin:core', 'uglify:core']);
 
 	// Build task.
-	grunt.registerTask('build', ['clean:all', 'glotpress_download:core', 'uglify:core', 'copy:files']);
+	grunt.registerTask('build', ['clean:all', 'precommit', 'copy:files']);
 
 	// Default task.
 	grunt.registerTask('default', ['build']);
