@@ -3,7 +3,7 @@ Contributors: CodeKitchen, markoheijnen, tara-van-der-wel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CQFB8UMDTEGGG
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.4
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 0.8.2
 
 Enable tabs in the edit screen and manage them from the back-end.
