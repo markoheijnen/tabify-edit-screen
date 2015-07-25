@@ -6,7 +6,6 @@ jQuery(function($) {
 
 (function($){
 	$.fn.extend({ 
-		//This is where you write your plugin's name
 		tabify_tabs: function() {
 			//Iterate over the current set of matched elements
 			return this.each(function() {
@@ -30,10 +29,30 @@ jQuery(function($) {
 						$( ".tabifybox-" + id ).each( function( index ) {
 							var checkbox = $( '#' + $(this).attr('id') + '-hide' );
 
-							if( checkbox.attr('type') != 'checkbox' || checkbox.is(':checked') )
+							if( checkbox.attr('type') != 'checkbox' || checkbox.is(':checked') ) {
 								$(this).show();
+							}
 						});
+
+						tabify_fix_editors();
 					}
+				}
+
+				function tabify_fix_editors() {
+					var editors = $('.wp-editor-tools');
+					editors.each(function( index ) {
+						editor = $( this );
+
+						if ( editor.closest('.tabifybox').is(':visible') ) {
+							if( ! editor.width() ) {
+								setTimeout(function() {
+									$(document).trigger('postbox-toggled');
+								}, 10);
+
+								return false;
+							}
+						}
+					});
 				}
 			});
 		}
