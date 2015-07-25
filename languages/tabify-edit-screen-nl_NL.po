@@ -7,12 +7,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/0.1\n"
+"X-Generator: GlotPress/1.0-alpha-1000\n"
 "Project-Id-Version: Tabify Edit Screen\n"
 
+#. Plugin URI of the plugin/theme
 msgid "http://rocksta.rs/plugin/tabify-edit-screen"
 msgstr "http://rocksta.rs/plugin/tabify-edit-screen"
 
+#. Plugin Name of the plugin/theme
 #: inc/admin.php:25
 msgid "Tabify edit screen"
 msgstr "Tabify edit screen"
@@ -33,7 +35,7 @@ msgstr "Kies titel"
 msgid "Move meta boxes to"
 msgstr "Verplaats meta boxes naar"
 
-#: inc/admin.php:66
+#: inc/admin.php:61
 msgid "Post types"
 msgstr "Post types"
 
@@ -49,11 +51,14 @@ msgstr "Toon tabs bij deze post type."
 msgid "Create a new tab"
 msgstr "Creëer een nieuwe tab"
 
+#. Description of the plugin/theme
 msgid "Enables tabs in the edit screen and manage them from the back-end"
 msgstr "Geeft tabs support voor de edit scherm en volledig te beheren vanuit de back-end"
 
+#. Author of the plugin/theme
 msgid "Marko Heijnen"
 msgstr "Marko Heijnen"
 
+#. Author URI of the plugin/theme
 msgid "http://markoheijnen.com"
 msgstr "http://markoheijnen.com"
