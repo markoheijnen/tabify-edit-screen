@@ -35,7 +35,9 @@ class Tabify_Edit_Screen_Admin {
 			wp_die( __( 'You do not have sufficient permissions to manage options for this site.' ) );
 		}
 
-		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable', 'jquery-touch-punch' ), '1.0' );
+		$suffix = SCRIPT_DEBUG ? '' : '.min';
+
+		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin' . $suffix . '.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable', 'jquery-touch-punch' ), '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen-admin' );
 
 		$data = array(
