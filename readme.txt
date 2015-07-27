@@ -50,8 +50,9 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 == Changelog ==
 
-= 0.8.3 ( 2015-07-25 ) =
-* Fix editor after switching tabs 
+= 0.8.3 ( 2015-07-27 ) =
+* Fix editor after switching tabs
+* Loading minified files
 
 = 0.8.2 ( 2014-07-27 ) =
 * Make the settings UI responsive and made some other little UI improvements. 

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Tabify edit screen 0.8.3-dev\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/tabify-edit-screen\n"
-"POT-Creation-Date: 2015-07-25 20:54:20+00:00\n"
+"POT-Creation-Date: 2015-07-26 22:35:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,23 +22,23 @@ msgstr ""
 msgid "You do not have sufficient permissions to manage options for this site."
 msgstr ""
 
-#: inc/admin.php:42 inc/settings-base.php:97
+#: inc/admin.php:44 inc/settings-base.php:97
 msgid "Remove"
 msgstr ""
 
-#: inc/admin.php:43
+#: inc/admin.php:45
 msgid "Cancel"
 msgstr ""
 
-#: inc/admin.php:44 inc/settings-base.php:88
+#: inc/admin.php:46 inc/settings-base.php:88
 msgid "Choose title"
 msgstr ""
 
-#: inc/admin.php:45
+#: inc/admin.php:47
 msgid "Move meta boxes to"
 msgstr ""
 
-#: inc/admin.php:61
+#: inc/admin.php:63
 msgid "Post types"
 msgstr ""
 
