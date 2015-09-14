@@ -3,10 +3,13 @@
 Plugin Name: Tabify edit screen
 Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
 Description: Enables tabs in the edit screen and manage them from the back-end
+
 Author: Marko Heijnen
+Author URI: https://markoheijnen.com
+Donate link: https://markoheijnen.com/donate
+
 Text Domain: tabify-edit-screen
 Version: 0.8.3
-Author URI: http://markoheijnen.com
 */
 
 class Tabify_Edit_Screen {
