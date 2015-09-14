@@ -1,17 +1,17 @@
 <?php
 /*
-Plugin Name: Tabify edit screen
-Description: Enables tabs in the edit screen and manage them from the back-end
-Version: 0.8.3
+	Plugin Name: Tabify edit screen
+	Description: Enables tabs in the edit screen and manage them from the back-end
+	Version: 0.8.3
 
-Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
+	Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
 
-Author: Marko Heijnen
-Author URI: https://markoheijnen.com
-Donate link: https://markoheijnen.com/donate
+	Author: Marko Heijnen
+	Author URI: https://markoheijnen.com
+	Donate link: https://markoheijnen.com/donate
 
-Text Domain: tabify-edit-screen
-Domain Path: /languages
+	Text Domain: tabify-edit-screen
+	Domain Path: /languages
 */
 
 /*  Copyright 2013-2014 Tabify Edit Screen  (email : info@markoheijnen.com)
