@@ -132,14 +132,15 @@ class Tabify_Edit_Screen_Tabs {
 				);
 			}
 
-			$title = apply_filters( 'tabify_tabs_tab_title', $args['title'], $args, $this );
+			$title   = apply_filters( 'tabify_tabs_tab_title', $args['title'], $args, $this );
+			$url     = $this->base_url . '&' . $this->get_arg . '=' . $key;
+			$classes = 'tabify-tab nav-tab';
 
 			if ( $this->active == $key ) {
-				$return .= '<a id="tab-' . $key . '" href="' . $this->base_url . '&' . $this->get_arg . '=' . $key . '" class="tabify-tab nav-tab nav-tab-active">' . $title . '</a>';
+				$classes .= ' nav-tab-active';
 			}
-			else {
-				$return .= '<a id="tab-' . $key . '" href="' . $this->base_url . '&' . $this->get_arg . '=' . $key . '" class="tabify-tab nav-tab">' . $title . '</a>';
-			}
+
+			$return .= '<a id="tab-' . $key . '" href="' . $url . '" class="' . $classes . '">' . $title . '</a>';
 		}
 
 		return $return;
