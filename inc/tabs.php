@@ -125,10 +125,14 @@ class Tabify_Edit_Screen_Tabs {
 	private function get_tabs() {
 		$return = '';
 
-		foreach ( $this->items as $key => $title ) {
-			if ( is_array( $title ) ) {
-				$title = $title['title'];
+		foreach ( $this->items as $key => $args ) {
+			if ( ! is_array( $args ) ) {
+				$args = array(
+					'title' => $args
+				);
 			}
+
+			$title = apply_filters( 'tabify_tabs_tab_title', $args['title'], $args, $this );
 
 			if ( $this->active == $key ) {
 				$return .= '<a id="tab-' . $key . '" href="' . $this->base_url . '&' . $this->get_arg . '=' . $key . '" class="tabify-tab nav-tab nav-tab-active">' . $title . '</a>';
