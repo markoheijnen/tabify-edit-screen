@@ -150,7 +150,7 @@ class Tabify_Edit_Screen_Settings_Base {
 		}
 
 		echo '<p class="submit">';
-		echo '<input type="button" id="create_tab" class="button-secondary" value="' . __( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
+		echo '<input type="button" id="create_tab" class="button button-secondary" value="' . __( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
 		submit_button( '', 'primary', 'submit', false );
 		echo '</p>';
 	}
