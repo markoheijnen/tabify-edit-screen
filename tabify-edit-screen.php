@@ -62,6 +62,11 @@ class Tabify_Edit_Screen {
 		load_plugin_textdomain( 'tabify-edit-screen', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
+	private function load_features() {
+		include 'features/permissions/permissions.php';
+		new Tabify_Edit_Screen_Tab_Permissions();
+	}
+
 	/**
 	 * When a post is saved let it return to the current selected tab.
 	 *

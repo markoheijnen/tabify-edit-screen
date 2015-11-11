@@ -122,6 +122,25 @@
 }
 
 
+/* = Permissions
+-------------------------------------------------------------- */
+
+.button.tabify-tab-permissions {
+	margin: -4px 10px 0 0;
+}
+
+.tabify-tab-permission-box {
+	display: none;
+	margin: 15px 0 0;
+}
+
+.tabify-tab-permission-box span {
+	display: inline-block;
+	margin: 0 15px 5px 0;
+	min-width: 115px;
+	white-space: pre;
+}
+
 /* =Javascript enabled
 -------------------------------------------------------------- */
 

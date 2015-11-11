@@ -21,7 +21,7 @@ There are still lots of things changing in the code base. There are some hooks y
 1. Upload the folder `tabify-edit-screen` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Settings -> Tabify edit screen to enable tabs for a specific post type
-
+ 
 == Frequently Asked Questions ==
 
 = Can you define metaboxes that will always be visible? =
