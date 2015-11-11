@@ -8,7 +8,8 @@ class Tabify_Edit_Screen_Tab_Permissions {
 		add_action( 'tabify_settings_tab_title_box', array( $this, 'settings_tab_title_box' ) );
 		add_action( 'tabify_settings_tab_title_after', array( $this, 'settings_tab_title_after' ), 10, 3 );
 
-		add_filter( 'tabify_tab_posttype_tabs', array( $this, 'posttype_tabs' ) );
+		// Remove meta boxes when no permissions
+		add_filter( 'tabify_tab_posttype_tabs', array( $this, 'posttype_tabs' ), 10, 2 );
 	}
 
 
@@ -51,7 +52,7 @@ class Tabify_Edit_Screen_Tab_Permissions {
 	}
 
 
-	public function posttype_tabs( $tabs ) {
+	public function posttype_tabs( $tabs, $post_type ) {
 		foreach( $tabs as $index => $tab ) {
 			if ( ! isset( $tab['permissions'] ) ) {
 				continue;
@@ -61,6 +62,21 @@ class Tabify_Edit_Screen_Tab_Permissions {
 			foreach ( $current_user->roles as $role ) {
 				if ( in_array( $role, $tab['permissions'] ) ) {
 					continue;
+				}
+			}
+
+			foreach ( $tab['items'] as $item ) {
+				if ( 'titlediv' == $item ) {
+					remove_post_type_support( $post_type, 'title' );
+				}
+				elseif ( 'postdivrich' == $item ) {
+					remove_post_type_support( $post_type, 'editor' );
+				}
+				else {
+					// Just guess the context of the meta box
+					remove_meta_box( $item, $post_type, 'normal' );
+					remove_meta_box( $item, $post_type, 'advanced' );
+					remove_meta_box( $item, $post_type, 'side' );
 				}
 			}
 
