@@ -4,7 +4,7 @@ jQuery(function($) {
 	$( document ).on( 'click', '.tabify-tab-permissions', function( evt ) {
 		var parent = $( this ).closest('.tabify_tab');
 
-		parent.find('.tabify-tab-permission-box').slideToggle(400);
+		parent.find('.tabify-tab-permission-box').stop().slideToggle(400);
 	});
 
 	// Delete a tab when it is empty
