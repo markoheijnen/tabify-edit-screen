@@ -135,7 +135,7 @@
 	margin: 15px 0 0;
 }
 
-.tabify-tab-permission-box span {
+.tabify-tab-permission-box label {
 	display: inline-block;
 	margin: 0 15px 5px 0;
 	min-width: 115px;

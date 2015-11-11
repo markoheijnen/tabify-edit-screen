@@ -45,7 +45,10 @@ class Tabify_Edit_Screen_Tab_Permissions {
 			$name    = 'tabify[' . $type . '][' . $section . '][tabs][' . $tab['id'] . '][permissions][]';
 			$checked = in_array( $key, $tab['permissions'] ) ? ' checked="checked"' : '';
 
-			echo '<span><input name="' . $name . '" type="checkbox" value="' . $key . '"' . $checked . '/> ' . $role['name'] . '</span>';
+			echo '<label>';
+			echo '<input  name="' . $name . '" type="checkbox" value="' . $key . '"' . $checked . '/>';
+			echo $role['name'];
+			echo '</label>';
 		}
 
 		echo '</div>';
