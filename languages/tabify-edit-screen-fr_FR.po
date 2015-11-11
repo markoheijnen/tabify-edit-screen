@@ -19,23 +19,23 @@ msgstr "http://rocksta.rs/plugin/tabify-edit-screen"
 msgid "Tabify edit screen"
 msgstr "Tabify Edit Screen"
 
-#: inc/admin.php:42 inc/settings-base.php:97
+#: inc/admin.php:44 inc/settings-base.php:97
 msgid "Remove"
 msgstr "Supprimer"
 
-#: inc/admin.php:43
+#: inc/admin.php:45
 msgid "Cancel"
 msgstr "Annuler"
 
-#: inc/admin.php:44 inc/settings-base.php:88
+#: inc/admin.php:46 inc/settings-base.php:88
 msgid "Choose title"
 msgstr "Choisir un titre"
 
-#: inc/admin.php:45
+#: inc/admin.php:47
 msgid "Move meta boxes to"
 msgstr "Déplacer les metaboxes vers"
 
-#: inc/admin.php:61
+#: inc/admin.php:63
 msgid "Post types"
 msgstr "Types de contenu"
 
@@ -60,5 +60,5 @@ msgid "Marko Heijnen"
 msgstr "Marko Heijnen"
 
 #. Author URI of the plugin/theme
-msgid "http://markoheijnen.com"
-msgstr "http://markoheijnen.com"
+msgid "https://markoheijnen.com"
+msgstr ""

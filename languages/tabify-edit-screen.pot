@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Tabify edit screen package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tabify edit screen 0.8.3-dev\n"
+"Project-Id-Version: Tabify edit screen 0.9.0-beta\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/tabify-edit-screen\n"
-"POT-Creation-Date: 2015-07-26 22:35:31+00:00\n"
+"POT-Creation-Date: 2015-11-11 22:38:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,108 +18,121 @@ msgstr ""
 msgid "Tabify edit screen"
 msgstr ""
 
-#: inc/admin.php:35
+#: build/inc/admin.php:35 inc/admin.php:35
 msgid "You do not have sufficient permissions to manage options for this site."
 msgstr ""
 
-#: inc/admin.php:44 inc/settings-base.php:97
+#: build/inc/admin.php:44 build/inc/settings-base.php:97 inc/admin.php:44
+#: inc/settings-base.php:107
 msgid "Remove"
 msgstr ""
 
-#: inc/admin.php:45
+#: build/inc/admin.php:45 inc/admin.php:45
 msgid "Cancel"
 msgstr ""
 
-#: inc/admin.php:46 inc/settings-base.php:88
+#: build/inc/admin.php:46 build/inc/settings-base.php:88 inc/admin.php:46
+#: inc/settings-base.php:92
 msgid "Choose title"
 msgstr ""
 
-#: inc/admin.php:47
+#: build/inc/admin.php:47 inc/admin.php:47
 msgid "Move meta boxes to"
 msgstr ""
 
-#: inc/admin.php:63
+#: build/inc/admin.php:63 inc/admin.php:63
 msgid "Post types"
 msgstr ""
 
-#: inc/settings-base.php:48
+#: build/inc/settings-base.php:48 inc/settings-base.php:48
 msgid "Others"
 msgstr ""
 
-#: inc/settings-base.php:66
+#: build/inc/settings-base.php:66 inc/settings-base.php:66
 msgid "Show tabs in this post type."
 msgstr ""
 
-#: inc/settings-base.php:153
+#: build/inc/settings-base.php:153 inc/settings-base.php:165
 msgid "Create a new tab"
 msgstr ""
 
-#: inc/settings-posttype.php:58
+#: build/inc/settings-posttype.php:58 inc/settings-posttype.php:58
 msgid "Title"
 msgstr ""
 
-#: inc/settings-posttype.php:62
+#: build/inc/settings-posttype.php:62 inc/settings-posttype.php:62
 msgid "Editor"
 msgstr ""
 
-#: inc/settings-posttype.php:185 tabify-edit-screen.php:225
+#: build/inc/settings-posttype.php:185 build/tabify-edit-screen.php:225
+#: inc/settings-posttype.php:185 tabify-edit-screen.php:259
 msgid "Publish"
 msgstr ""
 
-#: inc/settings-posttype.php:210
+#: build/inc/settings-posttype.php:210 inc/settings-posttype.php:210
 msgid "Page Attributes"
 msgstr ""
 
-#: inc/settings-posttype.php:210
+#: build/inc/settings-posttype.php:210 inc/settings-posttype.php:210
 msgid "Attributes"
 msgstr ""
 
-#: inc/settings-posttype.php:214
+#: build/inc/settings-posttype.php:214 inc/settings-posttype.php:214
 msgid "Featured Image"
 msgstr ""
 
-#: inc/settings-posttype.php:218
+#: build/inc/settings-posttype.php:218 inc/settings-posttype.php:218
 msgid "Excerpt"
 msgstr ""
 
-#: inc/settings-posttype.php:222
+#: build/inc/settings-posttype.php:222 inc/settings-posttype.php:222
 msgid "Send Trackbacks"
 msgstr ""
 
-#: inc/settings-posttype.php:226
+#: build/inc/settings-posttype.php:226 inc/settings-posttype.php:226
 msgid "Custom Fields"
 msgstr ""
 
-#: inc/settings-posttype.php:232
+#: build/inc/settings-posttype.php:232 inc/settings-posttype.php:232
 msgid "Discussion"
 msgstr ""
 
-#: inc/settings-posttype.php:236
+#: build/inc/settings-posttype.php:236 inc/settings-posttype.php:236
 msgid "Comments"
 msgstr ""
 
-#: inc/settings-posttype.php:239
+#: build/inc/settings-posttype.php:239 inc/settings-posttype.php:239
 msgid "Slug"
 msgstr ""
 
-#: inc/settings-posttype.php:242
+#: build/inc/settings-posttype.php:242 inc/settings-posttype.php:242
 msgid "Author"
 msgstr ""
 
-#: inc/settings-posttype.php:246
+#: build/inc/settings-posttype.php:246 inc/settings-posttype.php:246
 msgid "Revisions"
 msgstr ""
 
-#: tabify-edit-screen.php:222
+#: build/tabify-edit-screen.php:222 tabify-edit-screen.php:256
 msgid "Schedule"
 msgstr ""
 
-#: tabify-edit-screen.php:229
+#: build/tabify-edit-screen.php:229 tabify-edit-screen.php:263
 msgid "Submit for Review"
 msgstr ""
 
-#: tabify-edit-screen.php:233
+#: build/tabify-edit-screen.php:233 tabify-edit-screen.php:267
 msgid "Update"
+msgstr ""
+
+#: features/permissions/permissions.php:31
+msgid "%s role"
+msgid_plural "%s roles"
+msgstr[0] ""
+msgstr[1] ""
+
+#: features/permissions/permissions.php:34
+msgid "Everyone"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -135,10 +148,10 @@ msgid "Marko Heijnen"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://markoheijnen.com"
+msgid "https://markoheijnen.com"
 msgstr ""
 
-#: inc/settings-posttype.php:188
+#: build/inc/settings-posttype.php:188 inc/settings-posttype.php:188
 msgctxt "post format"
 msgid "Format"
 msgstr ""
