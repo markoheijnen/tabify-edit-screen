@@ -64,8 +64,9 @@ jQuery(function($) {
 	$( document ).on( "click", ".tabify-remove-tab", function( evt ) {
 		evt.preventDefault();
 
-		if( $(this).css('opacity') != 1 )
+		if( $(this).css('opacity') != 1 ) {
 			return;
+		}
 
 		var parent = $( this ).closest('.tabify_tab');
 		var sender_children = parent.find('.ui-sortable').children().length;
@@ -77,7 +78,7 @@ jQuery(function($) {
 			});
 		}
 		else {
-			$(this).fadeOut();
+			$(this).hide();
 
 			var html = '<div class="tabify-remove-accept">' + tabify_l10.move_meta_boxes + ' <select>';
 
@@ -117,8 +118,12 @@ jQuery(function($) {
 
 		var parent = $(this).closest('.tabify_tab');
 
-		parent.find('.tabify-remove-tab').fadeIn();
-		parent.find('.tabify-remove-accept').hide('blind');
+		parent.find('.tabify-remove-accept').hide('blind', function() {
+			$(this).remove();
+			parent.find('.tabify-remove-tab').fadeIn();
+
+			$( parent ).trigger( 'tabify-declined-remove-tab' );
+		});
 	});
 
 	function tabify_admin_fix_sortable() {

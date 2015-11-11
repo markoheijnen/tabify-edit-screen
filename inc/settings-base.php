@@ -82,21 +82,27 @@ class Tabify_Edit_Screen_Settings_Base {
 					$tab['items'] = $tab['metaboxes'];
 				}
 
-				echo '<div class="menu-item-handle tabify_tab">';
-
 				if ( $tab['title'] == '' ) {
 					$tab['title'] = __( 'Choose title', 'tabify-edit-screen' );
 				}
 
+				echo '<div class="menu-item-handle tabify_tab">';
+
 				echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][title]" value="' . esc_html( $tab['title'] ) . '" class="hide-if-js" /></h2>';
 
-				echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
-				if ( ! $remove ) {
-					echo ' style="display: none;"';
-				}
-				echo '>' . __( 'Remove', 'tabify-edit-screen' ) . '</a>';
+				echo '<div class="tabify-title-box">';
+					
+					do_action( 'tabify_settings_tab_title_box', $tab, $section );
+
+					echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
+					if ( ! $remove ) {
+						echo ' style="display: none;"';
+					}
+					echo '>' . __( 'Remove', 'tabify-edit-screen' ) . '</a>';
+				echo '</div>';
 
 				echo '<div class="clear"></div>';
+				do_action( 'tabify_settings_tab_title_after', $tab, $section );
 
 				echo '<ul>';
 				if ( isset( $tab['items'] ) ) {
