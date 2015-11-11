@@ -104,6 +104,7 @@ class Tabify_Edit_Screen {
 			$post_type = $screen->post_type;
 			$options   = get_option( 'tabify-edit-screen', array() );
 
+			// Backwards compatibily
 			if ( isset( $options['posttypes'] ) ) {
 				$options = $options['posttypes'];
 			}
