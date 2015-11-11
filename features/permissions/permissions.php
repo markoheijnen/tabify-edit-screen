@@ -22,13 +22,20 @@ class Tabify_Edit_Screen_Tab_Permissions {
 
 		wp_register_script( 'tabify-edit-screen-permissions', plugins_url( '/permissions.js', __FILE__ ), array( 'jquery' ), '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen-permissions' );
+
+		$data = array(
+			'everyone'  => __( 'Everyone', 'tabify-edit-screen' ),
+			'onerole'   => __( '1 role', 'tabify-edit-screen' ),
+			'multirole' => __( '%s role', 'tabify-edit-screen' )
+		);
+		wp_localize_script( 'tabify-edit-screen-permissions', 'tes_data', $data );
 	}
 
 
 	public function settings_tab_title_box( $tab ) {
 		if ( $tab['permissions'] && is_array( $tab['permissions'] ) ) {
 			$count = count( $tab['permissions'] );
-			$btn_permissions = sprintf( _n( '%s role', '%s roles', $count, 'tabift-edit-screen' ), $count );
+			$btn_permissions = sprintf( _n( '1 role', '%s roles', $count, 'tabify-edit-screen' ), $count );
 		}
 		else {
 			$btn_permissions = __( 'Everyone', 'tabify-edit-screen' );

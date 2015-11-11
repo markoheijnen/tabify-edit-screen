@@ -27,5 +27,20 @@ jQuery(function($) {
 		$(evt.target).find('.tabify-tab-permissions').fadeIn();
 	});
 	
+	$('.tabify-tab-permission-box input').change(function() {
+		var parent = $( this ).closest('.tabify_tab');
+		var amount = parent.find('input:checkbox:checked').length;
+
+		if( 0 == amount ) {
+			parent.find('.tabify-tab-permissions').html( tes_data.everyone );
+		}
+		else if( 1 == amount ) {
+			parent.find('.tabify-tab-permissions').html( tes_data.onerole );
+		}
+		else {
+			var amount_txt = tes_data.multirole.replace( '%s', amount );
+			parent.find('.tabify-tab-permissions').html( amount_txt );
+		}
+	});
 
 });
