@@ -38,11 +38,12 @@ class Tabify_Edit_Screen {
 
 	public function __construct() {
 		if ( is_admin() ) {
+			add_action( 'plugins_loaded', array( $this, 'load' ) );
 			add_action( 'plugins_loaded', array( $this, 'load_translation' ) );
 		}
 	}
 
-	public function load_translation() {
+	public function load() {
 		include 'inc/admin.php';
 		include 'inc/tabs.php';
 
@@ -54,6 +55,10 @@ class Tabify_Edit_Screen {
 
 		add_action( 'admin_head', array( $this, 'show_tabs' ), 100 );
 
+		$this->load_features();
+	}
+
+	public function load_translation() {
 		load_plugin_textdomain( 'tabify-edit-screen', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
