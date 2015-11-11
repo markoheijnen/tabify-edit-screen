@@ -7,6 +7,8 @@ class Tabify_Edit_Screen_Tab_Permissions {
 
 		add_action( 'tabify_settings_tab_title_box', array( $this, 'settings_tab_title_box' ) );
 		add_action( 'tabify_settings_tab_title_after', array( $this, 'settings_tab_title_after' ), 10, 3 );
+
+		add_filter( 'tabify_tab_posttype_tabs', array( $this, 'posttype_tabs' ) );
 	}
 
 
@@ -46,6 +48,26 @@ class Tabify_Edit_Screen_Tab_Permissions {
 		}
 
 		echo '</div>';
+	}
+
+
+	public function posttype_tabs( $tabs ) {
+		foreach( $tabs as $index => $tab ) {
+			if ( ! isset( $tab['permissions'] ) ) {
+				continue;
+			}
+
+			$current_user = wp_get_current_user();
+			foreach ( $current_user->roles as $role ) {
+				if ( in_array( $role, $tab['permissions'] ) ) {
+					continue;
+				}
+			}
+
+			unset( $tabs[ $index ] );
+		}
+
+		return $tabs;
 	}
 
 }

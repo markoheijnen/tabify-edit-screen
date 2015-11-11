@@ -113,7 +113,9 @@ class Tabify_Edit_Screen {
 				add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 				add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
-				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $options[ $post_type ]['tabs'] );
+				$tabs = apply_filters( 'tabify_tab_posttype_tabs', $options[ $post_type ]['tabs'] );
+
+				$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $tabs );
 				$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post_type );
 				$all_metaboxes         = array();
 
