@@ -102,10 +102,10 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		$amount_posttypes  = count( $posttypes );
 
 		$kses_allowed_html = array(
-			'b' => array(),
-			'em'     => array(),
-			'i' => array(),
-			'span'   => array(
+			'b'    => array(),
+			'em'   => array(),
+			'i'    => array(),
+			'span' => array(
 				'style' => true
 			),
 			'strong' => array(
