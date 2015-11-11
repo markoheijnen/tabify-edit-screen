@@ -51,7 +51,7 @@ class Tabify_Edit_Screen_Admin {
 		echo '<div class="wrap">';
 
 		screen_icon('options-general');
-		echo '<h2>' . esc_html( get_admin_page_title() ) . '</h2>';
+		echo '<h1>' . esc_html( get_admin_page_title() ) . '</h1>';
 
 		echo '<form id="tabify-form" method="post">';
 		wp_nonce_field( plugin_basename( __FILE__ ), 'tabify_edit_screen_nonce' );
