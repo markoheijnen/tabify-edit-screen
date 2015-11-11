@@ -77,6 +77,12 @@ class Tabify_Edit_Screen_Settings_Base {
 			}
 
 			foreach ( $options[ $section ]['tabs'] as $tab ) {
+				$tab['id'] = $tab_id;
+
+				if ( ! isset( $tab['permissions'] ) ) {
+					$tab['permissions'] = array();
+				}
+
 				// Backwards compatibily from 0.5 to 0.6
 				if ( ! isset( $tab['items'] ) && isset( $tab['metaboxes'] ) ) {
 					$tab['items'] = $tab['metaboxes'];
@@ -91,8 +97,8 @@ class Tabify_Edit_Screen_Settings_Base {
 				echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][title]" value="' . esc_html( $tab['title'] ) . '" class="hide-if-js" /></h2>';
 
 				echo '<div class="tabify-title-box">';
-					
-					do_action( 'tabify_settings_tab_title_box', $tab, $section );
+
+					do_action( 'tabify_settings_tab_title_box', $tab, $section, $this->type );
 
 					echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
 					if ( ! $remove ) {
@@ -102,7 +108,7 @@ class Tabify_Edit_Screen_Settings_Base {
 				echo '</div>';
 
 				echo '<div class="clear"></div>';
-				do_action( 'tabify_settings_tab_title_after', $tab, $section );
+				do_action( 'tabify_settings_tab_title_after', $tab, $section, $this->type );
 
 				echo '<ul>';
 				if ( isset( $tab['items'] ) ) {

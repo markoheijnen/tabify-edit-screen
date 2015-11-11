@@ -6,7 +6,7 @@ class Tabify_Edit_Screen_Tab_Permissions {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		add_action( 'tabify_settings_tab_title_box', array( $this, 'settings_tab_title_box' ) );
-		add_action( 'tabify_settings_tab_title_after', array( $this, 'settings_tab_title_after' ) );
+		add_action( 'tabify_settings_tab_title_after', array( $this, 'settings_tab_title_after' ), 10, 3 );
 	}
 
 
@@ -23,7 +23,7 @@ class Tabify_Edit_Screen_Tab_Permissions {
 
 
 	public function settings_tab_title_box( $tab ) {
-		if ( isset( $tab['permissions'] ) && is_array( $tab['permissions'] ) ) {
+		if ( $tab['permissions'] && is_array( $tab['permissions'] ) ) {
 			$count = count( $tab['permissions'] );
 			$btn_permissions = sprintf( _n( '%s role', '%s roles', $count, 'tabift-edit-screen' ), $count );
 		}
@@ -34,12 +34,15 @@ class Tabify_Edit_Screen_Tab_Permissions {
 		echo '<button class="tabify-tab-permissions button button-secondary" type="button">' . $btn_permissions . '</button>';
 	}
 
-	public function settings_tab_title_after( $tab ) {
+	public function settings_tab_title_after( $tab, $section, $type ) {
 		echo '<div class="tabify-tab-permission-box">';
 
 		$all_roles = wp_roles()->roles;
 		foreach ( $all_roles as $key => $role ) {
-			echo '<span><input type="checkbox" value="' . $key . '" /> ' . $role['name'] . '</span>';
+			$name    = 'tabify[' . $type . '][' . $section . '][tabs][' . $tab['id'] . '][permissions][]';
+			$checked = in_array( $key, $tab['permissions'] ) ? ' checked="checked"' : '';
+
+			echo '<span><input name="' . $name . '" type="checkbox" value="' . $key . '"' . $checked . '/> ' . $role['name'] . '</span>';
 		}
 
 		echo '</div>';
