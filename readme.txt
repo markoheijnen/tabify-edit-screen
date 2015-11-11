@@ -3,8 +3,8 @@ Contributors: CodeKitchen, markoheijnen, tara-van-der-wel
 Donate link: https://markoheijnen.com/donate
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.4
-Tested up to: 4.3
-Stable tag: 0.8.3
+Tested up to: 4.4
+Stable tag: 0.9.0
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -49,6 +49,13 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.9.0 ( 2015-11-13 ) =
+* Add ability to set permission based on user role per tab. Sponsored by <a href="http://www.NWConsulting.co.uk">NW Consulting</a>
+* New filter 'tabify_tabs_tab_title' which can be used to translate the tab title
+* Code clean ups
+* Updated readme info with new donate link
+* Tested up to WordPress 4.4
 
 = 0.8.3 ( 2015-07-27 ) =
 * Fix editor after switching tabs

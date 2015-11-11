@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Tabify edit screen
 	Description: Enables tabs in the edit screen and manage them from the back-end
-	Version: 0.8.3
+	Version: 0.9.0-beta
 
 	Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
 
@@ -31,7 +31,7 @@
 */
 
 class Tabify_Edit_Screen {
-	public  $version = '0.8.3';
+	public  $version = '0.9.0-beta';
 	public  $admin;
 	private $editscreen_tabs;
 	private $tab_location = 'default';
