@@ -61,7 +61,7 @@ class Tabify_Edit_Screen_Tab_Permissions {
 			$current_user = wp_get_current_user();
 			foreach ( $current_user->roles as $role ) {
 				if ( in_array( $role, $tab['permissions'] ) ) {
-					continue;
+					continue 2;
 				}
 			}
 
