@@ -48,6 +48,7 @@
 }
 
 .tabify_tab h2 {
+	cursor: pointer;
 	float: left;
 	font-size: 20px;
 	font-weight: 600;
