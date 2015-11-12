@@ -15,6 +15,7 @@
 
 .tab-vertical .nav-tab:hover,
 .tab-vertical .nav-tab-active {
+	background: #FFF;
 	border-color: #ccc;
 }
 
