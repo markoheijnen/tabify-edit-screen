@@ -182,7 +182,13 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @since 0.1.0
 	 */
 	private function load_default_metaboxes( $post_type ) {
-		add_meta_box( 'submitdiv', __('Publish'), 'post_submit_meta_box', $post_type, 'side', 'core' );
+		if ( 'attachment' == $post_type ) {
+			add_meta_box( 'submitdiv', __('Save'), 'attachment_submit_meta_box', $post_type, 'side', 'core' );
+			add_meta_box( 'attachment-id3', __( 'Metadata' ), 'attachment_id3_data_meta_box', $post_type, 'normal', 'core' );
+		}
+		else {
+			add_meta_box( 'submitdiv', __('Publish'), 'post_submit_meta_box', $post_type, 'side', 'core' );
+		}
 
 		if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post_type, 'post-formats' ) ) {
 			add_meta_box( 'formatdiv', _x( 'Format', 'post format' ), 'post_format_meta_box', $post_type, 'side', 'core' );
