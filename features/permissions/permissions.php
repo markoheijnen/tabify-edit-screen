@@ -1,6 +1,6 @@
 <?php
 
-class Tabify_Edit_Screen_Tab_Permissions {
+class Tabify_Edit_Screen_Feature_Permissions {
 
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );

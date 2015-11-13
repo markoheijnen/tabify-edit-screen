@@ -63,8 +63,16 @@ class Tabify_Edit_Screen {
 	}
 
 	private function load_features() {
-		include 'features/permissions/permissions.php';
-		new Tabify_Edit_Screen_Tab_Permissions();
+		$features = array(
+			'permissions'
+		);
+
+		foreach ( $features as $feature ) {
+			$class_name = 'Tabify_Edit_Screen_Feature_' . $feature;
+
+			include 'features/' . $feature . '/' . $feature . '.php';
+			new $class_name;
+		}
 	}
 
 	/**
