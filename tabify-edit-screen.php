@@ -168,8 +168,11 @@ class Tabify_Edit_Screen {
 					}
 				}
 
+				$show = apply_filters( 'tabify_unattached_metaboxes_show', true, $post_type );
+				do_action( 'tabify_unattached_metaboxes', $all_metaboxes, $show );
+
 				// Metaboxes that aren't attachted
-				if ( apply_filters( 'tabify_unattached_metaboxes_show', true, $post_type ) ) {
+				if ( $show ) {
 					foreach ( $all_metaboxes as $metabox_id => $metabox_title ) {
 						$last_index                 = $tab_index;
 						$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', $last_index, $post_type );
