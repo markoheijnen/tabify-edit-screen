@@ -50,8 +50,9 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 == Changelog ==
 
-= 0.9.0 ( 2015-11-13 ) =
+= 0.9.0 ( 2015-11-14 ) =
 * Add ability to set permission based on user role per tab. Sponsored by <a href="http://www.NWConsulting.co.uk">NW Consulting</a>
+* Added smart meta box detection
 * New filter 'tabify_tabs_tab_title' which can be used to translate the tab title
 * Code clean ups
 * Updated readme info with new donate link

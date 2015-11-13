@@ -62,11 +62,11 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 				$metaboxes[ $posttype ][ 'postdivrich'] = __( 'Editor' );
 			}
 
-			do_action( 'tabify_add_meta_boxes', $posttype );
-
 			$this->load_default_metaboxes( $posttype );
 			do_action( 'add_meta_boxes', $posttype, null );
 			do_action( 'add_meta_boxes_' . $posttype, null );
+
+			do_action( 'tabify_add_meta_boxes', $posttype );
 		}
 
 		foreach ( $wp_meta_boxes as $posttype => $context ) {
@@ -83,7 +83,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		return $metaboxes;
 	}
 
-	function save_settings( $options ) {
+	public function save_settings( $options ) {
 		$options['posttypes'] = $this->escape( $options['posttypes'] );
 
 		return $options;

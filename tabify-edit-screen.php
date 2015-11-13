@@ -43,6 +43,7 @@ class Tabify_Edit_Screen {
 		}
 	}
 
+
 	public function load() {
 		include 'inc/admin.php';
 		include 'inc/tabs.php';
@@ -64,6 +65,7 @@ class Tabify_Edit_Screen {
 
 	private function load_features() {
 		$features = array(
+			'detection',
 			'permissions'
 		);
 
