@@ -187,9 +187,14 @@ class Tabify_Edit_Screen_Settings_Base {
 	protected function list_show_items( $item_id, $item_title, $tab_id, $type, $default_items ) {
 		$options = $this->get_options( $this->type );
 
+		// Most likely a meta box that doesn't exist anymore
+		if ( empty( $item_title ) ) {
+			return;
+		}
+
 		$item_title = esc_html( $item_title );
 
-		if ( in_array( $item_id, $default_items ) || empty( $item_title ) ) {
+		if ( in_array( $item_id, $default_items ) ) {
 			echo '<li class="tabifybox-hide">';
 		}
 		else {
