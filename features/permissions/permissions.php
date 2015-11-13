@@ -41,7 +41,7 @@ class Tabify_Edit_Screen_Feature_Permissions {
 			$btn_permissions = __( 'Everyone', 'tabify-edit-screen' );
 		}
 
-		echo '<button class="tabify-tab-permissions button button-secondary" type="button">' . $btn_permissions . '</button>';
+		echo '<button class="tabify-tab-permissions button button-secondary hide-if-no-js" type="button">' . $btn_permissions . '</button>';
 	}
 
 	public function settings_tab_title_after( $tab, $section, $type ) {
