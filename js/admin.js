@@ -38,8 +38,14 @@ jQuery(function($) {
 
 		var html = '<div class="menu-item-handle tabify_tab">';
 		html += '<h2><span>' + title + '</span><input type="text" name="tabify[posttypes][' + posttype + '][tabs][' + counter + '][title]" value="' + title + '" style="display: none;" /></h2>';
-		html += '<a href="#" class="tabify-remove-tab">' + tabify_l10.remove + '</a><div class="clear"></div>';
-		html += '<ul></ul></div>';
+
+
+		html += '<div class="tabify-title-box">'
+		html += '<a href="#" class="tabify-remove-tab">' + tabify_l10.remove + '</a>';
+		html += '</div>';
+
+		html += '<div class="clear"></div><ul></ul></div>';
+
 
 		$( '.tabifybox-' + posttype + ' .tabify_control' ).append( html );
 
