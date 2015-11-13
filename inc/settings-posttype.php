@@ -168,6 +168,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 					}
 				}
 
+				unset( $posttypes[ $key ]['tabs'][ $j ]['items_tab'] );
 				$posttypes[ $key ]['tabs'][ $j ]['items'] = array_values( $posttypes[ $key ]['tabs'][ $j ]['items'] );
 			}
 		}
