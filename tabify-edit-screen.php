@@ -89,7 +89,7 @@ class Tabify_Edit_Screen {
 	 */
 	public function redirect_add_current_tab( $location, $post_id ) {
 		if ( isset( $_REQUEST['tab'] ) ) {
-			$location = add_query_arg( 'tab', esc_attr( $_REQUEST['tab'] ), $location );
+			$location = esc_url_raw( add_query_arg( 'tab', $_REQUEST['tab'], $location ) );
 		}
 
 		return $location;

@@ -71,7 +71,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 			foreach( $_COOKIE as $name => $value ) {
 				$cookies[] = new WP_Http_Cookie( array( 'name' => $name, 'value' => $value ) );
 			}
-			$response = wp_remote_get( $url, array( 'cookies' => $cookies ) );
+			$response = wp_remote_get( esc_url_raw( $url ), array( 'cookies' => $cookies ) );
 			$body     = wp_remote_retrieve_body( $response );
 
 			if ( ! $body ) {

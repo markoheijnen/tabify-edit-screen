@@ -133,7 +133,7 @@ class Tabify_Edit_Screen_Tabs {
 			}
 
 			$title   = apply_filters( 'tabify_tabs_tab_title', $args['title'], $args, $this );
-			$url     = $this->base_url . '&' . $this->get_arg . '=' . $key;
+			$url     = esc_url( add_query_arg( $this->get_arg, $key, $this->base_url ) );
 			$classes = 'tabify-tab nav-tab';
 
 			if ( $this->active == $key ) {
