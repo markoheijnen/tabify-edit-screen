@@ -105,6 +105,15 @@ class Tabify_Edit_Screen_Admin {
 
 			$options = apply_filters( 'tabify_settings_update', $options );
 
+			if ( isset( $_POST['create_tab'], $_POST['subtab'] ) ) {
+				if ( isset( $options['posttypes'][ $_POST['subtab'] ] ) ) {
+					$options['posttypes'][ $_POST['subtab'] ]['tabs'][] = array(
+						'title' => __( 'Choose title', 'tabify-edit-screen' ),
+						'items' => array()
+					);
+				}
+			}
+
 			update_option( 'tabify-edit-screen', $options );
 		}
 	}

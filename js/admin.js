@@ -27,7 +27,9 @@ jQuery(function($) {
 		});
 	}
 
-	$( "#create_tab" ).on("click", function() {
+	$( "#create_tab" ).on("click", function(evt) {
+		evt.preventDefault();
+
 		$('.tabifybox:visible .tabify-remove-tab').fadeIn();
 
 		var title = tabify_l10.choose_title;
