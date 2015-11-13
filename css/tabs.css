@@ -158,6 +158,10 @@
 /* =Javascript disabled
 -------------------------------------------------------------- */
 
+.no-js .tabify_control .menu-item-bar .menu-item-handle:hover {
+    border-color: #dfdfdf;
+}
+
 .tabify_control .item-order {
 	float: right;
 	margin-top:-26px;
