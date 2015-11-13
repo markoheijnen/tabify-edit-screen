@@ -32,13 +32,13 @@ jQuery(function($) {
 		var amount = parent.find('input:checkbox:checked').length;
 
 		if( 0 == amount ) {
-			parent.find('.tabify-tab-permissions').html( tes_data.everyone );
+			parent.find('.tabify-tab-permissions').html( tabify_permissions.everyone );
 		}
 		else if( 1 == amount ) {
-			parent.find('.tabify-tab-permissions').html( tes_data.onerole );
+			parent.find('.tabify-tab-permissions').html( tabify_permissions.onerole );
 		}
 		else {
-			var amount_txt = tes_data.multirole.replace( '%s', amount );
+			var amount_txt = tabify_permissions.multirole.replace( '%s', amount );
 			parent.find('.tabify-tab-permissions').html( amount_txt );
 		}
 	});

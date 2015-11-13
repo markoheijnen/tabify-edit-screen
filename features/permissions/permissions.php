@@ -28,7 +28,7 @@ class Tabify_Edit_Screen_Tab_Permissions {
 			'onerole'   => __( '1 role', 'tabify-edit-screen' ),
 			'multirole' => __( '%s role', 'tabify-edit-screen' )
 		);
-		wp_localize_script( 'tabify-edit-screen-permissions', 'tes_data', $data );
+		wp_localize_script( 'tabify-edit-screen-permissions', 'tabify_permissions', $data );
 	}
 
 
