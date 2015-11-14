@@ -81,7 +81,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 			$data = json_decode( $body );
 
 			// Store data
-			set_transient( 'tabify_detection_' . $post_type, $data );
+			set_transient( 'tabify_detection_' . $post_type, $data, DAY_IN_SECONDS );
 		}
 
 		$this->load_metaboxes( $data, $post_type );
