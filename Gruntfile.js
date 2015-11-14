@@ -29,7 +29,6 @@ module.exports = function(grunt) {
 							'!bin/**',
 							'!Gruntfile.js',
 							'!node_modules/**',
-							'!package.json',
 							'!phpunit.xml',
 							'!tests/**'
 						],
