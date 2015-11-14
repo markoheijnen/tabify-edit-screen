@@ -55,6 +55,10 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 
 	public function add_missing_meta_boxes( $post_type ) {
+		if ( get_transient( 'tabify_detection_stop_detecting' ) ) {
+			return;
+		}
+
 		if ( false === ( $data = get_transient( 'tabify_detectdion_' . $post_type ) ) ) {
 			global $wp_meta_boxes;
 
@@ -82,7 +86,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 			if ( is_wp_error( $response ) ) {
 				$this->allowed_request_errors--;
 
-				set_transient( 'tabify_detection_' . $post_type, array(), DAY_IN_SECONDS );
+				set_transient( 'tabify_detection_stop_detecting', true, WEEK_IN_SECONDS );
 				return;
 			}
 
