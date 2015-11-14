@@ -4,7 +4,7 @@ Donate link: https://markoheijnen.com/donate
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.4
 Tested up to: 4.4
-Stable tag: 0.9.0
+Stable tag: 0.9.1
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -48,6 +48,10 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.9.1 ( 2015-11-14 ) =
+* Fix issue with older WordPress version
+* Expire detection transient after 24 hours
 
 = 0.9.0 ( 2015-11-14 ) =
 * Add ability to set permission based on user role per tab. Sponsored by <a href="http://www.NWConsulting.co.uk">NW Consulting</a>
