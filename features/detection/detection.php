@@ -2,6 +2,8 @@
 
 class Tabify_Edit_Screen_Feature_Detection {
 
+	private $allowed_request_errors = 3;
+
 	public function __construct() {
 		// Actions to return JSON output on post type new/edit screen
 		add_action( 'current_screen', array( $this, 'head_action_begin' ) );
@@ -53,8 +55,12 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 
 	public function add_missing_meta_boxes( $post_type ) {
-		if ( false === ( $data = get_transient( 'tabify_detection_' . $post_type ) ) ) {
+		if ( false === ( $data = get_transient( 'tabify_detectdion_' . $post_type ) ) ) {
 			global $wp_meta_boxes;
+
+			if ( $this->allowed_request_errors <= 0 ) {
+				return;
+			}
 
 			$args = array(
 				'post_type'      => $post_type,
@@ -72,7 +78,12 @@ class Tabify_Edit_Screen_Feature_Detection {
 				$cookies[] = new WP_Http_Cookie( array( 'name' => $name, 'value' => $value ) );
 			}
 			$response = wp_remote_get( esc_url_raw( $url ), array( 'cookies' => $cookies, 'timeout' => 2 ) );
-			$body     = wp_remote_retrieve_body( $response );
+
+			if ( is_wp_error( $response ) ) {
+				$this->allowed_request_errors--;
+			}
+
+			$body = wp_remote_retrieve_body( $response );
 
 			if ( ! $body ) {
 				return;
