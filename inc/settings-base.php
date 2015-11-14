@@ -94,7 +94,7 @@ class Tabify_Edit_Screen_Settings_Base {
 
 				echo '<div class="menu-item-handle tabify_tab">';
 
-				$this->get_section_tab_title( $section, $tab['title'], $tab_id, $tab, $remove );
+				$this->get_section_tab_title( $section, $tab['title'], $tab, $remove );
 
 				echo '<ul>';
 				if ( isset( $tab['items'] ) ) {
@@ -151,10 +151,12 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo '<input type="submit" id="create_tab" name="create_tab" class="button button-secondary" value="' . __( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
 		submit_button( '', 'primary', 'submit', false );
 		echo '</p>';
+
+		$this->print_backbone_template();
 	}
 
-	private function get_section_tab_title( $section, $title, $tab_id, $tab, $remove ) {
-		echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][title]" value="' . esc_html( $title ) . '" class="hide-if-js" /></h2>';
+	private function get_section_tab_title( $section, $title, $tab, $remove ) {
+		echo '<h2><span class="hide-if-no-js">' . $title . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab['id'] . '][title]" value="' . esc_html( $title ) . '" class="hide-if-js" /></h2>';
 
 		echo '<div class="tabify-title-box">';
 			do_action( 'tabify_settings_tab_title_box', $tab, $section, $this->type );
@@ -168,6 +170,21 @@ class Tabify_Edit_Screen_Settings_Base {
 
 		echo '<div class="clear"></div>';
 		do_action( 'tabify_settings_tab_title_after', $tab, $section, $this->type );
+	}
+
+	private function print_backbone_template() {
+		$tab = array(
+			'id'          => '{{ data.tab_id }}',
+			'permissions' => array()
+		);
+
+		echo '<script type="text/template" id="tmpl-new-tab">';
+		echo '<div class="menu-item-handle tabify_tab">';
+			$this->get_section_tab_title( '{{ data.section }}', __( 'Choose title', 'tabify-edit-screen' ), $tab, true );
+			echo '<ul></ul>';
+		echo '</div>';
+
+		echo '</script>';
 	}
 
 	protected function get_options( $type = null ) {

@@ -37,7 +37,7 @@ class Tabify_Edit_Screen_Settings_Page {
 
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin' . $suffix . '.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable', 'jquery-touch-punch' ), '1.0' );
+		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin' . $suffix . '.js', dirname( __FILE__ ) ), array( 'jquery', 'wp-backbone', 'jquery-ui-sortable', 'jquery-touch-punch' ), '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen-admin' );
 
 		$data = array(

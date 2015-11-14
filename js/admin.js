@@ -32,24 +32,18 @@ jQuery(function($) {
 
 		$('.tabifybox:visible .tabify-remove-tab').fadeIn();
 
-		var title = tabify_l10.choose_title;
 		var posttype = $( '#tabify-submenu .nav-tab-active' ).attr( 'id' );
 		posttype = posttype.replace( 'tab-', "");
 
 		var counter = $( '.tabifybox-' + posttype + ' .tabify_control' ).children().length;
 
-		var html = '<div class="menu-item-handle tabify_tab">';
-		html += '<h2><span>' + title + '</span><input type="text" name="tabify[posttypes][' + posttype + '][tabs][' + counter + '][title]" value="' + title + '" style="display: none;" /></h2>';
+		var template = wp.template('new-tab');
+		var options = {
+			tab_id: counter,
+			section: posttype,
+		}
 
-
-		html += '<div class="tabify-title-box">'
-		html += '<a href="#" class="tabify-remove-tab">' + tabify_l10.remove + '</a>';
-		html += '</div>';
-
-		html += '<div class="clear"></div><ul></ul></div>';
-
-
-		$( '.tabifybox-' + posttype + ' .tabify_control' ).append( html );
+		$( '.tabifybox-' + posttype + ' .tabify_control' ).append( template( options ) );
 
 		$( '.tabifybox-' + posttype + ' .tabify_control' ).sortable( "refresh" );
 		initialize_sortable_ul();
