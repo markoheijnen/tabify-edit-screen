@@ -4,7 +4,7 @@ Donate link: https://markoheijnen.com/donate
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.4
 Tested up to: 4.4
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -48,6 +48,11 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.9.2 ( 2015-11-14 ) =
+* Decrease timeout for smart meta box detection requests
+* Disable smart meta box detection after 3 failures at the same time
+* Stop all other requests after 3 failures
 
 = 0.9.1 ( 2015-11-14 ) =
 * Fix issue with older WordPress version
