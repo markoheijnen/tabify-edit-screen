@@ -43,7 +43,6 @@ class Tabify_Edit_Screen_Settings_Page {
 		$data = array(
 			'remove' => __( 'Remove', 'tabify-edit-screen' ),
 			'cancel' => __( 'Cancel', 'tabify-edit-screen' ),
-			'choose_title' => __( 'Choose title', 'tabify-edit-screen' ),
 			'move_meta_boxes' => __( 'Move meta boxes to', 'tabify-edit-screen' )
 		);
 		wp_localize_script( 'tabify-edit-screen-admin', 'tabify_l10', $data );
