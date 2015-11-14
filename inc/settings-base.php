@@ -94,21 +94,7 @@ class Tabify_Edit_Screen_Settings_Base {
 
 				echo '<div class="menu-item-handle tabify_tab">';
 
-				echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][title]" value="' . esc_html( $tab['title'] ) . '" class="hide-if-js" /></h2>';
-
-				echo '<div class="tabify-title-box">';
-
-					do_action( 'tabify_settings_tab_title_box', $tab, $section, $this->type );
-
-					echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
-					if ( ! $remove ) {
-						echo ' style="display: none;"';
-					}
-					echo '>' . __( 'Remove', 'tabify-edit-screen' ) . '</a>';
-				echo '</div>';
-
-				echo '<div class="clear"></div>';
-				do_action( 'tabify_settings_tab_title_after', $tab, $section, $this->type );
+				$this->get_section_tab_title( $section, $tab['title'], $tab_id, $tab, $remove );
 
 				echo '<ul>';
 				if ( isset( $tab['items'] ) ) {
@@ -165,6 +151,23 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo '<input type="submit" id="create_tab" name="create_tab" class="button button-secondary" value="' . __( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
 		submit_button( '', 'primary', 'submit', false );
 		echo '</p>';
+	}
+
+	private function get_section_tab_title( $section, $title, $tab_id, $tab, $remove ) {
+		echo '<h2><span class="hide-if-no-js">' . $tab['title'] . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][title]" value="' . esc_html( $title ) . '" class="hide-if-js" /></h2>';
+
+		echo '<div class="tabify-title-box">';
+			do_action( 'tabify_settings_tab_title_box', $tab, $section, $this->type );
+
+			echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
+			if ( ! $remove ) {
+				echo ' style="display: none;"';
+			}
+			echo '>' . __( 'Remove', 'tabify-edit-screen' ) . '</a>';
+		echo '</div>';
+
+		echo '<div class="clear"></div>';
+		do_action( 'tabify_settings_tab_title_after', $tab, $section, $this->type );
 	}
 
 	protected function get_options( $type = null ) {
