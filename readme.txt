@@ -35,12 +35,11 @@ At this moment the title and submit box are always visible. You can change this 
 Yes, you can use the filter 'tabify_tab_location' and passing the value 'after_title' to it.
 You can also check on the second argument what the location is. Now always 'posttype'
 
-= Can it work with Types, WordPress SEO or Members =
-Yes, it can work with those plugins trough a filter. Their plugins using weird auto load magic or have extra checks that will not be run on our settings page.
+= Does it work with all plugins? =
+Since version 0.9.0 it should work for almost all plugins. Unless they do extra checks it should work.
+Before there was a filter 'tabify_plugin_support' but since 0.9.9 that code has been deprecated and removed.
 
-add_filter( 'tabify_plugin_support', '__return_true' );
-
-= What happen with new metaboxes =
+= What happen with new metaboxes? =
 At this moment new metaboxes are places on the last tab. You can go to the settings screen to reorder the metabox. You can change which tab it should go like with meta boxes that don't show up like Types or WordPress SEO. You do this with the filter 'tabify_unattached_metaboxes_index'.
 
 == Screenshots ==
@@ -53,6 +52,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 = 0.9.0 ( 2015-11-14 ) =
 * Add ability to set permission based on user role per tab. Sponsored by <a href="http://www.NWConsulting.co.uk">NW Consulting</a>
 * Added smart meta box detection
+* Removed the filter 'tabify_plugin_support'
 * New filter 'tabify_tabs_tab_title' which can be used to translate the tab title
 * Code clean ups
 * Updated readme info with new donate link
