@@ -81,11 +81,15 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 			if ( is_wp_error( $response ) ) {
 				$this->allowed_request_errors--;
+
+				set_transient( 'tabify_detection_' . $post_type, array(), DAY_IN_SECONDS );
+				return;
 			}
 
 			$body = wp_remote_retrieve_body( $response );
 
 			if ( ! $body ) {
+				set_transient( 'tabify_detection_' . $post_type, array(), DAY_IN_SECONDS );
 				return;
 			}
 			
