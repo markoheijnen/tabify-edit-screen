@@ -14,8 +14,6 @@ class Tabify_Edit_Screen_Settings_Page {
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-
-		$this->load_plugin_support();
 	}
 
 	/**
@@ -118,28 +116,6 @@ class Tabify_Edit_Screen_Settings_Page {
 
 			update_option( 'tabify-edit-screen', $options );
 		}
-	}
-
-	/**
-	 * Load additional support for plugins that have unique code
-	 *
-	 * @since 0.4.0
-	 */
-	private function load_plugin_support() {
-		global $pagenow;
-
-		// Only load this when the user needs it.
-		if ( ! apply_filters( 'tabify_plugin_support', false ) ) {
-			return;
-		}
-
-		// Only load on our page.
-		if ( 'options-general.php' != $pagenow || ! isset( $_GET['page'] ) || 'tabify-edit-screen' != $_GET['page'] ) {
-			return;
-		}
-
-		include 'plugin-support.php';
-		new Tabify_Edit_Screen_Plugin_Support();
 	}
 
 }
