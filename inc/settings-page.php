@@ -3,7 +3,7 @@
 include 'settings-base.php';
 include 'settings-posttype.php';
 
-class Tabify_Edit_Screen_Admin {
+class Tabify_Edit_Screen_Settings_Page {
 	private $tabs;
 	private $options;
 
@@ -13,6 +13,8 @@ class Tabify_Edit_Screen_Admin {
 	 * @since 0.8.2
 	 */
 	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+
 		$this->load_plugin_support();
 	}
 

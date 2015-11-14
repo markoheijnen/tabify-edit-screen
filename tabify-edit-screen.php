@@ -32,7 +32,7 @@
 
 class Tabify_Edit_Screen {
 	public  $version = '0.9.0';
-	public  $admin;
+	public  $settings_page;
 	private $editscreen_tabs;
 	private $tab_location = 'default';
 
@@ -45,12 +45,10 @@ class Tabify_Edit_Screen {
 
 
 	public function load() {
-		include 'inc/admin.php';
+		include 'inc/settings-page.php';
 		include 'inc/tabs.php';
 
-		$this->admin = new Tabify_Edit_Screen_Admin();
-
-		add_action( 'admin_menu', array( $this->admin, 'admin_menu' ) );
+		$this->settings_page = new Tabify_Edit_Screen_Settings_Page();
 
 		add_filter( 'redirect_post_location', array( $this, 'redirect_add_current_tab' ), 10, 2 );
 
