@@ -26,8 +26,8 @@ jQuery(function($) {
 	$( document ).on( 'tabify-declined-remove-tab', function( evt ) {
 		$(evt.target).find('.tabify-tab-permissions').fadeIn();
 	});
-	
-	$('.tabify-tab-permission-box input').change(function() {
+
+	$(document).on('change', '.tabify-tab-permission-box input', function() {
 		var parent = $( this ).closest('.tabify_tab');
 		var amount = parent.find('input:checkbox:checked').length;
 
