@@ -7,7 +7,6 @@ class Tabify_Edit_Screen_Feature_Detection {
 	public function __construct() {
 		// Actions to return JSON output on post type new/edit screen
 		add_action( 'current_screen', array( $this, 'head_action_begin' ) );
-		add_action( 'admin_head', array( $this, 'head_action' ), 100 );
 
 		// Hook for requesting missing hooks
 		add_action( 'tabify_add_meta_boxes', array( $this, 'add_missing_meta_boxes' ) );
@@ -20,37 +19,35 @@ class Tabify_Edit_Screen_Feature_Detection {
 	public function head_action_begin( $screen ) {
 		if ( ( 'post' == $screen->base || 'media' == $screen->base ) && isset( $_GET['tes_metaboxes'] ) ) {
 			ob_start();
+
+			add_action( 'admin_head', array( $this, 'head_action' ), 100 );
 		}
 	}
 
 	public function head_action( $screen ) {
 		global $wp_meta_boxes;
 
-		$screen = get_current_screen();
+		$list = array();
 
-		if ( ( 'post' == $screen->base || 'media' == $screen->base ) && isset( $_GET['tes_metaboxes'] ) ) {
-			$list = array();
-
-			foreach ( $wp_meta_boxes as $posttype => $items ) {
-				foreach ( $items as $context => $priorities ) {
-					foreach ( $priorities as $priority => $_metaboxes ) {
-						foreach ( $_metaboxes as $metabox ) {
-							$list[ $metabox['id'] ] = array(
-								'title'    => $metabox['title'],
-								'priority' => $priority,
-								'context'  => $context
-							);
-						}
+		foreach ( $wp_meta_boxes as $posttype => $items ) {
+			foreach ( $items as $context => $priorities ) {
+				foreach ( $priorities as $priority => $_metaboxes ) {
+					foreach ( $_metaboxes as $metabox ) {
+						$list[ $metabox['id'] ] = array(
+							'title'    => $metabox['title'],
+							'priority' => $priority,
+							'context'  => $context
+						);
 					}
 				}
 			}
-
-			ob_end_clean();
-			
-			echo wp_json_encode( $list );
-
-			exit;
 		}
+
+		ob_end_clean();
+		
+		echo wp_json_encode( $list );
+
+		exit;
 	}
 
 
