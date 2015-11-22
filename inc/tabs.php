@@ -27,7 +27,7 @@ class Tabify_Edit_Screen_Tabs {
 			$this->javascript_support = $javascript_support;
 
 			if ( isset( $_REQUEST[ $this->get_arg ] ) ) {
-				$this->active = esc_attr( $_REQUEST[ $this->get_arg ] );
+				$this->active = sanitize_text_field( $_REQUEST[ $this->get_arg ] );
 			}
 
 			$this->base_url = remove_query_arg( $this->get_arg, $_SERVER["REQUEST_URI"] );
