@@ -72,8 +72,12 @@ class Tabify_Edit_Screen {
 			'permissions'
 		);
 
+		if ( apply_filters( 'tabify_plugin_support', true ) ) {
+			$features[] = 'plugin-support';
+		}
+
 		foreach ( $features as $feature ) {
-			$class_name = 'Tabify_Edit_Screen_Feature_' . $feature;
+			$class_name = 'Tabify_Edit_Screen_Feature_' . str_replace( '-', '_', $feature );
 
 			include 'features/' . $feature . '/' . $feature . '.php';
 			new $class_name;
