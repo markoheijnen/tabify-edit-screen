@@ -49,14 +49,24 @@ class Tabify_Edit_Screen {
 		new Tabify_Edit_Screen_Edit_Screen();
 		new Tabify_Edit_Screen_Settings_Page();
 
-		$this->load_features();
+		add_action( 'current_screen', array( $this, 'load_features' ), 1 );
 	}
 
 	public function load_translation() {
 		load_plugin_textdomain( 'tabify-edit-screen', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
-	private function load_features() {
+	public function load_features( $screen ) {
+		$valid_screens = array(
+			'settings_page_tabify-edit-screen',
+			'post',
+			'media'
+		);
+
+		if ( ! in_array( $screen->base, $valid_screens ) ) {
+			return;
+		}
+
 		$features = array(
 			'detection',
 			'permissions'
