@@ -1,6 +1,6 @@
 {
 	"name": "tabify-edit-screen",
-	"version": "0.9.2",
+	"version": "0.9.3",
 	"description": "Enables tabs in the edit screen and manage them from the back-end",
 	"repository": {
 		"type": "git",

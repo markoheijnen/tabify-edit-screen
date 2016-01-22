@@ -3,8 +3,8 @@ Contributors: CodeKitchen, markoheijnen, tara-van-der-wel
 Donate link: https://markoheijnen.com/donate
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.7
-Stable tag: 0.9.2
 Tested up to: 4.4.1
+Stable tag: 0.9.3
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -48,6 +48,10 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.9.3 ( 2016-01-24 ) =
+* Fix undefined notice on settings page. Props Juliette Reinders Folmer
+* Fix typo in detection transient name. Props Juliette Reinders Folmer
 
 = 0.9.2 ( 2015-11-14 ) =
 * Decrease timeout for smart meta box detection requests
