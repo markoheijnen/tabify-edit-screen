@@ -70,6 +70,13 @@ class Tabify_Edit_Screen_Feature_Detection {
 			);
 			$post = get_posts( $args );
 
+			if ( empty( $post ) ) {
+				$this->allowed_request_errors--;
+
+				set_transient( 'tabify_detection_stop_detecting', true, HOUR_IN_SECONDS );
+				return;
+			}
+
 			$url = get_edit_post_link( $post[0], 'raw' );
 			$url = add_query_arg( 'tes_metaboxes', 'true', $url );
 
