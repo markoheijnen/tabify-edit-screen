@@ -10,7 +10,7 @@ class Test_Plugin extends WP_UnitTestCase {
 			wp_version_check();
 		}
 		catch (Exception $e) {
-			$this->markTestSkipped( "There is not internet connection" );
+			$this->markTestSkipped( "Couldn't access WordPress.org" );
 		}
 
 		$cur = get_preferred_from_update_core();
