@@ -79,7 +79,6 @@
 .tabify-remove-tab {
 	color: #BC0B0B;
 	line-height: normal;
-	
 }
 
 .tabify-remove-accept {
@@ -116,12 +115,8 @@
 
 
 
-.admin-color-mp6 .tab-vertical a {
-	background: #ddd;
-}
-
-.admin-color-mp6 .tab-vertical .nav-tab-active {
-	background: #fff;
+.tab-vertical a {
+	float: none;
 }
 
 
@@ -159,7 +154,7 @@
 -------------------------------------------------------------- */
 
 .no-js .tabify_control .menu-item-bar .menu-item-handle:hover {
-    border-color: #dfdfdf;
+	border-color: #dfdfdf;
 }
 
 .tabify_control .item-order {
