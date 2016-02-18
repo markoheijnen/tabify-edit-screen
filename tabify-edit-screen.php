@@ -62,7 +62,7 @@ class Tabify_Edit_Screen {
 			'permissions'
 		);
 
-		if ( apply_filters( 'tabify_plugin_support', true ) ) {
+		if ( apply_filters( 'tabify_plugin_support', false ) ) {
 			$features[] = 'plugin-support';
 		}
 
