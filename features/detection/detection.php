@@ -103,14 +103,14 @@ class Tabify_Edit_Screen_Feature_Detection {
 			$body = wp_remote_retrieve_body( $response );
 
 			if ( ! $body ) {
-				set_transient( 'tabify_detection_' . $post_type, array(), DAY_IN_SECONDS );
+				set_transient( 'tabify_detection_' . $post_type, array(), WEEK_IN_SECONDS );
 				return;
 			}
 			
 			$data = json_decode( $body );
 
 			// Store data
-			set_transient( 'tabify_detection_' . $post_type, $data, DAY_IN_SECONDS );
+			set_transient( 'tabify_detection_' . $post_type, $data, WEEK_IN_SECONDS );
 		}
 
 		$this->load_metaboxes( $data, $post_type );
