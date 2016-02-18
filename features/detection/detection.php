@@ -17,6 +17,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 		// Flush cache
 		add_action( 'activated_plugin', array( $this, 'clear_cache' ) );
 		add_action( 'deactivated_plugin', array( $this, 'clear_cache' ) );
+		add_action( 'switch_theme', array( $this, 'clear_cache' ) );
 	}
 
 
