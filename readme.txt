@@ -53,6 +53,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 * Fix undefined notice on settings page. Props Juliette Reinders Folmer
 * Fix typo in detection transient name. Props Juliette Reinders Folmer
 * Fix vertical tabs on setting page display next to each other in WordPress 4.4
+* Added back plugin support with filter 'tabify_plugin_support'
 
 = 0.9.2 ( 2015-11-14 ) =
 * Decrease timeout for smart meta box detection requests
