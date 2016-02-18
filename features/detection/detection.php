@@ -15,6 +15,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 		add_action( 'tabify_unattached_metaboxes', array( $this, 'unattached_metaboxes' ) );
 
 		// Flush cache
+		add_action( 'tabify_detection_clear_cache', array( $this, 'clear_cache' ) );
 		add_action( 'activated_plugin', array( $this, 'clear_cache' ) );
 		add_action( 'deactivated_plugin', array( $this, 'clear_cache' ) );
 		add_action( 'switch_theme', array( $this, 'clear_cache' ) );
