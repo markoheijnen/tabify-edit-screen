@@ -57,16 +57,6 @@ class Tabify_Edit_Screen {
 	}
 
 	public function load_features( $screen ) {
-		$valid_screens = array(
-			'settings_page_tabify-edit-screen',
-			'post',
-			'media'
-		);
-
-		if ( ! in_array( $screen->base, $valid_screens ) ) {
-			return;
-		}
-
 		$features = array(
 			'detection',
 			'permissions'
