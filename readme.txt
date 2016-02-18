@@ -49,6 +49,9 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 == Changelog ==
 
+= 0.9.4 ( 2016-02-?? ) =
+* Clear Detection cache on needed moments.
+
 = 0.9.3 ( 2016-02-18 ) =
 * Fix undefined notice on settings page. Props Juliette Reinders Folmer
 * Fix typo in detection transient name. Props Juliette Reinders Folmer
