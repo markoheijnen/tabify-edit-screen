@@ -13,6 +13,10 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 		// Possible hook for checking unattached meta boxes
 		add_action( 'tabify_unattached_metaboxes', array( $this, 'unattached_metaboxes' ) );
+
+		// Flush cache
+		add_action( 'activated_plugin', array( $this, 'clear_cache' ) );
+		add_action( 'deactivated_plugin', array( $this, 'clear_cache' ) );
 	}
 
 
@@ -121,7 +125,18 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 	public function unattached_metaboxes( $metaboxes ) {
 		$ids = array_keys( $metaboxes );
+	}
 
+
+	public function clear_cache() {
+		$args = array(
+			'show_ui' => true
+		);
+		$posttypes_objects = get_post_types( $args, 'objects' );
+
+		foreach ( $posttypes_objects as $posttype_object ) {
+			delete_transient( 'tabify_detection_' . $posttype_object->name );
+		}
 	}
 
 }
