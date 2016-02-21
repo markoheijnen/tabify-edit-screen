@@ -13,12 +13,6 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 		// Possible hook for checking unattached meta boxes
 		add_action( 'tabify_unattached_metaboxes', array( $this, 'unattached_metaboxes' ) );
-
-		// Flush cache
-		add_action( 'tabify_detection_clear_cache', array( $this, 'clear_cache' ) );
-		add_action( 'activated_plugin', array( $this, 'clear_cache' ) );
-		add_action( 'deactivated_plugin', array( $this, 'clear_cache' ) );
-		add_action( 'switch_theme', array( $this, 'clear_cache' ) );
 	}
 
 
@@ -28,23 +22,56 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 			add_action( 'admin_head', array( $this, 'head_action' ), 100 );
 		}
+		else if ( 'settings_page_tabify-edit-screen' == $screen->base ) {
+			$this->enqueue_script();
+		}
 	}
 
-	public function head_action( $screen ) {
+	private function enqueue_script() {
+		wp_register_script( 'tabify-edit-screen-detection', plugins_url( '/detection.js', __FILE__ ), array( 'jquery' ), '1.0' );
+		wp_enqueue_script( 'tabify-edit-screen-detection' );
+
+		$post_type_links = array();
+
+		$args = array(
+			'show_ui' => true
+		);
+		$posttypes_objects = get_post_types( $args, 'objects' );
+		$posttypes_objects = apply_filters( 'tabify_posttypes', $posttypes_objects );
+
+		foreach ( $posttypes_objects as $posttype ) {
+			$args = array(
+				'post_type'      => $posttype->name,
+				'orderby'        => 'rand',
+				'posts_per_page' => '1'
+			);
+			$post = get_posts( $args );
+
+			$url = get_edit_post_link( $post[0], 'raw' );
+			$url = add_query_arg( 'tes_metaboxes', 'true', $url );
+
+			$post_type_links[ $posttype->name ] = $url;
+		}
+
+		wp_localize_script( 'tabify-edit-screen-detection', 'tabify_detection', $post_type_links );
+	}
+
+	public function head_action() {
 		global $wp_meta_boxes;
+
+		$screen = get_current_screen();
 
 		$list = array();
 
-		foreach ( $wp_meta_boxes as $posttype => $items ) {
-			foreach ( $items as $context => $priorities ) {
-				foreach ( $priorities as $priority => $_metaboxes ) {
-					foreach ( $_metaboxes as $metabox ) {
-						$list[ $metabox['id'] ] = array(
-							'title'    => $metabox['title'],
-							'priority' => $priority,
-							'context'  => $context
-						);
-					}
+		$locations = $wp_meta_boxes[ $screen->post_type ];
+		foreach ( $locations as $context => $priorities ) {
+			foreach ( $priorities as $priority => $_metaboxes ) {
+				foreach ( $_metaboxes as $metabox ) {
+					$list[ $metabox['id'] ] = array(
+						'title'    => $metabox['title'],
+						'priority' => $priority,
+						'context'  => $context
+					);
 				}
 			}
 		}
@@ -57,88 +84,28 @@ class Tabify_Edit_Screen_Feature_Detection {
 	}
 
 
+
+
+
+
+
+
+	
+
+
 	public function add_missing_meta_boxes( $post_type ) {
-		if ( get_transient( 'tabify_detection_stop_detecting' ) ) {
-			return;
-		}
-
-		if ( false === ( $data = get_transient( 'tabify_detection_' . $post_type ) ) ) {
-			global $wp_meta_boxes;
-
-			if ( $this->allowed_request_errors <= 0 ) {
-				return;
-			}
-
-			$args = array(
-				'post_type'      => $post_type,
-				'orderby'        => 'rand',
-				'posts_per_page' => '1'
-			);
-			$post = get_posts( $args );
-
-			if ( empty( $post ) ) {
-				$this->allowed_request_errors--;
-
-				set_transient( 'tabify_detection_stop_detecting', true, HOUR_IN_SECONDS );
-				return;
-			}
-
-			$url = get_edit_post_link( $post[0], 'raw' );
-			$url = add_query_arg( 'tes_metaboxes', 'true', $url );
-
-
-			$cookies      = array();
-			foreach( $_COOKIE as $name => $value ) {
-				$cookies[] = new WP_Http_Cookie( array( 'name' => $name, 'value' => $value ) );
-			}
-			$response = wp_remote_get( esc_url_raw( $url ), array( 'cookies' => $cookies, 'timeout' => 2 ) );
-
-			if ( is_wp_error( $response ) ) {
-				$this->allowed_request_errors--;
-
-				set_transient( 'tabify_detection_stop_detecting', true, WEEK_IN_SECONDS );
-				return;
-			}
-
-			$body = wp_remote_retrieve_body( $response );
-
-			if ( ! $body ) {
-				set_transient( 'tabify_detection_' . $post_type, array(), WEEK_IN_SECONDS );
-				return;
-			}
-			
-			$data = json_decode( $body );
-
-			// Store data
-			set_transient( 'tabify_detection_' . $post_type, $data, WEEK_IN_SECONDS );
-		}
-
-		$this->load_metaboxes( $data, $post_type );
-	}
-
-	public function load_metaboxes( $metaboxes, $post_type ) {
-		foreach( $metaboxes as $id => $metabox ) {
-			if ( ! isset( $wp_meta_boxes[ $post_type ][ $metabox->context ][ $metabox->priority ][ $id ] ) ) {
-				add_meta_box( $id, $metabox->title, '__return_false', $post_type, $metabox->priority, $metabox->context );
+		if ( is_array( $metaboxes = get_transient( 'tabify_detection_' . $post_type ) ) ) {
+			foreach( $metaboxes as $id => $metabox ) {
+				if ( ! isset( $wp_meta_boxes[ $post_type ][ $metabox->context ][ $metabox->priority ][ $id ] ) ) {
+					add_meta_box( $id, $metabox->title, '__return_false', $post_type, $metabox->priority, $metabox->context );
+				}
 			}
 		}
 	}
-
 
 	public function unattached_metaboxes( $metaboxes ) {
 		$ids = array_keys( $metaboxes );
-	}
 
-
-	public function clear_cache() {
-		$args = array(
-			'show_ui' => true
-		);
-		$posttypes_objects = get_post_types( $args, 'objects' );
-
-		foreach ( $posttypes_objects as $posttype_object ) {
-			delete_transient( 'tabify_detection_' . $posttype_object->name );
-		}
 	}
 
 }
