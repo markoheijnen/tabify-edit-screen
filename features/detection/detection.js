@@ -5,11 +5,15 @@ jQuery(function($) {
 		evt.preventDefault();
 
 		var id = evt.target.id.replace( 'tab-', "");
-		
+
 		tabify_detection_get(id);
 	});
 
 	function tabify_detection_get( posttype ) {
+		if ( ! tabify_detection['posttype_links'][ posttype ] ) {
+			return;
+		}
+
 		$.getJSON( tabify_detection['posttype_links'][ posttype ], function( data ) {
 			// Looping over the metaboxes and add the missing ones
 			$.each( data, function( key, metabox ) {
