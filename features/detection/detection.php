@@ -49,10 +49,11 @@ class Tabify_Edit_Screen_Feature_Detection {
 			);
 			$post = get_posts( $args );
 
-			$url = get_edit_post_link( $post[0], 'raw' );
-			$url = add_query_arg( 'tes_metaboxes', 'true', $url );
-
-			$posttype_links[ $posttype->name ] = $url;
+			if ( ! empty( $post ) ) {
+				$url = get_edit_post_link( $post[0], 'raw' );
+				$url = add_query_arg( 'tes_metaboxes', 'true', $url );
+				$posttype_links[ $posttype->name ] = $url;
+			}
 		}
 
 		wp_localize_script( 'tabify-edit-screen-detection', 'tabify_detection', array(
