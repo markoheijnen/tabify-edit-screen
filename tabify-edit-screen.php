@@ -4,7 +4,7 @@
 	Description: Enables tabs in the edit screen and manage them from the back-end
 	Version: 0.9.3
 
-	Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
+	Plugin URI: https://codekitchen.eu/plugin/tabify-edit-screen
 
 	Author: Marko Heijnen
 	Author URI: https://markoheijnen.com
@@ -14,7 +14,7 @@
 	Domain Path: /languages
 */
 
-/*  Copyright 2013-2014 Tabify Edit Screen  (email : info@markoheijnen.com)
+/*  Copyright 2013-2016 Tabify Edit Screen (email : info@markoheijnen.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as 
