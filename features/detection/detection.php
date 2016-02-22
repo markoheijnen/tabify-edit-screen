@@ -11,7 +11,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 		// Hook for requesting missing hooks
 		add_action( 'tabify_add_meta_boxes', array( $this, 'add_missing_meta_boxes' ) );
 
-		// Possible hook for checking unattached meta boxes
+		// Checking & storing unattached meta boxes on the edit page
 		add_action( 'tabify_unattached_metaboxes', array( $this, 'unattached_metaboxes' ) );
 	}
 
@@ -21,7 +21,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 			ob_end_clean(); // For when warnings are displayed
 			ob_start();
 
-			add_action( 'admin_head', array( $this, 'head_action' ), 100 );
+			add_filter( 'tabify_tab_posttype_show', '__return_true', 1000 );
+			add_action( 'admin_head', array( $this, 'head_action' ), 110 );
 		}
 		else if ( 'settings_page_tabify-edit-screen' == $screen->base ) {
 			$this->enqueue_script();
@@ -64,13 +65,39 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 		$screen = get_current_screen();
 
-		$list = array();
+		ob_end_clean();
 
-		$locations = $wp_meta_boxes[ $screen->post_type ];
+		echo wp_json_encode( get_transient( 'tabify_detection_' . $screen->post_type ) );
+
+		exit;
+	}
+
+
+	public function add_missing_meta_boxes( $post_type ) {
+		if ( is_array( $metaboxes = get_transient( 'tabify_detection_' . $post_type ) ) ) {
+			foreach ( $metaboxes as $id => $metabox ) {
+				if ( ! isset( $wp_meta_boxes[ $post_type ][ $metabox->context ][ $metabox->priority ][ $id ] ) ) {
+					add_meta_box( $id, $metabox->title, '__return_false', $post_type, $metabox->priority, $metabox->context );
+				}
+			}
+		}
+	}
+
+	public function unattached_metaboxes( $unattached_metaboxes ) {
+		global $wp_meta_boxes;
+
+		if ( ! $unattached_metaboxes ) {
+			return;
+		}
+
+		$all_metaboxes = array();
+		$screen        = get_current_screen();
+		$locations     = $wp_meta_boxes[ $screen->post_type ];
+
 		foreach ( $locations as $context => $priorities ) {
 			foreach ( $priorities as $priority => $_metaboxes ) {
 				foreach ( $_metaboxes as $metabox ) {
-					$list[ $metabox['id'] ] = array(
+					$all_metaboxes[ $metabox['id'] ] = (object) array(
 						'title'    => $metabox['title'],
 						'priority' => $priority,
 						'context'  => $context
@@ -79,36 +106,13 @@ class Tabify_Edit_Screen_Feature_Detection {
 			}
 		}
 
-		ob_end_clean();
-		
-		echo wp_json_encode( $list );
-
-		exit;
-	}
-
-
-
-
-
-
-
-
-	
-
-
-	public function add_missing_meta_boxes( $post_type ) {
-		if ( is_array( $metaboxes = get_transient( 'tabify_detection_' . $post_type ) ) ) {
-			foreach( $metaboxes as $id => $metabox ) {
-				if ( ! isset( $wp_meta_boxes[ $post_type ][ $metabox->context ][ $metabox->priority ][ $id ] ) ) {
-					add_meta_box( $id, $metabox->title, '__return_false', $post_type, $metabox->priority, $metabox->context );
-				}
+		foreach ( $all_metaboxes as $metabox_id => $metabox ) {
+			if ( ! isset( $unattached_metaboxes[ $metabox_id ] )  ) {
+				unset( $all_metaboxes[ $metabox_id ] );
 			}
 		}
-	}
 
-	public function unattached_metaboxes( $metaboxes ) {
-		$ids = array_keys( $metaboxes );
-
+		set_transient( 'tabify_detection_' . $screen->post_type, $all_metaboxes );
 	}
 
 }
