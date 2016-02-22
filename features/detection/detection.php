@@ -32,7 +32,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 		wp_register_script( 'tabify-edit-screen-detection', plugins_url( '/detection.js', __FILE__ ), array( 'jquery' ), '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen-detection' );
 
-		$post_type_links = array();
+		$posttype_links = array();
 
 		$args = array(
 			'show_ui' => true
@@ -51,10 +51,12 @@ class Tabify_Edit_Screen_Feature_Detection {
 			$url = get_edit_post_link( $post[0], 'raw' );
 			$url = add_query_arg( 'tes_metaboxes', 'true', $url );
 
-			$post_type_links[ $posttype->name ] = $url;
+			$posttype_links[ $posttype->name ] = $url;
 		}
 
-		wp_localize_script( 'tabify-edit-screen-detection', 'tabify_detection', $post_type_links );
+		wp_localize_script( 'tabify-edit-screen-detection', 'tabify_detection', array(
+			'posttype_links' => $posttype_links
+		) );
 	}
 
 	public function head_action() {
