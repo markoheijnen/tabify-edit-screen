@@ -18,6 +18,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 	public function head_action_begin( $screen ) {
 		if ( ( 'post' == $screen->base || 'media' == $screen->base ) && isset( $_GET['tes_metaboxes'] ) ) {
+			ob_end_clean(); // For when warnings are displayed
 			ob_start();
 
 			add_action( 'admin_head', array( $this, 'head_action' ), 100 );
