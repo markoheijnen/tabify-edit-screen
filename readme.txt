@@ -49,8 +49,12 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 == Changelog ==
 
-= 0.9.4 ( 2016-02-?? ) =
+= 0.9.4 ( 2016-02-22 ) =
+* Rewrite of smart meta box detection to use Javascript instead.
 * Clear Detection cache on needed moments.
+* Increase caching time for smart detection to a week.
+* Disabled plugin support which accidentally got enabled in 0.9.3
+* Ability to enable/disable the post types tabs through the filter 'tabify_tab_posttype_show'
 
 = 0.9.3 ( 2016-02-18 ) =
 * Fix undefined notice on settings page. Props Juliette Reinders Folmer
