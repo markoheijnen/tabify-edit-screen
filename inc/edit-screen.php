@@ -54,8 +54,11 @@ class Tabify_Edit_Screen_Edit_Screen {
 				$options = $options['posttypes'];
 			}
 
+			// Ability to change if the tabs should be showed or not.
+			$display_tabs = apply_filters( 'tabify_tab_posttype_show', (bool) $options[ $post_type ]['show'] );
+
 			// This posttype has tabs
-			if ( isset( $options[ $post_type ], $options[ $post_type ]['show'] ) && $options[ $post_type ]['show'] == 1 ) {
+			if ( isset( $options[ $post_type ] ) && $display_tabs ) {
 				add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 				add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
