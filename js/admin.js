@@ -146,7 +146,9 @@ jQuery(function($) {
 
 	function tabify_admin_hide_delete() {
 		var amount = $('.tabifybox:visible .tabify_control').children().length;
-		if( 1 >= amount)
+
+		if( 1 >= amount) {
 			$('.tabifybox:visible .tabify-remove-tab').fadeOut();
+		}
 	}
 });
