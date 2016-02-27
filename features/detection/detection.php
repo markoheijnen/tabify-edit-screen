@@ -49,7 +49,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 			$args = array(
 				'post_type'      => $posttype->name,
 				'orderby'        => 'rand',
-				'posts_per_page' => '1'
+				'posts_per_page' => '1',
+				'post_status'    => 'any'
 			);
 			$post = get_posts( $args );
 
