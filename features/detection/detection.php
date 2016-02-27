@@ -104,6 +104,11 @@ class Tabify_Edit_Screen_Feature_Detection {
 			foreach ( $locations as $context => $priorities ) {
 				foreach ( $priorities as $priority => $_metaboxes ) {
 					foreach ( $_metaboxes as $metabox ) {
+						// Metabox has been removed
+						if ( ! isset( $metabox['id'] ) ) {
+							continue;
+						}
+
 						$all_metaboxes[ $metabox['id'] ] = (object) array(
 							'title'    => $metabox['title'],
 							'priority' => $priority,
