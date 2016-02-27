@@ -92,12 +92,12 @@ class Tabify_Edit_Screen_Feature_Detection {
 	public function unattached_metaboxes( $unattached_metaboxes ) {
 		global $wp_meta_boxes;
 
-		if ( get_transient( 'tabify_detection_' . $posttype->name ) !== false ) {
-			return;
-		}
-
 		$all_metaboxes = array();
 		$screen        = get_current_screen();
+
+		if ( get_transient( 'tabify_detection_' . $screen->post_type ) !== false ) {
+			return;
+		}
 
 		if ( $unattached_metaboxes ) {
 			$locations     = $wp_meta_boxes[ $screen->post_type ];
