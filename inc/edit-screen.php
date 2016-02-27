@@ -43,7 +43,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 
 		$screen = get_current_screen();
 
-		if ( 'post' != $screen->base ) {
+		if ( ! $screen || 'post' != $screen->base ) {
 			return;
 		}
 
