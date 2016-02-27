@@ -47,7 +47,7 @@ jQuery(function($) {
 							if( ! editor.width() ) {
 								setTimeout(function() {
 									$(document).trigger('postbox-toggled');
-								}, 10);
+								}, 15);
 
 								return false;
 							}
