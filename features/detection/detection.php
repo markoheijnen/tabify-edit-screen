@@ -42,6 +42,10 @@ class Tabify_Edit_Screen_Feature_Detection {
 		$posttypes_objects = apply_filters( 'tabify_posttypes', $posttypes_objects );
 
 		foreach ( $posttypes_objects as $posttype ) {
+			if ( get_transient( 'tabify_detection_' . $posttype->name ) !== false ) {
+				continue;
+			}
+
 			$args = array(
 				'post_type'      => $posttype->name,
 				'orderby'        => 'rand',
@@ -87,29 +91,32 @@ class Tabify_Edit_Screen_Feature_Detection {
 	public function unattached_metaboxes( $unattached_metaboxes ) {
 		global $wp_meta_boxes;
 
-		if ( ! $unattached_metaboxes ) {
+		if ( get_transient( 'tabify_detection_' . $posttype->name ) !== false ) {
 			return;
 		}
 
 		$all_metaboxes = array();
 		$screen        = get_current_screen();
-		$locations     = $wp_meta_boxes[ $screen->post_type ];
 
-		foreach ( $locations as $context => $priorities ) {
-			foreach ( $priorities as $priority => $_metaboxes ) {
-				foreach ( $_metaboxes as $metabox ) {
-					$all_metaboxes[ $metabox['id'] ] = (object) array(
-						'title'    => $metabox['title'],
-						'priority' => $priority,
-						'context'  => $context
-					);
+		if ( $unattached_metaboxes ) {
+			$locations     = $wp_meta_boxes[ $screen->post_type ];
+
+			foreach ( $locations as $context => $priorities ) {
+				foreach ( $priorities as $priority => $_metaboxes ) {
+					foreach ( $_metaboxes as $metabox ) {
+						$all_metaboxes[ $metabox['id'] ] = (object) array(
+							'title'    => $metabox['title'],
+							'priority' => $priority,
+							'context'  => $context
+						);
+					}
 				}
 			}
-		}
 
-		foreach ( $all_metaboxes as $metabox_id => $metabox ) {
-			if ( ! isset( $unattached_metaboxes[ $metabox_id ] )  ) {
-				unset( $all_metaboxes[ $metabox_id ] );
+			foreach ( $all_metaboxes as $metabox_id => $metabox ) {
+				if ( ! isset( $unattached_metaboxes[ $metabox_id ] )  ) {
+					unset( $all_metaboxes[ $metabox_id ] );
+				}
 			}
 		}
 

@@ -25,6 +25,8 @@ jQuery(function($) {
 				}
 			});
 		});
+
+		tabify_detection['posttype_links'][ posttype ] = '';
 	}
 
 });
