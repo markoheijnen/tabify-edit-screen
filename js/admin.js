@@ -19,9 +19,18 @@ jQuery(function($) {
 			scroll : false,
 			disableSelection: true,
 			receive: function(event, ui) {
-				var item = $( ui.item );
+				var item   = $( ui.item );
+				var holder = item.closest( 'div' );
+
+				if ( holder.data('id') ) {
+					var index = holder.data('id');
+				}
+				else {
+					var index = holder.index();
+				}
+
 				var parts = $( 'input', ui.item ).attr('name').split( '][' );
-				parts[3] = item.closest( 'div' ).index();
+				parts[3]  = index;
 				$( 'input', ui.item ).attr( 'name', parts.join( '][' ) );
 			}
 		});
