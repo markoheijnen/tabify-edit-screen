@@ -212,7 +212,7 @@ class Tabify_Edit_Screen_Settings_Base {
 			return;
 		}
 
-		$item_title = esc_html( $item_title );
+		$item_title = strip_tags( $item_title );
 
 		if ( in_array( $item_id, $default_items ) ) {
 			echo '<li id="' . $type . '-' . $item_id . '" class="tabifybox-hide">';
