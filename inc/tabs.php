@@ -19,9 +19,7 @@ class Tabify_Edit_Screen_Tabs {
 	 */
 	public function __construct( $items, $type = 'horizontal', $get_arg = 'tab', $javascript_support = true ) {
 		if ( is_array( $items ) ) {
-			do_action( 'tabify_tabs', $this, $type );
-
-			$this->items              = apply_filters( 'tabify_tabs', $items, $this );
+			$this->items              = apply_filters( 'tabify_tabs', $items, $this, $type );
 			$this->type               = $type;
 			$this->get_arg            = $get_arg;
 			$this->javascript_support = $javascript_support;

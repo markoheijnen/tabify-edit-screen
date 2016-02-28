@@ -57,6 +57,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 * Ability to enable/disable the post types tabs through the filter 'tabify_tab_posttype_show'
 * Fix notices on WooCommerce install screen
 * Check if metaboxes got removed to prevent notices
+* Remove action ‘tabify_tabs’ due to same filter.
 
 = 0.9.3 ( 2016-02-18 ) =
 * Fix undefined notice on settings page. Props Juliette Reinders Folmer
