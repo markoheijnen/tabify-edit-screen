@@ -59,8 +59,8 @@ class Tabify_Edit_Screen_Settings_Page {
 
 		$tabs = array(
 			'posttypes' => array(
-				'title' => __('Post types', 'tabify-edit-screen' ),
-				'class' => 'Tabify_Edit_Screen_Settings_Posttypes'
+			'title'     => __('Post types', 'tabify-edit-screen' ),
+			'class'     => 'Tabify_Edit_Screen_Settings_Posttypes'
 			)
 		);
 		$tabs = apply_filters( 'tabify_settings_tabs', $tabs );

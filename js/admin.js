@@ -1,6 +1,6 @@
 jQuery(function($) {
 	// Remove nojs support
-	$( ".tabify_control .item-order" ).remove();
+	$( ".tabify_control_tabs .item-order" ).remove();
 	$( "#tabify_edit_screen_nojs" ).remove();
 
 	$( ".tabify_control" ).sortable({
@@ -13,9 +13,9 @@ jQuery(function($) {
 	// Initialize sortables
 	initialize_sortable_ul();
 	function initialize_sortable_ul() {
-		$( ".tabify_control ul" ).sortable({
+		$( ".tabify_control_tabs ul" ).sortable({
 			//items : ".steps",
-			connectWith: ".tabify_control ul",
+			connectWith: ".tabify_control_tabs ul",
 			scroll : false,
 			disableSelection: true,
 			receive: function(event, ui) {

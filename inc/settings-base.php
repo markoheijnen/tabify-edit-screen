@@ -67,7 +67,7 @@ class Tabify_Edit_Screen_Settings_Base {
 			do_action( 'tabify_settings', $this->type, $section, $options[ $section ] );
 			echo '</div>';
 
-			echo '<div class="tabify_control">';
+			echo '<div class="tabify_control tabify_control_tabs">';
 
 			$tab_id = 0;
 			$remove = false;

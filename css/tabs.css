@@ -48,7 +48,6 @@
 }
 
 .tabify_tab h2 {
-	cursor: pointer;
 	float: left;
 	font-size: 20px;
 	font-weight: 600;
@@ -56,11 +55,14 @@
 	margin: 10px 0 0;
 	padding: 0;
 }
-.tabify_tab h2 span {
+.tabify_control h2 {
+	cursor: pointer;
+}
+.tabify_control h2 span {
 	display: inline-block;
 	margin-top: 5px;
 }
-.tabify_tab h2 input {
+.tabify_control h2 input {
 	font-size: 20px;
 	margin: 0;
 	width: 100%;
@@ -87,16 +89,16 @@
 	height: 28px;
 }
 
-.tabify_control .tabify_tab {
+.tabify_control_tabs .tabify_tab {
 	background: #f9f9f9;
 }
 
-.tabify_control .menu-item-handle {
+.tabify_control_tabs .menu-item-handle {
 	overflow: visible;
 	width: auto;
 }
 
-.tabify_control ul {
+.tabify_control_tabs ul {
 	margin: 0px;
 	padding: 6px 0px 0px;
 }
@@ -153,17 +155,17 @@
 /* =Javascript disabled
 -------------------------------------------------------------- */
 
-.no-js .tabify_control .menu-item-bar .menu-item-handle:hover {
+.no-js .tabify_control_tabs .menu-item-bar .menu-item-handle:hover {
 	border-color: #dfdfdf;
 }
 
-.tabify_control .item-order {
+.tabify_control_tabs .item-order {
 	float: right;
 	margin-top:-26px;
 	margin-right: 10px;
 }
 
-.tabify_control .item-order a {
+.tabify_control_tabs .item-order a {
 	text-decoration: none;
 }
 
