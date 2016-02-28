@@ -1,18 +1,18 @@
-# Copyright (C) 2015 Marko Heijnen
+# Copyright (C) 2016 Marko Heijnen
 # This file is distributed under the same license as the Tabify edit screen package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tabify edit screen 0.9.1\n"
+"Project-Id-Version: Tabify edit screen 0.9.4\n"
 "Report-Msgid-Bugs-To: "
-"http://wordpress.org/support/plugin/tabify-edit-screen\n"
-"POT-Creation-Date: 2015-11-14 21:25:30+00:00\n"
+"https://wordpress.org/support/plugin/tabify-edit-screen\n"
+"POT-Creation-Date: 2016-02-28 15:29:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 0.4.9\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
 
 #: features/permissions/permissions.php:27
 #: features/permissions/permissions.php:41
@@ -28,19 +28,19 @@ msgstr ""
 msgid "%s role"
 msgstr ""
 
-#: inc/edit-screen.php:204
+#: inc/edit-screen.php:215
 msgid "Schedule"
 msgstr ""
 
-#: inc/edit-screen.php:207 inc/settings-posttype.php:191
+#: inc/edit-screen.php:218 inc/settings-posttype.php:196
 msgid "Publish"
 msgstr ""
 
-#: inc/edit-screen.php:211
+#: inc/edit-screen.php:222
 msgid "Submit for Review"
 msgstr ""
 
-#: inc/edit-screen.php:215
+#: inc/edit-screen.php:226
 msgid "Update"
 msgstr ""
 
@@ -92,60 +92,60 @@ msgstr ""
 msgid "Editor"
 msgstr ""
 
-#: inc/settings-posttype.php:187
+#: inc/settings-posttype.php:192
 msgid "Save"
 msgstr ""
 
-#: inc/settings-posttype.php:188
+#: inc/settings-posttype.php:193
 msgid "Metadata"
 msgstr ""
 
-#: inc/settings-posttype.php:217
+#: inc/settings-posttype.php:222
 msgid "Page Attributes"
 msgstr ""
 
-#: inc/settings-posttype.php:217
+#: inc/settings-posttype.php:222
 msgid "Attributes"
 msgstr ""
 
-#: inc/settings-posttype.php:221
+#: inc/settings-posttype.php:226
 msgid "Featured Image"
 msgstr ""
 
-#: inc/settings-posttype.php:225
+#: inc/settings-posttype.php:230
 msgid "Excerpt"
 msgstr ""
 
-#: inc/settings-posttype.php:229
+#: inc/settings-posttype.php:234
 msgid "Send Trackbacks"
 msgstr ""
 
-#: inc/settings-posttype.php:233
+#: inc/settings-posttype.php:238
 msgid "Custom Fields"
 msgstr ""
 
-#: inc/settings-posttype.php:239
+#: inc/settings-posttype.php:244
 msgid "Discussion"
 msgstr ""
 
-#: inc/settings-posttype.php:243
+#: inc/settings-posttype.php:248
 msgid "Comments"
 msgstr ""
 
-#: inc/settings-posttype.php:246
+#: inc/settings-posttype.php:251
 msgid "Slug"
 msgstr ""
 
-#: inc/settings-posttype.php:249
+#: inc/settings-posttype.php:254
 msgid "Author"
 msgstr ""
 
-#: inc/settings-posttype.php:253
+#: inc/settings-posttype.php:258
 msgid "Revisions"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://rocksta.rs/plugin/tabify-edit-screen"
+msgid "https://codekitchen.eu/plugin/tabify-edit-screen"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -160,7 +160,7 @@ msgstr ""
 msgid "https://markoheijnen.com"
 msgstr ""
 
-#: inc/settings-posttype.php:195
+#: inc/settings-posttype.php:200
 msgctxt "post format"
 msgid "Format"
 msgstr ""
