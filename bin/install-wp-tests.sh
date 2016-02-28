@@ -63,7 +63,11 @@ install_wp() {
 		tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C $WP_CORE_DIR
 	fi
 
-	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
+	if [[ $WP_VERSION == '3.7' || $WP_VERSION == '3.8' ]]; then
+		download https://raw.github.com/markoheijnen/wp-mysqli/master/db-legacy.php ${WP_CORE_DIR}wp-content/db.php
+	else
+		download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php ${WP_CORE_DIR}wp-content/db.php
+	fi
 }
 
 install_test_suite() {

@@ -19,15 +19,13 @@ class Tabify_Edit_Screen_Tabs {
 	 */
 	public function __construct( $items, $type = 'horizontal', $get_arg = 'tab', $javascript_support = true ) {
 		if ( is_array( $items ) ) {
-			do_action( 'tabify_tabs', $this, $type );
-
-			$this->items              = apply_filters( 'tabify_tabs', $items, $this );
+			$this->items              = apply_filters( 'tabify_tabs', $items, $this, $type );
 			$this->type               = $type;
 			$this->get_arg            = $get_arg;
 			$this->javascript_support = $javascript_support;
 
 			if ( isset( $_REQUEST[ $this->get_arg ] ) ) {
-				$this->active = esc_attr( $_REQUEST[ $this->get_arg ] );
+				$this->active = sanitize_text_field( $_REQUEST[ $this->get_arg ] );
 			}
 
 			$this->base_url = remove_query_arg( $this->get_arg, $_SERVER["REQUEST_URI"] );

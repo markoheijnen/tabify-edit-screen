@@ -212,13 +212,13 @@ class Tabify_Edit_Screen_Settings_Base {
 			return;
 		}
 
-		$item_title = esc_html( $item_title );
+		$item_title = strip_tags( $item_title );
 
 		if ( in_array( $item_id, $default_items ) ) {
-			echo '<li class="tabifybox-hide">';
+			echo '<li id="' . $type . '-' . $item_id . '" class="tabifybox-hide">';
 		}
 		else {
-			echo '<li>';
+			echo '<li id="' . $type . '-' . $item_id . '">';
 		}
 
 		echo '<div class="menu-item-bar"><div class="menu-item-handle">';
@@ -232,7 +232,7 @@ class Tabify_Edit_Screen_Settings_Base {
 		if ( isset( $options[ $type ] ) ) {
 			$amount_tabs = count( $options[ $type ]['tabs'] );
 
-			for(  $i = 0; $i < $amount_tabs; $i++ ) {
+			for( $i = 0; $i < $amount_tabs; $i++ ) {
 				if ( ! isset( $options[ $type ]['tabs'][ $i ] ) ) {
 					continue;
 				}

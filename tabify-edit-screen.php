@@ -2,9 +2,9 @@
 /*
 	Plugin Name: Tabify edit screen
 	Description: Enables tabs in the edit screen and manage them from the back-end
-	Version: 0.9.0
+	Version: 0.9.4
 
-	Plugin URI: http://rocksta.rs/plugin/tabify-edit-screen
+	Plugin URI: https://codekitchen.eu/plugin/tabify-edit-screen
 
 	Author: Marko Heijnen
 	Author URI: https://markoheijnen.com
@@ -14,7 +14,7 @@
 	Domain Path: /languages
 */
 
-/*  Copyright 2013-2014 Tabify Edit Screen  (email : info@markoheijnen.com)
+/*  Copyright 2013-2016 Tabify Edit Screen (email : info@markoheijnen.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as 
@@ -32,7 +32,7 @@
 
 class Tabify_Edit_Screen {
 
-	public  $version = '0.9.0';
+	public  $version = '0.9.4';
 
 	public function __construct() {
 		if ( is_admin() ) {
@@ -49,21 +49,25 @@ class Tabify_Edit_Screen {
 		new Tabify_Edit_Screen_Edit_Screen();
 		new Tabify_Edit_Screen_Settings_Page();
 
-		$this->load_features();
+		add_action( 'current_screen', array( $this, 'load_features' ), 1 );
 	}
 
 	public function load_translation() {
 		load_plugin_textdomain( 'tabify-edit-screen', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
-	private function load_features() {
+	public function load_features( $screen ) {
 		$features = array(
 			'detection',
 			'permissions'
 		);
 
+		if ( apply_filters( 'tabify_plugin_support', false ) ) {
+			$features[] = 'plugin-support';
+		}
+
 		foreach ( $features as $feature ) {
-			$class_name = 'Tabify_Edit_Screen_Feature_' . $feature;
+			$class_name = 'Tabify_Edit_Screen_Feature_' . str_replace( '-', '_', $feature );
 
 			include 'features/' . $feature . '/' . $feature . '.php';
 			new $class_name;

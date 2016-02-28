@@ -32,9 +32,7 @@ jQuery(function($) {
 							if( checkbox.attr('type') != 'checkbox' || checkbox.is(':checked') ) {
 								$(this).show();
 							}
-						});
-
-						tabify_fix_editors();
+						}).promise().done( function(){ tabify_fix_editors() } );
 					}
 				}
 
@@ -45,9 +43,7 @@ jQuery(function($) {
 
 						if ( editor.closest('.tabifybox').is(':visible') ) {
 							if( ! editor.width() ) {
-								setTimeout(function() {
-									$(document).trigger('postbox-toggled');
-								}, 10);
+								$(document).trigger('postbox-toggled');
 
 								return false;
 							}

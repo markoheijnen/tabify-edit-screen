@@ -2,9 +2,9 @@
 Contributors: CodeKitchen, markoheijnen, tara-van-der-wel
 Donate link: https://markoheijnen.com/donate
 Tags: tabs, edit, admin, post, page, posts
-Requires at least: 3.4
-Tested up to: 4.4
-Stable tag: 0.9.0
+Requires at least: 3.7
+Tested up to: 4.5
+Stable tag: 0.9.4
 
 Enable tabs in the edit screen and manage them from the back-end.
 
@@ -48,6 +48,31 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 1. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.9.4 ( 2016-02-28 ) =
+* Rewrite of smart meta box detection to use Javascript instead.
+* Clear Detection cache on needed moments.
+* Increase caching time for smart detection to a week.
+* Disabled plugin support which accidentally got enabled in 0.9.3
+* Ability to enable/disable the post types tabs through the filter 'tabify_tab_posttype_show'
+* Fix notices on WooCommerce install screen
+* Check if metaboxes got removed to prevent notices
+* Remove action ‘tabify_tabs’ due to same filter.
+
+= 0.9.3 ( 2016-02-18 ) =
+* Fix undefined notice on settings page. Props Juliette Reinders Folmer
+* Fix typo in detection transient name. Props Juliette Reinders Folmer
+* Fix vertical tabs on setting page display next to each other in WordPress 4.4
+* Added back plugin support with filter 'tabify_plugin_support'
+
+= 0.9.2 ( 2015-11-14 ) =
+* Decrease timeout for smart meta box detection requests
+* Disable smart meta box detection after 3 failures at the same time
+* Stop all other requests after 3 failures
+
+= 0.9.1 ( 2015-11-14 ) =
+* Fix issue with older WordPress version
+* Expire detection transient after 24 hours
 
 = 0.9.0 ( 2015-11-14 ) =
 * Add ability to set permission based on user role per tab. Sponsored by <a href="http://www.NWConsulting.co.uk">NW Consulting</a>

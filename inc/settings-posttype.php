@@ -73,6 +73,11 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 			foreach ( $context as $priorities ) {
 				foreach ( $priorities as $priority => $_metaboxes ) {
 					foreach ( $_metaboxes as $metabox ) {
+						// Metabox has been removed
+						if ( ! isset( $metabox['id'] ) ) {
+							continue;
+						}
+
 						$metaboxes[ $posttype ][ $metabox['id'] ] = $metabox['title'];
 					}
 				}

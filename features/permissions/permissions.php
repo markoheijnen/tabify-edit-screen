@@ -47,7 +47,7 @@ class Tabify_Edit_Screen_Feature_Permissions {
 	public function settings_tab_title_after( $tab, $section, $type ) {
 		echo '<div class="tabify-tab-permission-box">';
 
-		$all_roles = wp_roles()->roles;
+		$all_roles = $this->get_roles();
 		foreach ( $all_roles as $key => $role ) {
 			$name    = 'tabify[' . $type . '][' . $section . '][tabs][' . $tab['id'] . '][permissions][]';
 			$checked = in_array( $key, $tab['permissions'] ) ? ' checked="checked"' : '';
@@ -94,6 +94,22 @@ class Tabify_Edit_Screen_Feature_Permissions {
 		}
 
 		return $tabs;
+	}
+
+
+	private function get_roles() {
+		if ( ! function_exists( 'wp_roles' ) ) {
+			global $wp_roles;
+
+			if ( ! isset( $wp_roles ) ) {
+				$wp_roles = new WP_Roles();
+			}
+		}
+		else {
+			$wp_roles = wp_roles();
+		}
+
+		return $wp_roles->roles;
 	}
 
 }

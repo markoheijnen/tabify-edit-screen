@@ -3,6 +3,8 @@
  * Tests to test that that testing framework is testing tests. Meta, huh?
  * @package wordpress-plugins-tests
  */
+include_once 'inc/edit-screen.php';
+
 class Tabify_Tests_Core extends WP_UnitTestCase {
 
 	function setUp() {
@@ -16,15 +18,15 @@ class Tabify_Tests_Core extends WP_UnitTestCase {
 	}
 
 	function test_Tabify_Edit_Screen__redirect_add_current_tab() {
-		global $tabify_edit_screen;
+		$screen = new Tabify_Edit_Screen_Edit_Screen();
 
-		$this->assertEquals( $tabify_edit_screen->redirect_add_current_tab( 'my-location', 1 ), 'my-location' );
+		$this->assertEquals( $screen->redirect_add_current_tab( 'my-location', 1 ), 'my-location' );
 	}
 
 	function test_Tabify_Edit_Screen__show_tabs() {
-		global $tabify_edit_screen;
+		$screen = new Tabify_Edit_Screen_Edit_Screen();
 
-		$this->assertNull( $tabify_edit_screen->show_tabs() );
+		$this->assertNull( $screen->show_tabs() );
 	}
 
 }
