@@ -1,6 +1,6 @@
 <?php
 /*
-	Plugin Name: Tabify edit screen
+	Plugin Name: Tabify Edit Screen
 	Description: Enables tabs in the edit screen and manage them from the back-end
 	Version: 0.9.4
 
