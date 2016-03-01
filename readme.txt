@@ -12,8 +12,6 @@ Enable tabs in the edit screen and manage them from the back-end.
 
 When you've got lots of post meta-boxes, your post edit screen can become difficult to search. Make your post edit screen easier to navigate and manage by creating a set of tabs, with the Tabify Edit Screen plugin. And manage it all from the WordPress back-end!
 
-The plugin is still in active development, and I'm always looking for ways to improve it. 
-
 There are still lots of things changing in the code base. There are some hooks you can use but they can change from implementation till 1.0. I will always try to maintain backwards-compatible but till 1.0 I can't be sure for that.
 
 == Installation ==
