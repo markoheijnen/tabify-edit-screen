@@ -35,7 +35,7 @@ You can also check on the second argument what the location is. Now always 'post
 
 = Does it work with all plugins? =
 Since version 0.9.0 it should work for almost all plugins. Unless they do extra checks it should work.
-Before there was a filter 'tabify_plugin_support' but since 0.9.9 that code has been deprecated and removed.
+Before there was a filter 'tabify_plugin_support' which still exists but shouldn't be used anymore.
 
 = What happen with new metaboxes? =
 At this moment new metaboxes are places on the last tab. You can go to the settings screen to reorder the metabox. You can change which tab it should go like with meta boxes that don't show up like Types or WordPress SEO. You do this with the filter 'tabify_unattached_metaboxes_index'.
