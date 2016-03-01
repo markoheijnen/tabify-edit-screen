@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #004a80;
+      }
+
+      .cls-2 {
+        fill: #549ccf;
+      }
+
+      .cls-3, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-4, .cls-5 {
+        font-size: 24px;
+      }
+
+      .cls-5 {
+        text-anchor: middle;
+        font-family: "HelveticaNeue-Medium";
+      }
+    </style>
+  </defs>
+  <rect x="-10" y="-8" width="281" height="271" class="cls-1"/>
+  <rect x="86" width="170" height="60" class="cls-2"/>
+  <g>
+    <path d="M20.000,102.000 L20.000,94.000 L236.000,94.000 L236.000,102.000 L20.000,102.000 Z" class="cls-3"/>
+    <path d="M20.000,132.000 L20.000,124.000 L236.000,124.000 L236.000,132.000 L20.000,132.000 Z" class="cls-3"/>
+    <path d="M20.000,162.000 L20.000,154.000 L236.000,154.000 L236.000,162.000 L20.000,162.000 Z" class="cls-3"/>
+    <path d="M20.000,192.000 L20.000,184.000 L236.000,184.000 L236.000,192.000 L20.000,192.000 Z" class="cls-3"/>
+    <path d="M20.000,222.000 L20.000,214.000 L128.000,214.000 L128.000,222.000 L20.000,222.000 Z" class="cls-3"/>
+  </g>
+  <g>
+    <path d="M171.000,60.000 L170.000,60.000 L170.000,0.000 L171.000,0.000 L171.000,60.000 Z" class="cls-3"/>
+    <path d="M86.000,60.000 L85.000,60.000 L85.000,0.000 L86.000,0.000 L86.000,60.000 Z" class="cls-3"/>
+  </g>
+  <g>
+    <text x="40" y="36" class="cls-4"><tspan x="40" class="cls-5">|</tspan></text>
+    <text x="125" y="36" class="cls-4"><tspan x="125" class="cls-5">||</tspan></text>
+    <text x="211" y="36" class="cls-4"><tspan x="211" class="cls-5">|||</tspan></text>
+  </g>
+</svg>
