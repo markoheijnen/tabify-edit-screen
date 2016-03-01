@@ -4,11 +4,11 @@
 	Description: Enables tabs in the edit screen and manage them from the back-end
 	Version: 0.9.4
 
-	Plugin URI: https://codekitchen.eu/plugin/tabify-edit-screen
+	Plugin URI: https://codekitchen.eu/plugins/tabify-edit-screen
 
 	Author: Marko Heijnen
-	Author URI: https://markoheijnen.com
-	Donate link: https://markoheijnen.com/donate
+	Author URI: https://codekitchen.eu
+	Donate link: https://codekitchen.eu/donate
 
 	Text Domain: tabify-edit-screen
 	Domain Path: /languages

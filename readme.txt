@@ -1,6 +1,6 @@
 === Tabify Edit Screen ===
 Contributors: CodeKitchen, markoheijnen, tara-van-der-wel
-Donate link: https://markoheijnen.com/donate
+Donate link: https://codekitchen.eu/donate
 Tags: tabs, edit, admin, post, page, posts
 Requires at least: 3.7
 Tested up to: 4.5
