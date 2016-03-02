@@ -63,7 +63,17 @@ class Tabify_Edit_Screen_Settings_Base {
 			}
 
 			echo '<div class="tabifybox-options">';
-			echo '<p><input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" ' . $checked . '/> ' . __( 'Show tabs in this post type.', 'tabify-edit-screen' ) . '</p>';
+			echo '<p id="show-type">';
+			_e( 'Show tabs in this post type:', 'tabify-edit-screen' );
+			echo '<span class="onoffswitch">';
+			echo '<input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" class="onoffswitch-checkbox" id="switch-' . $this->type . '"' . $checked . '>';
+			echo '<label class="onoffswitch-label" for="switch-' . $this->type . '">';
+			echo '<span class="onoffswitch-inner"></span>';
+			echo '<span class="onoffswitch-switch"></span>';
+			echo '</label>';
+			echo '</span>';
+			echo '</p>';
+
 			do_action( 'tabify_settings', $this->type, $section, $options[ $section ] );
 			echo '</div>';
 
@@ -152,6 +162,7 @@ class Tabify_Edit_Screen_Settings_Base {
 		submit_button( '', 'primary', 'submit', false );
 		echo '</p>';
 
+		$this->print_onoff_switch();
 		$this->print_backbone_template();
 	}
 
@@ -185,6 +196,24 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo '</div>';
 
 		echo '</script>';
+	}
+
+	private function print_onoff_switch() {
+		global $_wp_admin_css_colors;
+
+		$color = get_user_option('admin_color');
+
+		if ( empty( $color ) || ! isset($_wp_admin_css_colors[ $color ] ) ) {
+			$color = 'fresh';
+		}
+
+		echo '<style>';
+		echo '.onoffswitch-inner:before { content: "' . __( 'On', 'sitemanager' ) . '"; }';
+		echo '.onoffswitch-inner:after { content: "' . __( 'Off', 'sitemanager' ) . '"; }';
+		echo '.form-table .onoffswitch-label { border-color: ' . $_wp_admin_css_colors[$color]->colors[2] . '; }';
+		echo '.form-table .onoffswitch-inner:before { background-color: ' . $_wp_admin_css_colors[$color]->colors[3] . '; }';
+		echo '.form-table .onoffswitch-switch { background-color: ' . $_wp_admin_css_colors[$color]->colors[2] . '; }';
+		echo '</style>';
 	}
 
 	protected function get_options( $type = null ) {
