@@ -1,11 +1,11 @@
 # Copyright (C) 2016 Marko Heijnen
-# This file is distributed under the same license as the Tabify edit screen package.
+# This file is distributed under the same license as the Tabify Edit Screen package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tabify edit screen 0.9.4\n"
+"Project-Id-Version: Tabify Edit Screen 0.9.5\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/tabify-edit-screen\n"
-"POT-Creation-Date: 2016-02-28 15:29:36+00:00\n"
+"POT-Creation-Date: 2016-03-03 19:13:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
+#: inc/settings-page.php:25
 msgid "Tabify edit screen"
 msgstr ""
 
@@ -144,8 +144,12 @@ msgstr ""
 msgid "Revisions"
 msgstr ""
 
+#. Plugin Name of the plugin/theme
+msgid "Tabify Edit Screen"
+msgstr ""
+
 #. Plugin URI of the plugin/theme
-msgid "https://codekitchen.eu/plugin/tabify-edit-screen"
+msgid "https://codekitchen.eu/products/tabify-edit-screen/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -157,7 +161,7 @@ msgid "Marko Heijnen"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://markoheijnen.com"
+msgid "https://codekitchen.eu"
 msgstr ""
 
 #: inc/settings-posttype.php:200
