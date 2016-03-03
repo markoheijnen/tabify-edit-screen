@@ -49,7 +49,7 @@ class Tabify_Edit_Screen {
 		new Tabify_Edit_Screen_Edit_Screen();
 		new Tabify_Edit_Screen_Settings_Page();
 
-		add_action( 'current_screen', array( $this, 'load_features' ), 1 );
+		add_action( 'admin_init', array( $this, 'load_features' ), 1 );
 	}
 
 	public function load_translation() {
