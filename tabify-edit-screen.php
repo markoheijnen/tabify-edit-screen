@@ -34,6 +34,8 @@ class Tabify_Edit_Screen {
 
 	public  $version = '0.9.4';
 
+	private $loaded_features = array();
+
 	public function __construct() {
 		if ( is_admin() ) {
 			add_action( 'plugins_loaded', array( $this, 'load' ) );
@@ -67,6 +69,8 @@ class Tabify_Edit_Screen {
 		}
 
 		foreach ( $features as $feature ) {
+			$this->loaded_features[] = $feature;
+
 			$class_name = 'Tabify_Edit_Screen_Feature_' . str_replace( '-', '_', $feature );
 
 			include 'features/' . $feature . '/' . $feature . '.php';
