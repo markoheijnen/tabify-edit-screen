@@ -1,7 +1,7 @@
 === Tabify Edit Screen ===
 Contributors: CodeKitchen, markoheijnen, tara-van-der-wel
-Donate link: https://markoheijnen.com/donate
-Tags: tabs, edit, admin, post, page, posts
+Donate link: https://codekitchen.eu/donate
+Tags: tabs, edit, admin, post, page, posts, tabs plugin, admin tabs
 Requires at least: 3.7
 Tested up to: 4.5
 Stable tag: 0.9.4
@@ -11,8 +11,6 @@ Enable tabs in the edit screen and manage them from the back-end.
 == Description ==
 
 When you've got lots of post meta-boxes, your post edit screen can become difficult to search. Make your post edit screen easier to navigate and manage by creating a set of tabs, with the Tabify Edit Screen plugin. And manage it all from the WordPress back-end!
-
-The plugin is still in active development, and I'm always looking for ways to improve it. 
 
 There are still lots of things changing in the code base. There are some hooks you can use but they can change from implementation till 1.0. I will always try to maintain backwards-compatible but till 1.0 I can't be sure for that.
 
@@ -37,7 +35,7 @@ You can also check on the second argument what the location is. Now always 'post
 
 = Does it work with all plugins? =
 Since version 0.9.0 it should work for almost all plugins. Unless they do extra checks it should work.
-Before there was a filter 'tabify_plugin_support' but since 0.9.9 that code has been deprecated and removed.
+Before there was a filter 'tabify_plugin_support' which still exists but shouldn't be used anymore.
 
 = What happen with new metaboxes? =
 At this moment new metaboxes are places on the last tab. You can go to the settings screen to reorder the metabox. You can change which tab it should go like with meta boxes that don't show up like Types or WordPress SEO. You do this with the filter 'tabify_unattached_metaboxes_index'.
@@ -45,9 +43,12 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 == Screenshots ==
 
 1. How it would look like after enabling this plugin
-1. The settings page where you can manage the tabs for each posttype
+2. The settings page where you can manage the tabs for each posttype
 
 == Changelog ==
+
+= 0.9.5 ( 2016-03-03 ) =
+* Only load features once. Caused when plugins set a new current_screen.
 
 = 0.9.4 ( 2016-02-28 ) =
 * Rewrite of smart meta box detection to use Javascript instead.
