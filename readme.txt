@@ -4,7 +4,7 @@ Donate link: https://codekitchen.eu/donate
 Tags: tabs, edit, admin, post, page, posts, tabs plugin, admin tabs
 Requires at least: 3.7
 Tested up to: 4.5
-Stable tag: 0.9.4
+Stable tag: 0.9.5
 
 Enable tabs in the edit screen and manage them from the back-end.
 
