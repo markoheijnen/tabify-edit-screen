@@ -2,9 +2,9 @@
 /*
 	Plugin Name: Tabify Edit Screen
 	Description: Enables tabs in the edit screen and manage them from the back-end
-	Version: 0.9.4
+	Version: 0.9.5
 
-	Plugin URI: https://codekitchen.eu/plugins/tabify-edit-screen
+	Plugin URI: https://codekitchen.eu/products/tabify-edit-screen/
 
 	Author: Marko Heijnen
 	Author URI: https://codekitchen.eu
@@ -34,6 +34,8 @@ class Tabify_Edit_Screen {
 
 	public  $version = '0.9.4';
 
+	private $loaded_features = array();
+
 	public function __construct() {
 		if ( is_admin() ) {
 			add_action( 'plugins_loaded', array( $this, 'load' ) );
@@ -49,7 +51,7 @@ class Tabify_Edit_Screen {
 		new Tabify_Edit_Screen_Edit_Screen();
 		new Tabify_Edit_Screen_Settings_Page();
 
-		add_action( 'current_screen', array( $this, 'load_features' ), 1 );
+		add_action( 'admin_init', array( $this, 'load_features' ), 1 );
 	}
 
 	public function load_translation() {
@@ -67,6 +69,8 @@ class Tabify_Edit_Screen {
 		}
 
 		foreach ( $features as $feature ) {
+			$this->loaded_features[] = $feature;
+
 			$class_name = 'Tabify_Edit_Screen_Feature_' . str_replace( '-', '_', $feature );
 
 			include 'features/' . $feature . '/' . $feature . '.php';
