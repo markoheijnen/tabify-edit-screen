@@ -64,7 +64,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 		// Ability to change if the tabs should be showed or not.
 		$display_tabs = apply_filters( 'tabify_tab_posttype_show', (bool) $options[ $post_type ]['show'] );
 
-		// This posttype has tabs
+		// Check if this post type is enabled.
 		if ( ! $display_tabs ) {
 			return;
 		}
@@ -72,9 +72,6 @@ class Tabify_Edit_Screen_Edit_Screen {
 		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 		add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
-		$tabs = apply_filters( 'tabify_tab_posttype_tabs', $options[ $post_type ]['tabs'], $post_type );
-
-		$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $tabs );
 		$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post_type );
 		$all_metaboxes         = array();
 
@@ -88,6 +85,16 @@ class Tabify_Edit_Screen_Edit_Screen {
 			}
 		}
 
+		// Filter the tabs
+		$tabs = apply_filters( 'tabify_tab_posttype_tabs', $options[ $post_type ]['tabs'], $post_type );
+
+		// Filter empty tabs
+		$tabs = array_filter( $tabs, array( $this, 'filter_empty_tabs' ) );
+
+		// Create Tabify_Edit_Screen_Tabs that is for displaying the UI.
+		$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $tabs );
+
+		// Load the tabs on the edit screen.
 		$this->load_tabs();
 
 		foreach ( $options[ $post_type ]['tabs'] as $tab_index => $tab ) {
@@ -241,6 +248,16 @@ class Tabify_Edit_Screen_Edit_Screen {
 		do_action( 'tabify_custom_javascript' );
 		echo '});';
 		echo '</script>';
+	}
+
+	/**
+	 * Filter out tabs that don't have any meta boxes to show
+	 *
+	 * @since 0.9.6
+	 *
+	 */
+	public function filter_empty_tabs( $tab ) {
+		return isset( $tab['items'] );
 	}
 
 }
