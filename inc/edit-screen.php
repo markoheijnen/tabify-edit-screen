@@ -5,7 +5,8 @@ include 'tabs.php';
 class Tabify_Edit_Screen_Edit_Screen {
 
 	private $editscreen_tabs;
-	private $tab_location = 'default';
+	private $tab_location  = 'default';
+	private $all_metaboxes = array();
 
 	public function __construct() {
 		add_filter( 'redirect_post_location', array( $this, 'redirect_add_current_tab' ), 10, 2 );
@@ -73,13 +74,13 @@ class Tabify_Edit_Screen_Edit_Screen {
 		add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
 		$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post_type );
-		$all_metaboxes         = array();
+		$this->all_metaboxes   = array();
 
 		foreach ( $wp_meta_boxes[ $post_type ] as $priorities ) {
 			foreach ( $priorities as $priority => $_metaboxes ) {
 				foreach ( $_metaboxes as $metabox ) {
 					if ( ! in_array( $metabox['id'], $default_metaboxes ) ) {
-						$all_metaboxes[ $metabox['id'] ] = $metabox['title'];
+						$this->all_metaboxes[ $metabox['id'] ] = $metabox['id'];
 					}
 				}
 			}
@@ -124,8 +125,8 @@ class Tabify_Edit_Screen_Edit_Screen {
 							$func = create_function( '$args', 'array_push( $args, "' . $class . '" ); return $args;' );
 							add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, $func );
 
-							if ( isset( $all_metaboxes[ $metabox_id ] ) ) {
-								unset( $all_metaboxes[ $metabox_id ] );
+							if ( isset( $this->all_metaboxes[ $metabox_id ] ) ) {
+								unset( $this->all_metaboxes[ $metabox_id ] );
 							}
 						}
 					}
@@ -134,11 +135,11 @@ class Tabify_Edit_Screen_Edit_Screen {
 		}
 
 		$show = apply_filters( 'tabify_unattached_metaboxes_show', true, $post_type );
-		do_action( 'tabify_unattached_metaboxes', $all_metaboxes, $show );
+		do_action( 'tabify_unattached_metaboxes', $this->all_metaboxes, $show );
 
 		// Metaboxes that aren't attachted
 		if ( $show ) {
-			foreach ( $all_metaboxes as $metabox_id => $metabox_title ) {
+			foreach ( $this->all_metaboxes as $metabox_id ) {
 				$last_index                 = $tab_index;
 				$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', $last_index, $post_type );
 
@@ -257,7 +258,13 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 *
 	 */
 	public function filter_empty_tabs( $tab ) {
-		return isset( $tab['items'] );
+		if ( isset( $tab['items'] ) ) {
+			$tab['items'] = array_intersect( $tab['items'], $this->all_metaboxes );
+
+			return $tab['items'];
+		}
+
+		return false;
 	}
 
 }
