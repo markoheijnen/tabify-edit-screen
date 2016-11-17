@@ -98,7 +98,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 		// Load the tabs on the edit screen.
 		$this->load_tabs();
 
-		foreach ( $options[ $post_type ]['tabs'] as $tab_index => $tab ) {
+		foreach ( $tabs as $tab_index => $tab ) {
 			$class = 'tabifybox tabifybox-' . $tab_index;
 
 			if ( $this->editscreen_tabs->get_current_tab() != $tab_index ) {
