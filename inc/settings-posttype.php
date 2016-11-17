@@ -185,6 +185,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * Gets all the default WordPress metaboxes
 	 * Little bit hackish but it works. Hopefully one day there will be a method for this in core.
 	 *
+	 * Found in wp-admin/edit-form-advanced.php.
+	 *
 	 * @since 0.1.0
 	 */
 	private function load_default_metaboxes( $post_type ) {
