@@ -48,6 +48,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 == Changelog ==
 
 = 0.9.6 ( 2016-11-20 ) =
+* Prevent empty tabs from showing
 * Make the filter 'tabify_tab_posttype_tabs' works. Reported by junander.
 
 = 0.9.5 ( 2016-03-03 ) =
