@@ -50,114 +50,11 @@ class Tabify_Edit_Screen_Settings_Base {
 	 *
 	 * @since 0.1.0
 	 */
-	public function get_section() {
+	public function get_sections_box() {
 		$sections = $this->get_sections();
-		$items    = $this->items;
-		$options  = $this->get_options( $this->type );
 
 		foreach ( $sections as $section => $label ) {
-			$default_items = $this->get_default_items( $section );
-
-			if ( ! isset( $options[ $section ] ) ) {
-				$options[ $section ] = array (
-					'tabs' => array(
-						array( 'title' => __( 'Others', 'tabify-edit-screen' ), 'items' => array() )
-					)
-				);
-			}
-
-			if ( $section == $this->tabs->get_current_tab() ) {
-				echo '<div class="tabifybox tabifybox-' . $section . '">';
-			}
-			else {
-				echo '<div class="tabifybox tabifybox-hide tabifybox-' . $section . '" style="display: none;">';
-			}
-
-			$checked = '';
-			if ( isset( $options[ $section ]['show'] ) && $options[ $section ]['show'] == 1 ) {
-				$checked = ' checked="checked"';
-			}
-
-			echo '<div class="tabifybox-options">';
-			echo '<p id="show-type">';
-			_e( 'Show tabs in this post type:', 'tabify-edit-screen' );
-			echo ' <span class="switch">';
-			echo '<input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" class="switch-checkbox" id="switch-' . $this->type . '"' . $checked . '>';
-			echo '<label data-tg-off="' .  __( 'Off', 'tabify-edit-screen' ) . '" data-tg-on="' .  __( 'On', 'tabify-edit-screen' ) . '" for="switch-' . $this->type . '" class="switch-label"></label>';
-			echo '</span>';
-			echo '</p>';
-
-			do_action( 'tabify_settings', $this->type, $section, $options[ $section ] );
-			echo '</div>';
-
-			echo '<div class="tabify_control tabify_control_tabs">';
-
-			$tab_id = 0;
-			$remove = false;
-
-			if ( 1 < count( $options[ $section ]['tabs'] ) ) {
-				$remove = true;
-			}
-
-			foreach ( $options[ $section ]['tabs'] as $tab ) {
-				$tab['id'] = $tab_id;
-
-				if ( ! isset( $tab['permissions'] ) ) {
-					$tab['permissions'] = array();
-				}
-
-				if ( $tab['title'] == '' ) {
-					$tab['title'] = __( 'Choose title', 'tabify-edit-screen' );
-				}
-
-				echo '<div class="menu-item-handle tabify_tab">';
-
-				$this->get_section_tab_title( $section, $tab['title'], $tab, $remove );
-
-				echo '<ul>';
-				if ( isset( $tab['items'] ) ) {
-					foreach ( $tab['items'] as  $item_id ) {
-						if ( empty( $item_id ) ) {
-							continue;
-						}
-
-						$item_title = '';
-						if ( isset( $items[ $section ][ $item_id ] ) ) {
-							$item_title = $items[ $section ][ $item_id ];
-
-							$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
-							$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
-						}
-
-						$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
-
-						unset( $items[ $section ][ $item_id ] );
-					}
-				}
-
-				if ( count( $options[ $section ]['tabs'] ) == ( $tab_id + 1 ) ) {
-					foreach ( $items[ $section ] as $item_id => $item_title ) {
-						if ( empty( $item_id ) ) {
-							continue;
-						}
-
-						$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
-						$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
-
-						$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
-					}
-				}
-
-				echo '</ul>';
-				echo '</div>';
-
-				$tab_id++;
-			}
-
-
-			echo '</div>';
-
-			echo '</div>';
+			$this->get_section_box( $section, $label );
 		}
 
 		echo '<p class="submit">';
@@ -166,6 +63,78 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo '</p>';
 
 		$this->print_backbone_template();
+	}
+
+	private function get_section_box( $section, $label ) {
+		$options       = $this->get_options( $this->type );
+		$default_items = $this->get_default_items( $section );
+
+		if ( ! isset( $options[ $section ] ) ) {
+			$options[ $section ] = array (
+				'tabs' => array(
+					array( 'title' => __( 'Others', 'tabify-edit-screen' ), 'items' => array() )
+				)
+			);
+		}
+
+		if ( $section == $this->tabs->get_current_tab() ) {
+			echo '<div class="tabifybox tabifybox-' . $section . '">';
+		}
+		else {
+			echo '<div class="tabifybox tabifybox-hide tabifybox-' . $section . '" style="display: none;">';
+		}
+
+		$checked = '';
+		if ( isset( $options[ $section ]['show'] ) && $options[ $section ]['show'] == 1 ) {
+			$checked = ' checked="checked"';
+		}
+
+		echo '<div class="tabifybox-options">';
+		echo '<p id="show-type">';
+		_e( 'Show tabs in this post type:', 'tabify-edit-screen' );
+		echo ' <span class="switch">';
+		echo '<input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" class="switch-checkbox" id="switch-' . $this->type . '"' . $checked . '>';
+		echo '<label data-tg-off="' .  __( 'Off', 'tabify-edit-screen' ) . '" data-tg-on="' .  __( 'On', 'tabify-edit-screen' ) . '" for="switch-' . $this->type . '" class="switch-label"></label>';
+		echo '</span>';
+		echo '</p>';
+
+		do_action( 'tabify_settings', $this->type, $section, $options[ $section ] );
+		echo '</div>';
+
+		echo '<div class="tabify_control tabify_control_tabs">';
+
+		$tab_id = 0;
+		$remove = false;
+
+		if ( 1 < count( $options[ $section ]['tabs'] ) ) {
+			$remove = true;
+		}
+
+		foreach ( $options[ $section ]['tabs'] as $tab ) {
+			$tab['id'] = $tab_id;
+
+			if ( ! isset( $tab['permissions'] ) ) {
+				$tab['permissions'] = array();
+			}
+
+			if ( $tab['title'] == '' ) {
+				$tab['title'] = __( 'Choose title', 'tabify-edit-screen' );
+			}
+
+			echo '<div class="menu-item-handle tabify_tab">';
+
+			$this->get_section_tab_title( $section, $tab['title'], $tab, $remove );
+			$this->get_section_box_list( $section, $tab['items'], $tab_id, $default_items );
+
+			echo '</div>';
+
+			$tab_id++;
+		}
+
+
+		echo '</div>';
+
+		echo '</div>';
 	}
 
 	private function get_section_tab_title( $section, $title, $tab, $remove ) {
@@ -185,31 +154,44 @@ class Tabify_Edit_Screen_Settings_Base {
 		do_action( 'tabify_settings_tab_title_after', $tab, $section, $this->type );
 	}
 
-	private function print_backbone_template() {
-		$tab = array(
-			'id'          => '{{ data.tab_id }}',
-			'permissions' => array()
-		);
+	private function get_section_box_list( $section, $items, $tab_id, $default_items ) {
+		$options = $this->get_options( $this->type );
 
-		echo '<script type="text/template" id="tmpl-new-tab">';
-		echo '<div class="menu-item-handle tabify_tab">';
-			$this->get_section_tab_title( '{{ data.section }}', __( 'Choose title', 'tabify-edit-screen' ), $tab, true );
-			echo '<ul></ul>';
-		echo '</div>';
+		echo '<ul>';
+		if ( isset( $items ) ) {
+			foreach ( $items as  $item_id ) {
+				if ( empty( $item_id ) ) {
+					continue;
+				}
 
-		echo '</script>';
-	}
+				$item_title = '';
+				if ( isset( $this->items[ $section ][ $item_id ] ) ) {
+					$item_title = $this->items[ $section ][ $item_id ];
 
-	protected function get_options( $type = null ) {
-		if ( ! $this->options ) {
-			$this->options = get_option( 'tabify-edit-screen', array() );
+					$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
+					$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
+				}
+
+				$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
+
+				unset( $this->items[ $section ][ $item_id ] );
+			}
 		}
 
-		if ( $type && isset( $this->options[ $type ] ) ) {
-			return $this->options[ $type ];
+		if ( count( $options[ $section ]['tabs'] ) == ( $tab_id + 1 ) ) {
+			foreach ( $this->items[ $section ] as $item_id => $item_title ) {
+				if ( empty( $item_id ) ) {
+					continue;
+				}
+
+				$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
+				$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
+
+				$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
+			}
 		}
 
-		return $this->options;
+		echo '</ul>';
 	}
 
 	/**
@@ -262,6 +244,34 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo '</select>';
 		echo '</span>';
 		echo '</div></div></li>';
+	}
+
+
+	private function print_backbone_template() {
+		$tab = array(
+			'id'          => '{{ data.tab_id }}',
+			'permissions' => array()
+		);
+
+		echo '<script type="text/template" id="tmpl-new-tab">';
+		echo '<div class="menu-item-handle tabify_tab">';
+			$this->get_section_tab_title( '{{ data.section }}', __( 'Choose title', 'tabify-edit-screen' ), $tab, true );
+			echo '<ul></ul>';
+		echo '</div>';
+
+		echo '</script>';
+	}
+
+	protected function get_options( $type = null ) {
+		if ( ! $this->options ) {
+			$this->options = get_option( 'tabify-edit-screen', array() );
+		}
+
+		if ( $type && isset( $this->options[ $type ] ) ) {
+			return $this->options[ $type ];
+		}
+
+		return $this->options;
 	}
 
 }

@@ -82,7 +82,7 @@ class Tabify_Edit_Screen_Settings_Page {
 				echo '</div>';
 
 				echo '<div id="tabifyboxes">';
-				echo $settings_screen->get_section();
+				echo $settings_screen->get_sections_box();
 				echo '</div>';
 			echo '</div>';
 
