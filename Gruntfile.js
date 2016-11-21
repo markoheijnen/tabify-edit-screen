@@ -41,11 +41,10 @@ module.exports = function(grunt) {
 			core: {
 				expand: true,
 				cwd: SOURCE_DIR,
-				dest: SOURCE_DIR,
+				dest: BUILD_DIR,
 				ext: '.min.css',
 				src: [
 					'css/*.css',
-					'!css/*.min.css',
 				]
 			},
 		},
