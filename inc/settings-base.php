@@ -1,6 +1,6 @@
 <?php
 
-class Tabify_Edit_Screen_Settings_Base {
+abstract class Tabify_Edit_Screen_Settings_Base {
 	private $type;
 	private $sections;
 	private $base_url;
@@ -19,9 +19,7 @@ class Tabify_Edit_Screen_Settings_Base {
 		$this->tabs     = new Tabify_Edit_Screen_Tabs( $this->sections, 'vertical', 'subtab' );
 	}
 
-	protected function load_sections() {
-		return array();
-	}
+	protected abstract function load_sections();
 
 	protected function get_sections() {
 		return $this->sections;
