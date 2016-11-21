@@ -5,7 +5,6 @@ include 'settings-posttype.php';
 
 class Tabify_Edit_Screen_Settings_Page {
 	private $tabs;
-	private $options;
 
 	/**
 	 * Load helper methods
