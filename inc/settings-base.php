@@ -33,7 +33,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 *
 	 * @since 0.4.0
 	 */
-	protected abstract function load_sections();
+	abstract protected function load_sections();
 
 	/**
 	 * Get sections
