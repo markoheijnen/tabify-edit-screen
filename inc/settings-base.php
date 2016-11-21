@@ -116,12 +116,7 @@ class Tabify_Edit_Screen_Settings_Base {
 
 				echo '<ul>';
 				if ( isset( $tab['items'] ) ) {
-					foreach ( $tab['items'] as $item_id_fallback => $item_id ) {
-						// Backwards compatibily from 0.3 to 0.4.
-						if ( intval( $item_id_fallback ) == 0 && $item_id_fallback !== 0 ) {
-							$item_id = $item_id_fallback;
-						}
-
+					foreach ( $tab['items'] as  $item_id ) {
 						if ( empty( $item_id ) ) {
 							continue;
 						}
