@@ -72,16 +72,15 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			core: {
-				expand: true,
-				cwd: SOURCE_DIR,
-				dest: SOURCE_DIR,
-				ext: '.min.js',
-				src: [
-					'js/*.js',
-					'!js/*.min.js',
-				]
+				files: [{
+					expand: true,
+					cwd: 'js',
+					src: '**/*.js',
+					dest: BUILD_DIR + '/js',
+					ext: '.min.js'
+				}]
 			}
-		},
+		}
 	});
 
 
