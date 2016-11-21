@@ -1,3 +1,4 @@
+/** global: wp, tabify_l10 */
 jQuery(function($) {
 	// Remove nojs support
 	$( ".tabify_control_tabs .item-order" ).remove();

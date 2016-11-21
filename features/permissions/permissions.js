@@ -1,5 +1,5 @@
+/** global: tabify_detection */
 jQuery(function($) {
-
 	// Select permissions of a tab
 	$( document ).on( 'click', '.tabify-tab-permissions', function( evt ) {
 		var parent = $( this ).closest('.tabify_tab');
@@ -42,5 +42,4 @@ jQuery(function($) {
 			parent.find('.tabify-tab-permissions').html( amount_txt );
 		}
 	});
-
 });

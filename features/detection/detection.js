@@ -1,3 +1,4 @@
+/** global: tabify_detection */
 jQuery(function($) {
 	tabify_detection_get( $('.current_tab').val() );
 
@@ -28,5 +29,4 @@ jQuery(function($) {
 
 		tabify_detection['posttype_links'][ posttype ] = '';
 	}
-
 });

@@ -1,3 +1,4 @@
+/** global: ajaxurl, postboxes */
 jQuery(function($) {
 	//tabify_show_tab( $( '#current_tab' ).val() );
 	$('.tabify-tabs').not('.js-disabled').tabify_tabs({});
