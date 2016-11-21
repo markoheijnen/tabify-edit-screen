@@ -12,7 +12,7 @@ class Tabify_Edit_Screen_Settings_Base {
 	protected $defaults = array();
 
 	public function __construct( $type ) {
-		$this->type = $type;
+		$this->type     = $type;
 		$this->sections = $this->load_sections();
 		$this->base_url = remove_query_arg( array( 'type', 'section' ), $_SERVER["REQUEST_URI"] );
 
@@ -104,11 +104,6 @@ class Tabify_Edit_Screen_Settings_Base {
 
 				if ( ! isset( $tab['permissions'] ) ) {
 					$tab['permissions'] = array();
-				}
-
-				// Backwards compatibily from 0.5 to 0.6
-				if ( ! isset( $tab['items'] ) && isset( $tab['metaboxes'] ) ) {
-					$tab['items'] = $tab['metaboxes'];
 				}
 
 				if ( $tab['title'] == '' ) {

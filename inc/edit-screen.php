@@ -52,17 +52,12 @@ class Tabify_Edit_Screen_Edit_Screen {
 		$post_type = $screen->post_type;
 		$options   = get_option( 'tabify-edit-screen', array() );
 
-		// Backwards compatibily
-		if ( isset( $options['posttypes'] ) ) {
-			$options = $options['posttypes'];
-		}
-
-		if ( ! isset( $options[ $post_type ] ) ) {
+		if ( ! isset( $options['posttypes'][ $post_type ] ) ) {
 			return;
 		}
 
 		// Ability to change if the tabs should be showed or not.
-		$display_tabs = apply_filters( 'tabify_tab_posttype_show', (bool) $options[ $post_type ]['show'] );
+		$display_tabs = apply_filters( 'tabify_tab_posttype_show', (bool) $options['posttypes'][ $post_type ]['show'] );
 
 		// Check if this post type is enabled.
 		if ( ! $display_tabs ) {
@@ -86,7 +81,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 		}
 
 		// Filter the tabs
-		$tabs = apply_filters( 'tabify_tab_posttype_tabs', $options[ $post_type ]['tabs'], $post_type );
+		$tabs = apply_filters( 'tabify_tab_posttype_tabs', $options['posttypes'][ $post_type ]['tabs'], $post_type );
 
 		// Filter empty tabs
 		$tabs = array_filter( $tabs, array( $this, 'filter_empty_tabs' ) );
@@ -103,11 +98,6 @@ class Tabify_Edit_Screen_Edit_Screen {
 
 			if ( $this->editscreen_tabs->get_current_tab() != $tab_index ) {
 				$class .= ' tabifybox-hide';
-			}
-
-			// Backwards compatibily from 0.5 to 0.6
-			if ( ! isset( $tab['items'] ) && isset( $tab['metaboxes'] ) ) {
-				$tab['items'] = $tab['metaboxes'];
 			}
 
 			if ( isset( $tab['items'] ) ) {
