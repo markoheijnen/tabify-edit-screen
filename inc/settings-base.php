@@ -8,7 +8,8 @@ class Tabify_Edit_Screen_Settings_Base {
 
 	private $options;
 
-	protected $items = array();
+	protected $items    = array();
+	protected $defaults = array();
 
 	public function __construct( $type ) {
 		$this->type = $type;
@@ -30,8 +31,18 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo $this->tabs->get_tabs_with_container();
 	}
 
-	public function get_default_items() {
-		return array();
+	/**
+	 * Get all the metaboxes that should always be showed
+	 *
+	 * @return array All the metaboxes id's in an array
+	 *
+	 * @since 0.4.0
+	 */
+	public function get_default_items( $id ) {
+		$defaults = apply_filters( 'tabify_default_metaboxes', $this->defaults, $id, $this->type );
+		$defaults = apply_filters( 'tabify_default_metaboxes_' . $this->type, $defaults, $id );
+
+		return $defaults;
 	}
 
 	/**
