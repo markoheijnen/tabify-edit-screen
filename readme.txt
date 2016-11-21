@@ -51,9 +51,13 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 * Arguments for filter tabify_default_metaboxes changed
 * Deprecated filter tabify_default_metaboxes_$post_type
 
-= 0.9.6 ( 2016-11-20 ) =
-* Prevent empty tabs from showing
+= 0.9.6 ( 2016-11-21 ) =
+* Added on/off switch.
+* Prevent empty tabs from showing.
 * Make the filter 'tabify_tab_posttype_tabs' works. Reported by junander.
+* Removed unused code.
+* Started cleanup for version 1.0.0
+* Compatibility check with WordPress 4.7
 
 = 0.9.5 ( 2016-03-03 ) =
 * Only load features once. Caused when plugins set a new current_screen.

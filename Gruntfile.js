@@ -26,6 +26,7 @@ module.exports = function(grunt) {
 							'!output/**',
 
 							'!bin/**',
+							'!build/**',
 							'!Gruntfile.js',
 							'!node_modules/**',
 							'!phpunit.xml',
@@ -40,11 +41,10 @@ module.exports = function(grunt) {
 			core: {
 				expand: true,
 				cwd: SOURCE_DIR,
-				dest: SOURCE_DIR,
+				dest: BUILD_DIR,
 				ext: '.min.css',
 				src: [
 					'css/*.css',
-					'!css/*.min.css',
 				]
 			},
 		},
