@@ -34,12 +34,10 @@ class Tabify_Edit_Screen_Feature_Plugin_Support {
 
 	/**
 	 * Load widgets created by WordPress SEO
-	 *
-	 * @param string $posttype The posttype the metaboxes should be loaded from
 	 * 
 	 * @since 0.4.0
 	 */
-	public function wpseo( $posttype ) {
+	public function wpseo() {
 		if ( defined( 'WPSEO_PATH' ) && is_file( WPSEO_PATH . 'admin/class-metabox.php' ) ) {
 			include_once WPSEO_PATH . 'admin/class-metabox.php';
 		}
@@ -48,12 +46,10 @@ class Tabify_Edit_Screen_Feature_Plugin_Support {
 
 	/**
 	 * Load widgets created by Members
-	 *
-	 * @param string $posttype The posttype the metaboxes should be loaded from
 	 * 
 	 * @since 0.4.0
 	 */
-	public function members( $posttype ) {
+	public function members() {
 		if ( function_exists( 'members_admin_setup' ) && ! did_action( 'load-post.php' ) ) {
 			do_action( 'load-post.php' );
 		}
