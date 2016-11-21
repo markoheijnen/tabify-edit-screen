@@ -2,8 +2,6 @@
 
 class Tabify_Edit_Screen_Feature_Detection {
 
-	private $allowed_request_errors = 3;
-
 	public function __construct() {
 		// Actions to return JSON output on post type new/edit screen
 		add_action( 'current_screen', array( $this, 'head_action_begin' ) );
