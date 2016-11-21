@@ -92,10 +92,9 @@ class Tabify_Edit_Screen_Settings_Page {
 	}
 
 	/**
-	 * Updates settings
+	 * Updates settings on POST
 	 *
 	 * @since 0.2.0
-	 *
 	 */
 	private function update_settings() {
 		if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['tabify'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'tabify_edit_screen_nonce' ) ) {
