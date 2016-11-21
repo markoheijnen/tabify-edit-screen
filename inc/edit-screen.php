@@ -9,19 +9,24 @@ class Tabify_Edit_Screen_Edit_Screen {
 	private $editscreen_tabs;
 	private $settings;
 
+	/**
+	 * Set hooks for redirection and showing tabs
+	 *
+	 * @since 0.9.0
+	 */
 	public function __construct() {
 		add_filter( 'redirect_post_location', array( $this, 'redirect_add_current_tab' ), 10 );
 		add_action( 'admin_head', array( $this, 'show_tabs' ), 100 );
 	}
 
 	/**
-	 * When a post is saved let it return to the current selected tab.
+	 * When a post is saved let it return to the current selected tab
 	 *
 	 * @param string $location The location the user will be sent to
+	 *
 	 * @return string $location The new location the user will be sent to
 	 *
 	 * @since 0.2.0
-	 *
 	 */
 	public function redirect_add_current_tab( $location ) {
 		if ( isset( $_REQUEST['tab'] ) ) {
@@ -32,12 +37,11 @@ class Tabify_Edit_Screen_Edit_Screen {
 	}
 
 	/**
-	 * Show the tabs on the edit screens.
+	 * Show the tabs on the edit screens
 	 * This will load the tab class, tab options and actions
 	 * It will also will add the required classes to all the metaboxes
 	 *
 	 * @since 0.1.0
-	 *
 	 */
 	public function show_tabs() {
 		global $wp_meta_boxes;
@@ -155,6 +159,15 @@ class Tabify_Edit_Screen_Edit_Screen {
 		}
 	}
 
+	/**
+	 * Adds tabity location class
+	 *
+	 * @param string $body List of classes
+	 *
+	 * @return string $body List of classes with addition of the tabify locatin class
+	 *
+	 * @since 0.5.0
+	 */
 	public function add_admin_body_class( $body ) {
 		if ( $this->tab_location ) {
 			$body .= ' tabify_tab' . $this->tab_location;
@@ -167,7 +180,6 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * Check where tabs should be loaded and fire the right action and callback for it
 	 *
 	 * @since 0.5.0
-	 *
 	 */
 	private function load_tabs() {
 		if ( 'after_title' == $this->tab_location ) {
@@ -187,7 +199,6 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * Outputs the tabs
 	 *
 	 * @since 0.5.0
-	 *
 	 */
 	public function output_tabs() {
 		echo $this->submit_button();
@@ -197,8 +208,9 @@ class Tabify_Edit_Screen_Edit_Screen {
 	/**
 	 * Add submit button when the submitbox isn't showed on every tab
 	 *
-	 * @since 0.7.0
+	 * @return string $text Return custom submit button
 	 *
+	 * @since 0.7.0
 	 */
 	private function submit_button() {
 		$post    = get_post();
@@ -235,7 +247,6 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * Generate the javascript for the edit screen
 	 *
 	 * @since 0.1.0
-	 *
 	 */
 	public function generate_javascript() {
 		echo '<script type="text/javascript">';
@@ -248,8 +259,9 @@ class Tabify_Edit_Screen_Edit_Screen {
 	/**
 	 * Filter out tabs that don't have any meta boxes to show
 	 *
-	 * @since 0.9.6
+	 * @param string $tab Tab information
 	 *
+	 * @since 0.9.6
 	 */
 	public function filter_empty_tabs( $tab ) {
 		if ( isset( $tab['items'] ) ) {
@@ -261,7 +273,15 @@ class Tabify_Edit_Screen_Edit_Screen {
 		return false;
 	}
 
-
+	/**
+	 * Get list of items that are always displayed
+	 *
+	 * @param string $post_type The post type
+	 *
+	 * @return array List of default items
+	 *
+	 * @since 0.9.6
+	 */
 	private function get_default_items( $post_type ) {
 		if ( ! $this->settings ) {
 			$this->settings = new Tabify_Edit_Screen_Settings_Posttypes;
