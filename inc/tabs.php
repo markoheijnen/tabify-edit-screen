@@ -95,7 +95,31 @@ class Tabify_Edit_Screen_Tabs {
 		wp_enqueue_script( 'tabify-edit-screen' );
 		wp_enqueue_style( 'tabify-edit-screen' );
 
+		$this->add_active_state_style();
+
 		return $return;
+	}
+
+	/**
+	 * Update switch background color for active state
+	 *
+	 * @since 0.9.6
+	 */
+	private function add_active_state_style() {
+		global $_wp_admin_css_colors;
+
+		$color = get_user_option('admin_color');
+
+		if ( empty( $color ) || ! isset($_wp_admin_css_colors[ $color ] ) ) {
+			$color = 'fresh';
+		}
+
+		$background = $_wp_admin_css_colors[$color]->colors[3];
+
+		wp_add_inline_style(
+			'tabify-edit-screen',
+			'.switch-checkbox:checked + .switch-label { background: ' . $background . '; }'
+		);
 	}
 
 	/**
