@@ -11,9 +11,12 @@ class Tabify_Edit_Screen_Tabs {
 	private $javascript_support;
 
 	/**
-	 * construct method
+	 * Construct method to set up all internal properties
 	 *
-	 * @param array $items All the tab items
+	 * @param array $items List of all items
+	 * @param string $type How to be displayed: vertical of horizontal
+	 * @param string $get_arg Which get argument should be used
+	 * @param boolean $javascript_support With page refresh or not
 	 *
 	 * @since 0.1.0
 	 */
