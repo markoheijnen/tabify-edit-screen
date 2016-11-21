@@ -3,10 +3,11 @@
 include 'tabs.php';
 
 class Tabify_Edit_Screen_Edit_Screen {
-
-	private $editscreen_tabs;
 	private $tab_location  = 'default';
 	private $all_metaboxes = array();
+
+	private $editscreen_tabs;
+	private $settings;
 
 	public function __construct() {
 		add_filter( 'redirect_post_location', array( $this, 'redirect_add_current_tab' ), 10 );
@@ -67,7 +68,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 		add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
-		$default_metaboxes     = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post_type );
+		$default_metaboxes     = $this->get_default_items( $post_type );
 		$this->all_metaboxes   = array();
 
 		foreach ( $wp_meta_boxes[ $post_type ] as $priorities ) {
@@ -200,9 +201,8 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 *
 	 */
 	private function submit_button() {
-		$post = get_post();
-
-		$default = Tabify_Edit_Screen_Settings_Posttypes::get_default_items( $post->post_type );
+		$post    = get_post();
+		$default = $this->get_default_items( $post->post_type );
 
 		if ( in_array( 'submitdiv', $default ) ) {
 			return;
@@ -259,6 +259,15 @@ class Tabify_Edit_Screen_Edit_Screen {
 		}
 
 		return false;
+	}
+
+
+	private function get_default_items( $post_type ) {
+		if ( ! $this->settings ) {
+			$this->settings = new Tabify_Edit_Screen_Settings_Posttypes;
+		}
+
+		return $this->settings->get_default_items( $post_type );
 	}
 
 }
