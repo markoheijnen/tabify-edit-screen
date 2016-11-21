@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Tabify Edit Screen
 	Description: Enables tabs in the edit screen and manage them from the back-end
-	Version: 1.0.0-alpha
+	Version: 1.0.0
 
 	Plugin URI: https://codekitchen.eu/products/tabify-edit-screen/
 
@@ -32,7 +32,7 @@
 
 class Tabify_Edit_Screen {
 
-	public  $version = '1.0.0-alpha';
+	public  $version = '1.0.0';
 
 	private $loaded_features = array();
 
