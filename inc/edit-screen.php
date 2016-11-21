@@ -118,12 +118,15 @@ class Tabify_Edit_Screen_Edit_Screen {
 
 					if ( ! in_array( $metabox_id, $default_metaboxes ) ) {
 						if ( $metabox_id == 'titlediv' || $metabox_id == 'postdivrich' ) {
-							$func = create_function('', 'echo "jQuery(\"#' . $metabox_id . '\").addClass(\"' . $class . '\");";');
-							add_action( 'tabify_custom_javascript' , $func );
+							add_action( 'tabify_custom_javascript', function() use ( $class, $metabox_id ) {
+								echo 'jQuery(\'#' . $metabox_id . '\').addClass(\'' . $class . '\');';
+							} );
 						}
 						else {
-							$func = create_function( '$args', 'array_push( $args, "' . $class . '" ); return $args;' );
-							add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, $func );
+							add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, function( $args ) use ( $class ) {
+								array_push( $args, $class );
+								return $args;
+							} );
 
 							if ( isset( $this->all_metaboxes[ $metabox_id ] ) ) {
 								unset( $this->all_metaboxes[ $metabox_id ] );
@@ -153,8 +156,10 @@ class Tabify_Edit_Screen_Edit_Screen {
 					$class .= ' tabifybox-hide';
 				}
 
-				$func = create_function( '$args', 'array_push( $args, "' . $class . '" ); return $args;' );
-				add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, $func );
+				add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, function( $args ) use ( $class ) {
+					array_push( $args, $class );
+					return $args;
+				} );
 			}
 		}
 	}
@@ -180,9 +185,10 @@ class Tabify_Edit_Screen_Edit_Screen {
 		else { //default
 			$tabs  = $this->submit_button();
 			$tabs .= $this->editscreen_tabs->get_tabs_with_container();
-			$func  = create_function('', 'echo "$(\'#post\').prepend(\'' . addslashes( $tabs ) . '\');";');
 
-			add_action( 'tabify_custom_javascript' , $func );
+			add_action( 'tabify_custom_javascript', function() use ( $tabs ) {
+				echo '$(\'#post\').prepend(\'' . addslashes( $tabs ) . '\');';
+			} );
 		}
 	}
 
