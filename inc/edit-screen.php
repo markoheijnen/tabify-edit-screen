@@ -9,7 +9,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 	private $all_metaboxes = array();
 
 	public function __construct() {
-		add_filter( 'redirect_post_location', array( $this, 'redirect_add_current_tab' ), 10, 2 );
+		add_filter( 'redirect_post_location', array( $this, 'redirect_add_current_tab' ), 10 );
 		add_action( 'admin_head', array( $this, 'show_tabs' ), 100 );
 	}
 
@@ -17,13 +17,12 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * When a post is saved let it return to the current selected tab.
 	 *
 	 * @param string $location The location the user will be sent to
-	 * @param int $post_id The post id
 	 * @return string $location The new location the user will be sent to
 	 *
 	 * @since 0.2.0
 	 *
 	 */
-	public function redirect_add_current_tab( $location, $post_id ) {
+	public function redirect_add_current_tab( $location ) {
 		if ( isset( $_REQUEST['tab'] ) ) {
 			$location = esc_url_raw( add_query_arg( 'tab', $_REQUEST['tab'], $location ) );
 		}
@@ -211,11 +210,9 @@ class Tabify_Edit_Screen_Edit_Screen {
 		if ( in_array( 'submitdiv', $default ) ) {
 			return;
 		}
-		
-		$text = '';
+
 		$post_type_object = get_post_type_object( $post->post_type );
 		$can_publish      = current_user_can( $post_type_object->cap->publish_posts );
-
 
 		if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 == $post->ID ) {
 			if ( $can_publish ) {
