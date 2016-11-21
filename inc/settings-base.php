@@ -54,7 +54,7 @@ class Tabify_Edit_Screen_Settings_Base {
 		$sections = $this->get_sections();
 
 		foreach ( $sections as $section => $label ) {
-			$this->get_section_box( $section, $label );
+			$this->get_section_box( $section );
 		}
 
 		echo '<p class="submit">';
@@ -65,7 +65,7 @@ class Tabify_Edit_Screen_Settings_Base {
 		$this->print_backbone_template();
 	}
 
-	private function get_section_box( $section, $label ) {
+	private function get_section_box( $section ) {
 		$options       = $this->get_options( $this->type );
 		$default_items = $this->get_default_items( $section );
 
