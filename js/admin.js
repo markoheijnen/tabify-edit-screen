@@ -6,7 +6,7 @@ jQuery(function($) {
 
 	$( ".tabify_control" ).sortable({
 		scroll : false,
-		update: function(event, ui) {
+		update: function() {
 			tabify_admin_fix_sortable();
 		}
 	});
@@ -22,12 +22,10 @@ jQuery(function($) {
 			receive: function(event, ui) {
 				var item   = $( ui.item );
 				var holder = item.closest( 'div' );
+				var index  = holder.index();
 
 				if ( holder.data('id') ) {
-					var index = holder.data('id');
-				}
-				else {
-					var index = holder.index();
+					index = holder.data('id');
 				}
 
 				var parts = $( 'input', ui.item ).attr('name').split( '][' );
@@ -95,8 +93,9 @@ jQuery(function($) {
 			var html = '<div class="tabify-remove-accept">' + tabify_l10.move_meta_boxes + ' <select>';
 
 			$('.tabifybox:visible .tabify_tab').each(function(index) {
-				if( ! $(this).is(parent) )
+				if( ! $(this).is(parent) ) {
 					html += '<option value="' + index + '">' + $(this).find('h2').text() + '</option>';
+				}
 			});
 
 			html += '</select>';
@@ -108,12 +107,12 @@ jQuery(function($) {
 		}
 	});
 
-	$( document ).on( "click", ".tabify-remove-accept input", function( evt ) {
+	$( document ).on( "click", ".tabify-remove-accept input", function() {
 		var parent = $( this ).closest('.tabify_tab');
 		var tab_holder = $( this ).closest('.tabify_control').children().eq( parent.find('select option:selected').val() ).find('.ui-sortable');
 
 		parent.hide( function(){
-			parent.find('.ui-sortable').children().each(function(index) {
+			parent.find('.ui-sortable').children().each(function() {
 				$(this).hide();
 				tab_holder.append(this);
 				$(this).show('blind');
@@ -139,14 +138,14 @@ jQuery(function($) {
 	});
 
 	function tabify_admin_fix_sortable() {
-		$('.tabifybox:visible .tabify_tab').each(function(index) {
+		$('.tabifybox:visible .tabify_tab').each(function() {
 			var parent_index = $(this).index();
 
 			var parts = $( 'h2 input', this ).attr('name').split( '][' );
 			parts[3]  = parent_index;
 			$( 'h2 input', this ).attr( 'name', parts.join( '][' ) );
 
-			$(this).find('.ui-sortable').children().each(function(index) {
+			$(this).find('.ui-sortable').children().each(function() {
 				var parts = $( 'input', this ).attr('name').split( '][' );
 				parts[3]  = parent_index;
 				$( 'input', this ).attr( 'name', parts.join( '][' ) );

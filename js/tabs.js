@@ -27,7 +27,7 @@ jQuery(function($) {
 						$( ".tabifybox" ).hide();
 						$( ".current_tab", holder ).val( id );
 
-						$( ".tabifybox-" + id ).each( function( index ) {
+						$( ".tabifybox-" + id ).each( function() {
 							var checkbox = $( '#' + $(this).attr('id') + '-hide' );
 
 							if( checkbox.attr('type') != 'checkbox' || checkbox.is(':checked') ) {
@@ -39,8 +39,8 @@ jQuery(function($) {
 
 				function tabify_fix_editors() {
 					var editors = $('.wp-editor-tools');
-					editors.each(function( index ) {
-						editor = $( this );
+					editors.each(function() {
+						var editor = $( this );
 
 						if ( editor.closest('.tabifybox').is(':visible') ) {
 							if( ! editor.width() ) {
@@ -50,6 +50,8 @@ jQuery(function($) {
 							}
 						}
 					});
+
+					return true;
 				}
 			});
 		}

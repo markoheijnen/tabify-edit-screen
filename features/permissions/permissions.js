@@ -1,7 +1,7 @@
 /** global: tabify_detection */
 jQuery(function($) {
 	// Select permissions of a tab
-	$( document ).on( 'click', '.tabify-tab-permissions', function( evt ) {
+	$( document ).on( 'click', '.tabify-tab-permissions', function() {
 		var parent = $( this ).closest('.tabify_tab');
 
 		parent.find('.tabify-tab-permission-box').stop().slideToggle(400);
