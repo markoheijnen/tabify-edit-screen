@@ -4,6 +4,7 @@ class Tabify_Edit_Screen_Settings_Base {
 	private $type;
 	private $sections;
 	private $base_url;
+	private $tabs;
 
 	private $options;
 
