@@ -33,11 +33,7 @@ class Tabify_Edit_Screen_Tabs {
 			if ( empty( $this->active ) || ! isset( $items[ $this->active ] ) ) {
 				$this->active = key( $items );
 			}
-
-			return true;
 		}
-
-		return false;
 	}
 
 	/**
