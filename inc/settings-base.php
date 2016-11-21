@@ -30,6 +30,10 @@ class Tabify_Edit_Screen_Settings_Base {
 		echo $this->tabs->get_tabs_with_container();
 	}
 
+	public function get_default_items() {
+		return array();
+	}
+
 	/**
 	 * Echo all the items
 	 *
