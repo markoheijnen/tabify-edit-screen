@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Tabify Edit Screen 0.9.6\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/tabify-edit-screen\n"
-"POT-Creation-Date: 2016-11-21 00:21:17+00:00\n"
+"POT-Creation-Date: 2016-11-21 17:35:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,68 +28,68 @@ msgstr ""
 msgid "%s role"
 msgstr ""
 
-#: inc/edit-screen.php:223
+#: inc/edit-screen.php:221
 msgid "Schedule"
 msgstr ""
 
-#: inc/edit-screen.php:226 inc/settings-posttype.php:198
+#: inc/edit-screen.php:224 inc/settings-posttype.php:190
 msgid "Publish"
 msgstr ""
 
-#: inc/edit-screen.php:230
+#: inc/edit-screen.php:228
 msgid "Submit for Review"
 msgstr ""
 
-#: inc/edit-screen.php:234
+#: inc/edit-screen.php:232
 msgid "Update"
 msgstr ""
 
-#: inc/settings-base.php:48
+#: inc/settings-base.php:49
 msgid "Others"
 msgstr ""
 
-#: inc/settings-base.php:67
+#: inc/settings-base.php:68
 msgid "Show tabs in this post type:"
 msgstr ""
 
-#: inc/settings-base.php:102 inc/settings-base.php:194
-#: inc/settings-page.php:110
-msgid "Choose title"
-msgstr ""
-
-#: inc/settings-base.php:161
-msgid "Create a new tab"
-msgstr ""
-
-#: inc/settings-base.php:179 inc/settings-page.php:44
-msgid "Remove"
-msgstr ""
-
-#: inc/settings-base.php:211
-msgid "On"
-msgstr ""
-
-#: inc/settings-base.php:212
+#: inc/settings-base.php:71
 msgid "Off"
 msgstr ""
 
-#: inc/settings-page.php:25
+#: inc/settings-base.php:71
+msgid "On"
+msgstr ""
+
+#: inc/settings-base.php:100 inc/settings-base.php:191
+#: inc/settings-page.php:109
+msgid "Choose title"
+msgstr ""
+
+#: inc/settings-base.php:159
+msgid "Create a new tab"
+msgstr ""
+
+#: inc/settings-base.php:176 inc/settings-page.php:43
+msgid "Remove"
+msgstr ""
+
+#: inc/settings-page.php:24
 msgid "Tabify edit screen"
 msgstr ""
 
-#: inc/settings-page.php:35
+#: inc/settings-page.php:34
 msgid "You do not have sufficient permissions to manage options for this site."
 msgstr ""
 
-#: inc/settings-page.php:45
+#: inc/settings-page.php:44
 msgid "Cancel"
 msgstr ""
 
-#: inc/settings-page.php:46
+#: inc/settings-page.php:45
 msgid "Move meta boxes to"
 msgstr ""
 
-#: inc/settings-page.php:62
+#: inc/settings-page.php:61
 msgid "Post types"
 msgstr ""
 
@@ -101,55 +101,55 @@ msgstr ""
 msgid "Editor"
 msgstr ""
 
-#: inc/settings-posttype.php:194
+#: inc/settings-posttype.php:186
 msgid "Save"
 msgstr ""
 
-#: inc/settings-posttype.php:195
+#: inc/settings-posttype.php:187
 msgid "Metadata"
 msgstr ""
 
-#: inc/settings-posttype.php:224
+#: inc/settings-posttype.php:216
 msgid "Page Attributes"
 msgstr ""
 
-#: inc/settings-posttype.php:224
+#: inc/settings-posttype.php:216
 msgid "Attributes"
 msgstr ""
 
-#: inc/settings-posttype.php:228
+#: inc/settings-posttype.php:220
 msgid "Featured Image"
 msgstr ""
 
-#: inc/settings-posttype.php:232
+#: inc/settings-posttype.php:224
 msgid "Excerpt"
 msgstr ""
 
-#: inc/settings-posttype.php:236
+#: inc/settings-posttype.php:228
 msgid "Send Trackbacks"
 msgstr ""
 
-#: inc/settings-posttype.php:240
+#: inc/settings-posttype.php:232
 msgid "Custom Fields"
 msgstr ""
 
-#: inc/settings-posttype.php:246
+#: inc/settings-posttype.php:238
 msgid "Discussion"
 msgstr ""
 
-#: inc/settings-posttype.php:250
+#: inc/settings-posttype.php:242
 msgid "Comments"
 msgstr ""
 
-#: inc/settings-posttype.php:253
+#: inc/settings-posttype.php:245
 msgid "Slug"
 msgstr ""
 
-#: inc/settings-posttype.php:256
+#: inc/settings-posttype.php:248
 msgid "Author"
 msgstr ""
 
-#: inc/settings-posttype.php:260
+#: inc/settings-posttype.php:252
 msgid "Revisions"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgstr ""
 msgid "https://codekitchen.eu"
 msgstr ""
 
-#: inc/settings-posttype.php:202
+#: inc/settings-posttype.php:194
 msgctxt "post format"
 msgid "Format"
 msgstr ""
