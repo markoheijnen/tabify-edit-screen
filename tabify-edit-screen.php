@@ -36,6 +36,11 @@ class Tabify_Edit_Screen {
 
 	private $loaded_features = array();
 
+	/**
+	 * Construct method to add hooks when on the admin side
+	 *
+	 * @since 0.1.0
+	 */
 	public function __construct() {
 		if ( is_admin() ) {
 			add_action( 'plugins_loaded', array( $this, 'load' ) );
@@ -44,6 +49,11 @@ class Tabify_Edit_Screen {
 	}
 
 
+	/**
+	 * Load functionality
+	 *
+	 * @since 0.9.0
+	 */
 	public function load() {
 		include 'inc/edit-screen.php';
 		include 'inc/settings-page.php';
@@ -54,11 +64,21 @@ class Tabify_Edit_Screen {
 		add_action( 'admin_init', array( $this, 'load_features' ), 1 );
 	}
 
+	/**
+	 * Load Translations
+	 *
+	 * @since 0.4.0
+	 */
 	public function load_translation() {
 		load_plugin_textdomain( 'tabify-edit-screen', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
-	public function load_features( $screen ) {
+	/**
+	 * Load features
+	 *
+	 * @since 0.9.0
+	 */
+	public function load_features() {
 		$features = array(
 			'detection',
 			'permissions'
