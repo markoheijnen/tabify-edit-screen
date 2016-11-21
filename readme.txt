@@ -25,8 +25,10 @@ There are still lots of things changing in the code base. There are some hooks y
 = Can you define metaboxes that will always be visible? =
 
 At this moment the title and submit box are always visible. You can change this by using the following filters:
- * tabify_default_metaboxes - $defaults, $post_type
- * tabify_default_metaboxes_$post_type - $defaults
+ * tabify_default_metaboxes - $defaults, $id, $type
+ * tabify_default_metaboxes_$type - $defaults, $id
+
+The $id is for example the post type name when $type is posttypes.
 
 = Can I place the tabs under the title input field? =
 
