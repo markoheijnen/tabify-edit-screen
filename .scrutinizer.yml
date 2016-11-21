@@ -1,8 +1,10 @@
 checks:
     php:
-        code_rating: true
-        duplication: true
-        no_exit:     false
+        code_rating:        true
+        duplication:        true
+        no_exit:            false
+        no_global_keyword:  false
+        one_class_per_file: false
 filter:
     excluded_paths:
         - tests/*
