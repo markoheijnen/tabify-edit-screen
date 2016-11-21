@@ -21,6 +21,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	/**
 	 * Loads all the posttypes as sections
 	 *
+	 * @return array $posttypes List of post types
+	 *
 	 * @since 0.4.0
 	 */
 	protected function load_sections() {
@@ -43,6 +45,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 
 	/**
 	 * Gets all the metaboxes that are registered
+	 *
+	 * @return array $metaboxes List of metaboxes for all post types
 	 *
 	 * @since 0.1.0
 	 */
@@ -89,6 +93,15 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		return $metaboxes;
 	}
 
+	/**
+	 * Call escape method when settings are being saved
+	 *
+	 * @param array $options list of options to be escaped
+	 *
+	 * @return array $options The escaped options
+	 *
+	 * @since 0.1.0
+	 */
 	public function save_settings( $options ) {
 		$options['posttypes'] = $this->escape( $options['posttypes'] );
 
@@ -101,6 +114,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @since 0.2.0
 	 *
 	 * @param array $posttypes Raw options array
+	 *
 	 * @return array filtered options array
 	 */
 	private function escape( $posttypes ) {
@@ -179,6 +193,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * Little bit hackish but it works. Hopefully one day there will be a method for this in core.
 	 *
 	 * Found in wp-admin/edit-form-advanced.php.
+	 *
+	 * @param string $post_type The post type or which meta boxes need to be loaded
 	 *
 	 * @since 0.1.0
 	 */
