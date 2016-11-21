@@ -1,7 +1,6 @@
 /* jshint node:true */
 module.exports = function(grunt) {
-	var path = require('path'),
-		SOURCE_DIR = './',
+	var SOURCE_DIR = './',
 		BUILD_DIR = 'build/';
 
 	grunt.initConfig({
