@@ -157,14 +157,6 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 					) {
 						$new_tab_key = intval( $posttypes[ $key ]['tabs'][ $j ]['items_tab'][ $k ] );
 
-						if ( ! isset( $posttypes[ $key ]['tabs'][ $new_tab_key ]['items'] ) ) {
-							$posttypes[ $key ]['tabs'][ $new_tab_key ]['items'] = array();
-							$metaboxes_in_new_tab = 0;
-						}
-						else { 
-							$metaboxes_in_new_tab = count( $posttypes[ $key ]['tabs'][ $new_tab_key ]['items'] );
-						}
-
 						$posttypes[ $key ]['tabs'][ $new_tab_key ]['items'][ $k ] = wp_strip_all_tags( $posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] );
 						unset( $posttypes[ $key ]['tabs'][ $j ]['items'][ $k ] );
 					}
