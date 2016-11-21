@@ -11,6 +11,13 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	protected $items    = array();
 	protected $defaults = array();
 
+	/**
+	 * Set properties and load the sections and tabs
+	 *
+	 * @param string $type Where the settings are for
+	 *
+	 * @since 0.4.0
+	 */
 	public function __construct( $type ) {
 		$this->type     = $type;
 		$this->sections = $this->load_sections();
@@ -19,12 +26,31 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		$this->tabs     = new Tabify_Edit_Screen_Tabs( $this->sections, 'vertical', 'subtab' );
 	}
 
+	/**
+	 * Set properties and load the sections and tabs
+	 *
+	 * @return array The sections
+	 *
+	 * @since 0.4.0
+	 */
 	protected abstract function load_sections();
 
+	/**
+	 * Get sections
+	 *
+	 * @return array The sections
+	 *
+	 * @since 0.4.0
+	 */
 	protected function get_sections() {
 		return $this->sections;
 	}
 
+	/**
+	 * Get the sections as a tab menu
+	 *
+	 * @since 0.4.0
+	 */
 	public function get_sections_menu() {
 		echo $this->tabs->get_tabs_with_container();
 	}
@@ -46,7 +72,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Echo all the items
 	 *
-	 * @since 0.1.0
+	 * @since 0.4.0
 	 */
 	public function get_sections_box() {
 		$sections = $this->get_sections();
@@ -63,6 +89,13 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		$this->print_backbone_template();
 	}
 
+	/**
+	 * Get the html for one pacticular section
+	 *
+	 * @param string $section The section name
+	 *
+	 * @since 1.0.0
+	 */
 	private function get_section_box( $section ) {
 		$options       = $this->get_options( $this->type );
 		$default_items = $this->get_default_items( $section );
@@ -135,6 +168,16 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		echo '</div>';
 	}
 
+	/**
+	 * Get the html for one pacticular section
+	 *
+	 * @param string $section The section name
+	 * @param string $title The title
+	 * @param array $tab Tab information
+	 * @param boolean $remove
+	 *
+	 * @since 0.4.0
+	 */
 	private function get_section_tab_title( $section, $title, $tab, $remove ) {
 		echo '<h2><span class="hide-if-no-js">' . $title . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab['id'] . '][title]" value="' . esc_html( $title ) . '" class="hide-if-js" /></h2>';
 
@@ -152,6 +195,16 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		do_action( 'tabify_settings_tab_title_after', $tab, $section, $this->type );
 	}
 
+	/**
+	 * Get the html for the section sortable list
+	 *
+	 * @param string $section The section name
+	 * @param array $items List of all items in the section
+	 * @param integer $tab_id The id of the tab the list is in
+	 * @param array $default_items List of items that are always shown
+	 *
+	 * @since 1.0.0
+	 */
 	private function get_section_box_list( $section, $items, $tab_id, $default_items ) {
 		$options = $this->get_options( $this->type );
 
@@ -195,9 +248,15 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Show the items for the sortable list
 	 *
+	 * @param integer $item_id The id of the item in the list
+	 * @param string $item_title The title of the item
+	 * @param integer $tab_id The id of the tab the list is in
+	 * @param string $section The section name
+	 * @param array $default_items List of items that are always shown
+	 *
 	 * @since 0.4.0
 	 */
-	protected function list_show_items( $item_id, $item_title, $tab_id, $type, $default_items ) {
+	protected function list_show_items( $item_id, $item_title, $tab_id, $section, $default_items ) {
 		$options = $this->get_options( $this->type );
 
 		// Most likely a meta box that doesn't exist anymore
@@ -208,33 +267,33 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		$item_title = strip_tags( $item_title );
 
 		if ( in_array( $item_id, $default_items ) ) {
-			echo '<li id="' . $type . '-' . $item_id . '" class="tabifybox-hide">';
+			echo '<li id="' . $section . '-' . $item_id . '" class="tabifybox-hide">';
 		}
 		else {
-			echo '<li id="' . $type . '-' . $item_id . '">';
+			echo '<li id="' . $section . '-' . $item_id . '">';
 		}
 
 		echo '<div class="menu-item-bar"><div class="menu-item-handle">';
 		echo '<span class="item-title">' . $item_title . '</span>';
 
-		echo '<input type="hidden" name="tabify[' . $this->type . '][' . $type . '][tabs][' . $tab_id . '][items][]" value="' . $item_id . '" />';
+		echo '<input type="hidden" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][items][]" value="' . $item_id . '" />';
 
 		echo '<span class="item-order hide-if-js">';
-		echo '<select name="tabify[' . $this->type . '][' . $type . '][tabs][' . $tab_id . '][items_tab][]">';
+		echo '<select name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][items_tab][]">';
 
-		if ( isset( $options[ $type ] ) ) {
-			$amount_tabs = count( $options[ $type ]['tabs'] );
+		if ( isset( $options[ $section ] ) ) {
+			$amount_tabs = count( $options[ $section ]['tabs'] );
 
 			for( $i = 0; $i < $amount_tabs; $i++ ) {
-				if ( ! isset( $options[ $type ]['tabs'][ $i ] ) ) {
+				if ( ! isset( $options[ $section ]['tabs'][ $i ] ) ) {
 					continue;
 				}
 
 				if ( $i == $tab_id ) {
-					echo '<option value="' . $i . '" selected="selected">' . esc_html( $options[ $type ]['tabs'][ $i ]['title'] ) . '</option>';
+					echo '<option value="' . $i . '" selected="selected">' . esc_html( $options[ $section ]['tabs'][ $i ]['title'] ) . '</option>';
 				}
 				else {
-					echo '<option value="' . $i . '">' . esc_html( $options[ $type ]['tabs'][ $i ]['title'] ) . '</option>';
+					echo '<option value="' . $i . '">' . esc_html( $options[ $section ]['tabs'][ $i ]['title'] ) . '</option>';
 				}
 			}
 		}
@@ -245,6 +304,11 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	}
 
 
+	/**
+	 * New tabify tab template
+	 *
+	 * @since 0.4.0
+	 */
 	private function print_backbone_template() {
 		$tab = array(
 			'id'          => '{{ data.tab_id }}',
@@ -260,6 +324,11 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		echo '</script>';
 	}
 
+	/**
+	 * Get the options of the current type
+	 *
+	 * @since 0.4.0
+	 */
 	protected function get_options( $type = null ) {
 		if ( ! $this->options ) {
 			$this->options = get_option( 'tabify-edit-screen', array() );
