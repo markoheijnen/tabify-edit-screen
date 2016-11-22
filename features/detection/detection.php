@@ -130,6 +130,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 				}
 			}
 		}
+
+		return $metaboxes;
 	}
 
 }
