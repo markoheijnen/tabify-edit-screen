@@ -88,8 +88,6 @@ class Tabify_Edit_Screen_Feature_Detection {
 	}
 
 	public function unattached_metaboxes( $unattached_metaboxes ) {
-		global $wp_meta_boxes;
-
 		$screen = get_current_screen();
 
 		if ( get_transient( 'tabify_detection_' . $screen->post_type ) !== false ) {
@@ -112,6 +110,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 	}
 
 	private function get_metaboxes( $post_type ) {
+		global $wp_meta_boxes;
+
 		$metaboxes = array();
 
 		foreach ( $wp_meta_boxes[ $post_type ] as $context => $priorities ) {
