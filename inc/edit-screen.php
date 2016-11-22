@@ -172,12 +172,15 @@ class Tabify_Edit_Screen_Edit_Screen {
 	private function get_meta_boxes( $post_type ) {
 		global $wp_meta_boxes;
 
-		$metaboxes = array();
+		$metaboxes         = array();
+		$default_metaboxes = $this->get_default_items( $post_type );
 
 		foreach ( $wp_meta_boxes[ $post_type ] as $priorities ) {
 			foreach ( $priorities as $priority => $_metaboxes ) {
 				foreach ( $_metaboxes as $metabox ) {
-					$metaboxes[ $metabox['id'] ] = $metabox['id'];
+					if ( ! in_array( $metabox['id'], $default_metaboxes ) ) {
+						$metaboxes[ $metabox['id'] ] = $metabox['id'];
+					}
 				}
 			}
 		}
