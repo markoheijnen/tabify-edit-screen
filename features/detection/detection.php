@@ -124,7 +124,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 			}
 		}
 
-		set_transient( 'tabify_detection_' . $screen->post_type, $all_metaboxes );
+		set_transient( 'tabify_detection_' . $screen->post_type, $metaboxes, WEEK_IN_SECONDS );
 	}
 
 }
