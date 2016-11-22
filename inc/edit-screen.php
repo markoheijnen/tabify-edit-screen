@@ -44,8 +44,6 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * @since 0.1.0
 	 */
 	public function show_tabs() {
-		global $wp_meta_boxes;
-
 		$screen = get_current_screen();
 
 		if ( ! $screen || 'post' != $screen->base ) {
@@ -72,18 +70,8 @@ class Tabify_Edit_Screen_Edit_Screen {
 		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 		add_action( 'admin_print_footer_scripts', array( $this, 'generate_javascript' ), 9 );
 
-		$default_metaboxes     = $this->get_default_items( $post_type );
-		$this->all_metaboxes   = array();
-
-		foreach ( $wp_meta_boxes[ $post_type ] as $priorities ) {
-			foreach ( $priorities as $priority => $_metaboxes ) {
-				foreach ( $_metaboxes as $metabox ) {
-					if ( ! in_array( $metabox['id'], $default_metaboxes ) ) {
-						$this->all_metaboxes[ $metabox['id'] ] = $metabox['id'];
-					}
-				}
-			}
-		}
+		$default_metaboxes   = $this->get_default_items( $post_type );
+		$this->all_metaboxes = $this->get_meta_boxes( $post_type );
 
 		// Filter the tabs
 		$tabs = apply_filters( 'tabify_tab_posttype_tabs', $options['posttypes'][ $post_type ]['tabs'], $post_type );
@@ -157,6 +145,32 @@ class Tabify_Edit_Screen_Edit_Screen {
 				} );
 			}
 		}
+	}
+
+
+	/**
+	 * Get meta boxes from a post type
+	 *
+	 * @param string $post_type Post type name
+	 *
+	 * @return array $metaboxes List of metaboxes
+	 *
+	 * @since 1.0.0
+	 */
+	private function get_meta_boxes( $post_type ) {
+		global $wp_meta_boxes;
+
+		$metaboxes = array();
+
+		foreach ( $wp_meta_boxes[ $post_type ] as $priorities ) {
+			foreach ( $priorities as $priority => $_metaboxes ) {
+				foreach ( $_metaboxes as $metabox ) {
+					$metaboxes[ $metabox['id'] ] = $metabox['id'];
+				}
+			}
+		}
+
+		return $metaboxes;
 	}
 
 	/**
