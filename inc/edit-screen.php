@@ -134,7 +134,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 		do_action( 'tabify_unattached_metaboxes', $this->all_metaboxes, $show );
 
 		// Check if unattached metaboxes should be showed
-		if ( ! $show || ! $this->all_metaboxes ) {
+		if ( ! $show || empty( $this->all_metaboxes ) ) {
 			return;
 		}
 
