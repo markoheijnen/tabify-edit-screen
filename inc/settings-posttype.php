@@ -118,8 +118,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @return array filtered options array
 	 */
 	private function escape( $posttypes ) {
-		$posttypes_keys    = array_keys( $posttypes );
-		$amount_posttypes  = count( $posttypes );
+		$posttypes_keys   = array_keys( $posttypes );
+		$amount_posttypes = count( $posttypes );
 
 		$kses_allowed_html = array(
 			'b'    => array(),
@@ -137,14 +137,9 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		for ( $i = 0; $i < $amount_posttypes; $i++ ) {
 			$key = $posttypes_keys[ $i ];
 
-			if ( isset( $posttypes[ $key ]['show'] ) && $posttypes[ $key ]['show'] == 1 ) {
-				$posttypes[ $key ]['show'] = intval( $posttypes[ $key ]['show'] );
-			}
-			else {
-				$posttypes[ $key ]['show'] = 0;
-			}
+			$posttypes[ $key ]['show'] = isset( $posttypes[ $key ]['show'] );
+			$amount_tabs               = count( $posttypes[ $key ]['tabs'] );
 
-			$amount_tabs = count( $posttypes[ $key ]['tabs'] );
 			for ( $j = 0; $j < $amount_tabs; $j++ ) {
 				if ( ! isset( $posttypes[ $key ]['tabs'][ $j ] ) ) {
 					continue;
