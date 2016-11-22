@@ -120,30 +120,42 @@ class Tabify_Edit_Screen_Edit_Screen {
 			}
 		}
 
-		$show = apply_filters( 'tabify_unattached_metaboxes_show', true, $post_type );
+		$this->show_unattached_metaboxes( $tab_index );
+	}
+
+	/**
+	 * Show unattached metaboxes
+	 *
+	 * @since 1.0.0
+	 */
+	private function show_unattached_metaboxes( $tab_index ) {
+		$show = apply_filters( 'tabify_unattached_metaboxes_show', true, get_post_type() );
+
 		do_action( 'tabify_unattached_metaboxes', $this->all_metaboxes, $show );
 
-		// Metaboxes that aren't attachted
-		if ( $show ) {
-			foreach ( $this->all_metaboxes as $metabox_id ) {
-				$last_index                 = $tab_index;
-				$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', $last_index, $post_type );
+		// Check if unattached metaboxes should be showed
+		if ( ! $show || ! $this->all_metaboxes ) {
+			return;
+		}
 
-				if ( $unattached_metaboxes_index < 0 || $unattached_metaboxes_index > $last_index ) {
-					$unattached_metaboxes_index = $last_index;
-				}
+		foreach ( $this->all_metaboxes as $metabox_id ) {
+			$last_index                 = $tab_index;
+			$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', $last_index, get_post_type() );
 
-				$class = 'tabifybox tabifybox-' . $unattached_metaboxes_index;
-
-				if ( $this->editscreen_tabs->get_current_tab() != $unattached_metaboxes_index ) {
-					$class .= ' tabifybox-hide';
-				}
-
-				add_action( 'postbox_classes_' . $post_type . '_' . $metabox_id, function( $args ) use ( $class ) {
-					array_push( $args, $class );
-					return $args;
-				} );
+			if ( $unattached_metaboxes_index < 0 || $unattached_metaboxes_index > $last_index ) {
+				$unattached_metaboxes_index = $last_index;
 			}
+
+			$class = 'tabifybox tabifybox-' . $unattached_metaboxes_index;
+
+			if ( $this->editscreen_tabs->get_current_tab() != $unattached_metaboxes_index ) {
+				$class .= ' tabifybox-hide';
+			}
+
+			add_action( 'postbox_classes_' . get_post_type() . '_' . $metabox_id, function( $args ) use ( $class ) {
+				array_push( $args, $class );
+				return $args;
+			} );
 		}
 	}
 
