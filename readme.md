@@ -1,4 +1,11 @@
 # Tabify Edit Screen
+
+[![Build Status](https://travis-ci.org/markoheijnen/tabify-edit-screen.svg?branch=master)](https://travis-ci.org/markoheijnen/tabify-edit-screen)
+[![Dependency Status](https://gemnasium.com/badges/github.com/markoheijnen/tabify-edit-screen.svg)](https://gemnasium.com/github.com/wp-cli/wp-cli)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/markoheijnen/tabify-edit-screen/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/markoheijnen/tabify-edit-screen/?branch=master)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/markoheijnen/tabify-edit-screen.svg)](http://isitmaintained.com/project/markoheijnen/tabify-edit-screen "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/markoheijnen/tabify-edit-screen.svg)](http://isitmaintained.com/project/markoheijnen/tabify-edit-screen "Percentage of issues still open")
+
 Requires at least: 3.7
 Tested up to: 4.7
 Stable tag: 1.0.0
