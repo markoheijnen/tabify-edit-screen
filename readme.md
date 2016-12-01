@@ -1,23 +1,23 @@
-=== Tabify Edit Screen ===
+# Tabify Edit Screen
 Requires at least: 3.7
 Tested up to: 4.7
 Stable tag: 1.0.0
 
 Enable tabs in the edit screen and manage them from the back-end.
 
-== Description ==
+## Description
 
 When you've got lots of post meta-boxes, your post edit screen can become difficult to search. Make your post edit screen easier to navigate and manage by creating a set of tabs, with the Tabify Edit Screen plugin. And manage it all from the WordPress back-end!
 
 There are still lots of things changing in the code base. There are some hooks you can use but they can change from implementation till 1.0. I will always try to maintain backwards-compatible but till 1.0 I can't be sure for that.
 
-== Installation ==
+## Installation
 
 1. Upload the folder `tabify-edit-screen` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Settings -> Tabify edit screen to enable tabs for a specific post type
  
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
 = Can you define metaboxes that will always be visible? =
 
