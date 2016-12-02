@@ -26,7 +26,7 @@ There are still lots of things changing in the code base. There are some hooks y
  
 ## Frequently Asked Questions
 
-= Can you define metaboxes that will always be visible? =
+### Can you define metaboxes that will always be visible?
 
 At this moment the title and submit box are always visible. You can change this by using the following filters:
  * tabify_default_metaboxes - $defaults, $id, $type
@@ -34,14 +34,14 @@ At this moment the title and submit box are always visible. You can change this 
 
 The $id is for example the post type name when $type is posttypes.
 
-= Can I place the tabs under the title input field? =
+### Can I place the tabs under the title input field?
 
 Yes, you can use the filter 'tabify_tab_location' and passing the value 'after_title' to it.
 You can also check on the second argument what the location is. Now always 'posttype'
 
-= Does it work with all plugins? =
+### Does it work with all plugins?
 Since version 0.9.0 it should work for almost all plugins. Unless they do extra checks it should work.
 Before there was a filter 'tabify_plugin_support' which still exists but shouldn't be used anymore.
 
-= What happen with new metaboxes? =
+### What happen with new metaboxes?
 At this moment new metaboxes are places on the last tab. You can go to the settings screen to reorder the metabox. You can change which tab it should go like with meta boxes that don't show up like Types or WordPress SEO. You do this with the filter 'tabify_unattached_metaboxes_index'.
