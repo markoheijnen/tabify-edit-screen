@@ -1,6 +1,6 @@
 {
 	"name": "tabify-edit-screen",
-	"version": "0.9.6",
+	"version": "0.9.7",
 	"description": "Enables tabs in the edit screen and manage them from the back-end",
 	"repository": {
 		"type": "git",
@@ -14,7 +14,7 @@
 		"grunt-contrib-copy": "~1.0.0",
 		"grunt-contrib-cssmin": "~1.0.2",
 		"grunt-contrib-uglify": "~2.0.0",
-		"grunt-glotpress": "~0.2.1",
+		"grunt-glotpress": "~0.2.2",
 		"grunt-wp-i18n": "~0.5.4",
 
 
