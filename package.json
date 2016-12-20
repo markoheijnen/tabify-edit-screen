@@ -6,7 +6,7 @@
 		"type": "git",
 		"url": "https://github.com/markoheijnen/tabify-edit-screen.git"
 	},
-	"author": "Marko Heijnen",
+	"author": "CodeKitchen B.V.",
 	"license": "GPL-2.0+",
 	"devDependencies": {
 		"grunt": "~1.0.1",

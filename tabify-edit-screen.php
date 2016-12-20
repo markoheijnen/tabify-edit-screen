@@ -6,7 +6,7 @@
 
 	Plugin URI: https://codekitchen.eu/products/tabify-edit-screen/
 
-	Author: Marko Heijnen
+	Author: CodeKitchen B.V.
 	Author URI: https://codekitchen.eu
 	Donate link: https://codekitchen.eu/donate
 
