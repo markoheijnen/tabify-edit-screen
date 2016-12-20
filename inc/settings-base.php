@@ -67,8 +67,8 @@ class Tabify_Edit_Screen_Settings_Base {
 			echo '<p id="show-type">';
 			_e( 'Show tabs in this post type:', 'tabify-edit-screen' );
 			echo ' <span class="switch">';
-			echo '<input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" class="switch-checkbox" id="switch-' . $this->type . '"' . $checked . '>';
-			echo '<label data-tg-off="' .  __( 'Off', 'tabify-edit-screen' ) . '" data-tg-on="' .  __( 'On', 'tabify-edit-screen' ) . '" for="switch-' . $this->type . '" class="switch-label"></label>';
+			echo '<input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" class="switch-checkbox" id="switch-' . $this->type . '-' . $section . '"' . $checked . '>';
+			echo '<label data-tg-off="' .  __( 'Off', 'tabify-edit-screen' ) . '" data-tg-on="' .  __( 'On', 'tabify-edit-screen' ) . '" for="switch-' . $this->type . '-' . $section . '" class="switch-label"></label>';
 			echo '</span>';
 			echo '</p>';
 
