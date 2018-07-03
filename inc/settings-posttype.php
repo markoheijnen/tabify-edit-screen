@@ -152,6 +152,9 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 					if ( $posttypes[ $key ]['tabs'][ $j ]['title'] == '' ) {
 						unset( $posttypes[ $key ]['tabs'][ $j ] );
 					}
+					else {
+						$posttypes[ $key ]['tabs'][ $j ]['items'] = array();
+					}
 
 					continue;
 				}
