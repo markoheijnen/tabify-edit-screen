@@ -47,8 +47,6 @@ class Tabify_Edit_Screen_Settings_Page {
 		wp_localize_script( 'tabify-edit-screen-admin', 'tabify_l10', $data );
 		
 		echo '<div class="wrap">';
-
-		screen_icon('options-general');
 		echo '<h1>' . esc_html( get_admin_page_title() ) . '</h1>';
 
 		echo '<form id="tabify-form" method="post">';
