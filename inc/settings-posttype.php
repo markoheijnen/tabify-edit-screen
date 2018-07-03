@@ -12,6 +12,17 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		parent::__construct('posttypes');
 
 		add_filter( 'tabify_settings_update', array( $this, 'save_settings' ) );
+	}
+
+	/**
+	 * Set the items property when needed.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function load_items() {
+		if ($this->items) {
+			return;
+		}
 
 		$posttypes = $this->get_sections();
 		$metaboxes = $this->get_metaboxes();

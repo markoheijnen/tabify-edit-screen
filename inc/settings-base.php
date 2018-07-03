@@ -27,6 +27,13 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	}
 
 	/**
+	 * Set the items property when needed.
+	 *
+	 * @since 1.0.0
+	 */
+	abstract protected function load_items();
+
+	/**
 	 * Set properties and load the sections and tabs
 	 *
 	 * @return array The sections
@@ -103,7 +110,10 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		if ( ! isset( $options[ $section ] ) ) {
 			$options[ $section ] = array (
 				'tabs' => array(
-					array( 'title' => __( 'Others', 'tabify-edit-screen' ), 'items' => array() )
+					array(
+						'title' => __( 'Others', 'tabify-edit-screen' ),
+						'items' => array()
+					)
 				)
 			);
 		}
@@ -206,6 +216,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * @since 1.0.0
 	 */
 	private function get_section_box_list( $section, $items, $tab_id, $default_items ) {
+		$this->load_items();
 		$options = $this->get_options( $this->type );
 
 		echo '<ul>';
