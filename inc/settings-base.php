@@ -88,16 +88,13 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 			$this->get_section_box( $section );
 		}
 
-		echo '<p class="submit">';
-		echo '<input type="submit" id="create_tab" name="create_tab" class="button button-secondary" value="' . __( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
-		submit_button( '', 'primary', 'submit', false );
-		echo '</p>';
+		$this->print_buttons();
 
 		$this->print_backbone_template();
 	}
 
 	/**
-	 * Get the html for one pacticular section
+	 * Get the HTML for one pacticular section
 	 *
 	 * @param string $section The section name
 	 *
@@ -125,22 +122,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 			echo '<div class="tabifybox tabifybox-hide tabifybox-' . $section . '" style="display: none;">';
 		}
 
-		$checked = '';
-		if ( isset( $options[ $section ]['show'] ) && $options[ $section ]['show'] == 1 ) {
-			$checked = ' checked="checked"';
-		}
-
-		echo '<div class="tabifybox-options">';
-		echo '<p id="show-type">';
-		_e( 'Show tabs in this post type:', 'tabify-edit-screen' );
-		echo ' <span class="switch">';
-		echo '<input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" class="switch-checkbox" id="switch-' . $this->type . '-' . $section . '"' . $checked . '>';
-		echo '<label data-tg-off="' .  __( 'Off', 'tabify-edit-screen' ) . '" data-tg-on="' .  __( 'On', 'tabify-edit-screen' ) . '" for="switch-' . $this->type . '-' . $section . '" class="switch-label"></label>';
-		echo '</span>';
-		echo '</p>';
-
-		do_action( 'tabify_settings', $this->type, $section, $options[ $section ] );
-		echo '</div>';
+		$this->get_section_settings( $section );
 
 		echo '<div class="tabify_control tabify_control_tabs">';
 
@@ -175,6 +157,34 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 
 		echo '</div>';
 
+		echo '</div>';
+	}
+
+	/**
+	 * Get the settings HTML for one pacticular section
+	 *
+	 * @param string $section The section name
+	 *
+	 * @since 1.0.0
+	 */
+	private function get_section_settings( $section ) {
+		$options = $this->get_options( $this->type );
+
+		$checked = '';
+		if ( isset( $options[ $section ]['show'] ) && $options[ $section ]['show'] == 1 ) {
+			$checked = ' checked="checked"';
+		}
+
+		echo '<div class="tabifybox-options">';
+		echo '<p id="show-type">';
+		_e( 'Show tabs in this post type:', 'tabify-edit-screen' );
+		echo ' <span class="switch">';
+		echo '<input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" class="switch-checkbox" id="switch-' . $this->type . '-' . $section . '"' . $checked . '>';
+		echo '<label data-tg-off="' .  __( 'Off', 'tabify-edit-screen' ) . '" data-tg-on="' .  __( 'On', 'tabify-edit-screen' ) . '" for="switch-' . $this->type . '-' . $section . '" class="switch-label"></label>';
+		echo '</span>';
+		echo '</p>';
+
+		do_action( 'tabify_settings', $this->type, $section );
 		echo '</div>';
 	}
 
@@ -312,6 +322,19 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		echo '</select>';
 		echo '</span>';
 		echo '</div></div></li>';
+	}
+
+
+	/**
+	 * Display general buttons.
+	 *
+	 * @since 1.0.0
+	 */
+	private function print_buttons() {
+		echo '<p class="submit">';
+		echo '<input type="submit" id="create_tab" name="create_tab" class="button button-secondary" value="' . __( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
+		submit_button( '', 'primary', 'submit', false );
+		echo '</p>';
 	}
 
 

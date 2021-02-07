@@ -1,7 +1,11 @@
 <?php
 
 class Tabify_Edit_Screen_Feature_Plugin_Support {
-
+	/**
+	 * Set hooks
+	 *
+	 * @since 0.4.0
+	 */
 	public function __construct() {
 		$screen = get_current_screen();
 

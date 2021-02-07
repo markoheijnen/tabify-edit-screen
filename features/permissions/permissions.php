@@ -1,7 +1,11 @@
 <?php
 
 class Tabify_Edit_Screen_Feature_Permissions {
-
+	/**
+	 * Set hooks
+	 *
+	 * @since 0.9.0
+	 */
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
@@ -12,7 +16,11 @@ class Tabify_Edit_Screen_Feature_Permissions {
 		add_filter( 'tabify_tab_posttype_tabs', array( $this, 'posttype_tabs' ), 10, 2 );
 	}
 
-
+	/**
+	 * Enqueue script for the settings page
+	 *
+	 * @since 0.9.0
+	 */
 	public function enqueue_scripts() {
 		$screen = get_current_screen();
 
@@ -31,7 +39,11 @@ class Tabify_Edit_Screen_Feature_Permissions {
 		wp_localize_script( 'tabify-edit-screen-permissions', 'tabify_permissions', $data );
 	}
 
-
+	/**
+	 * Add button next tot title of a tab
+	 *
+	 * @since 0.9.0
+	 */
 	public function settings_tab_title_box( $tab ) {
 		if ( $tab['permissions'] && is_array( $tab['permissions'] ) ) {
 			$count = count( $tab['permissions'] );
@@ -44,6 +56,11 @@ class Tabify_Edit_Screen_Feature_Permissions {
 		echo '<button class="tabify-tab-permissions button button-secondary hide-if-no-js" type="button">' . $btn_permissions . '</button>';
 	}
 
+	/**
+	 * Display the settings after the title
+	 *
+	 * @since 0.9.0
+	 */
 	public function settings_tab_title_after( $tab, $section, $type ) {
 		echo '<div class="tabify-tab-permission-box">';
 
@@ -61,7 +78,11 @@ class Tabify_Edit_Screen_Feature_Permissions {
 		echo '</div>';
 	}
 
-
+	/**
+	 * Remove meta boxes when no permissions
+	 *
+	 * @since 0.9.0
+	 */
 	public function posttype_tabs( $tabs, $post_type ) {
 		foreach( $tabs as $index => $tab ) {
 			if ( ! isset( $tab['permissions'] ) ) {
@@ -96,7 +117,11 @@ class Tabify_Edit_Screen_Feature_Permissions {
 		return $tabs;
 	}
 
-
+	/**
+	 * Get the roles of WordPress
+	 *
+	 * @since 0.9.0
+	 */
 	private function get_roles() {
 		if ( ! function_exists( 'wp_roles' ) ) {
 			global $wp_roles;

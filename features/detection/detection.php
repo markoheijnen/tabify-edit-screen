@@ -1,10 +1,14 @@
 <?php
 
 class Tabify_Edit_Screen_Feature_Detection {
-
+	/**
+	 * Set hooks
+	 *
+	 * @since 0.9.0
+	 */
 	public function __construct() {
-		// Actions to return JSON output on post type new/edit screen
-		add_action( 'current_screen', array( $this, 'head_action_begin' ) );
+		add_action( 'current_screen', array( $this, 'head_action_begin_settings_page' ) );
+		add_action( 'current_screen', array( $this, 'head_action_begin_edit_page' ) );
 
 		// Hook for requesting missing hooks
 		add_action( 'tabify_add_meta_boxes', array( $this, 'add_missing_meta_boxes' ) );
@@ -13,20 +17,37 @@ class Tabify_Edit_Screen_Feature_Detection {
 		add_action( 'tabify_unattached_metaboxes', array( $this, 'unattached_metaboxes' ) );
 	}
 
+	/**
+	 * Checks if script for edit page need to be enqueued
+	 *
+	 * @since 1.0.0
+	 */
+	public function head_action_begin_settings_page( $screen ) {
+		if ( 'settings_page_tabify-edit-screen' == $screen->base ) {
+			$this->enqueue_script();
+		}
+	}
 
-	public function head_action_begin( $screen ) {
-		if ( ( 'post' == $screen->base || 'media' == $screen->base ) && isset( $_GET['tes_metaboxes'] ) ) {
+	/**
+	 * Actions to return JSON output on post type new/edit screen
+	 *
+	 * @since 1.0.0
+	 */
+	public function head_action_begin_edit_page( $screen ) {
+		if ( ( 'post' == $screen->base || 'media' == $screen->base ) && isset( $_GET['test_metaboxes'] ) ) {
 			ob_end_clean(); // For when warnings are displayed
 			ob_start();
 
 			add_filter( 'tabify_tab_posttype_show', '__return_true', 1000 );
 			add_action( 'admin_head', array( $this, 'head_action' ), 110 );
 		}
-		else if ( 'settings_page_tabify-edit-screen' == $screen->base ) {
-			$this->enqueue_script();
-		}
 	}
 
+	/**
+	 * Enqueue script to load detected meta boxes and display them in the settings page
+	 *
+	 * @since 0.9.0
+	 */
 	private function enqueue_script() {
 		wp_register_script( 'tabify-edit-screen-detection', plugins_url( '/detection.js', __FILE__ ), array( 'jquery' ), '1.0' );
 		wp_enqueue_script( 'tabify-edit-screen-detection' );
@@ -54,13 +75,13 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 			if ( ! empty( $post ) ) {
 				$url = get_edit_post_link( $post[0], 'raw' );
-				$url = add_query_arg( 'tes_metaboxes', 'true', $url );
+				$url = add_query_arg( 'test_metaboxes', 'true', $url );
 				$posttype_links[ $posttype->name ] = $url;
 			}
 			else {
 				$url = admin_url('post-new.php');
 				$url = add_query_arg( 'post_type', $posttype->name, $url );
-				$url = add_query_arg( 'tes_metaboxes', 'true', $url );
+				$url = add_query_arg( 'test_metaboxes', 'true', $url );
 				$posttype_links[ $posttype->name ] = $url;
 			}
 		}
@@ -70,6 +91,11 @@ class Tabify_Edit_Screen_Feature_Detection {
 		) );
 	}
 
+	/**
+	 * Load the JSON data for the settings page
+	 *
+	 * @since 0.9.0
+	 */
 	public function head_action() {
 		global $wp_meta_boxes;
 
@@ -82,7 +108,11 @@ class Tabify_Edit_Screen_Feature_Detection {
 		exit;
 	}
 
-
+	/**
+	 * Add missing meta boxes as meta boxes on the edit screen so it doesn't disappear on first load
+	 *
+	 * @since 0.9.0
+	 */
 	public function add_missing_meta_boxes( $post_type ) {
 		if ( is_array( $metaboxes = get_transient( 'tabify_detection_' . $post_type ) ) ) {
 			foreach ( $metaboxes as $id => $metabox ) {
@@ -93,6 +123,11 @@ class Tabify_Edit_Screen_Feature_Detection {
 		}
 	}
 
+	/**
+	 * Check and save missing 
+	 *
+	 * @since 0.9.0
+	 */
 	public function unattached_metaboxes( $unattached_metaboxes ) {
 		$screen = get_current_screen();
 
@@ -115,6 +150,11 @@ class Tabify_Edit_Screen_Feature_Detection {
 		set_transient( 'tabify_detection_' . $screen->post_type, $metaboxes, WEEK_IN_SECONDS );
 	}
 
+	/**
+	 * 
+	 *
+	 * @since 0.9.0
+	 */
 	private function get_metaboxes( $post_type ) {
 		global $wp_meta_boxes;
 
