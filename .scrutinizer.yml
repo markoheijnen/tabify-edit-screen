@@ -14,3 +14,10 @@ tools:
     php_code_sniffer:
         config:
             standard: "WordPress"
+
+build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
