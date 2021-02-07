@@ -23,6 +23,6 @@ build:
             dependencies:
                 before:
                     - composer require --dev johnpbloch/wordpress
-        tests:
-            override:
-                - php-scrutinizer-run
+            tests:
+                override:
+                    - php-scrutinizer-run
