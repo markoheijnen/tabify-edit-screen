@@ -6,6 +6,8 @@ checks:
         no_global_keyword:  false
         one_class_per_file: false
 filter:
+    dependency_paths:
+        - wordpress/
     excluded_paths:
         - tests/*
         - bin/*
@@ -16,8 +18,11 @@ tools:
             standard: "WordPress"
 
 build:
-  nodes:
-    analysis:
-      tests:
-        override:
-          - php-scrutinizer-run
+    nodes:
+        analysis:
+            dependencies:
+                before:
+                    - composer require --dev johnpbloch/wordpress
+        tests:
+            override:
+                - php-scrutinizer-run
