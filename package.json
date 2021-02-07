@@ -6,7 +6,7 @@
 		"type": "git",
 		"url": "https://github.com/markoheijnen/tabify-edit-screen.git"
 	},
-	"author": "Marko Heijnen",
+	"author": "CodeKitchen B.V.",
 	"license": "GPL-2.0+",
 	"devDependencies": {
 		"grunt": "~1.0.1",
@@ -14,7 +14,7 @@
 		"grunt-contrib-copy": "~1.0.0",
 		"grunt-contrib-cssmin": "~1.0.2",
 		"grunt-contrib-uglify": "~2.0.0",
-		"grunt-glotpress": "~0.2.1",
+		"grunt-glotpress": "~0.2.2",
 		"grunt-wp-i18n": "~0.5.4",
 
 

@@ -25,6 +25,7 @@ module.exports = function(grunt) {
 							'!**/.{svn,git}/**', // Ignore version control directories.
 							'!output/**',
 
+							'!assets/**',
 							'!bin/**',
 							'!build/**',
 							'!Gruntfile.js',
