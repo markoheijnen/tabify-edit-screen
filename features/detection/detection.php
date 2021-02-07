@@ -130,10 +130,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 */
 	public function unattached_metaboxes( $unattached_metaboxes ) {
 		$screen = get_current_screen();
-
-		if ( get_transient( 'tabify_detection_' . $screen->post_type ) !== false ) {
-			return;
-		}
+		$previous_metaboxes = get_transient( 'tabify_detection_' . $screen->post_type );
 
 		$metaboxes = array();
 
@@ -147,7 +144,9 @@ class Tabify_Edit_Screen_Feature_Detection {
 			}
 		}
 
-		set_transient( 'tabify_detection_' . $screen->post_type, $metaboxes, WEEK_IN_SECONDS );
+		if ($metaboxes != $previous_metaboxes) {
+			set_transient( 'tabify_detection_' . $screen->post_type, $metaboxes, WEEK_IN_SECONDS );
+		}
 	}
 
 	/**

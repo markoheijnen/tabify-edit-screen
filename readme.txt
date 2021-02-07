@@ -52,6 +52,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 = 1.0.0 ( 2021-02-07 ) =
 * Arguments for filter tabify_default_metaboxes changed
 * Deprecated filter tabify_default_metaboxes_$post_type
+* Improved detection layer a bit. It's still not perfect and will be addressed in 1.1.0
 
 = 0.9.7 ( 2016-12-20 ) =
 * Fix on/off switch.
