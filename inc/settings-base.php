@@ -240,7 +240,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 			}
 		}
 
-		if ( count( $options[ $section ]['tabs'] ) == ( $tab_id + 1 ) ) {
+		if ( ! isset( $options[ $section ] )|| count( $options[ $section ]['tabs'] ) == ( $tab_id + 1 ) ) {
 			foreach ( $this->items[ $section ] as $item_id => $item_title ) {
 				if ( empty( $item_id ) ) {
 					continue;
