@@ -11,7 +11,19 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	public function __construct() {
 		parent::__construct('posttypes');
 
-		add_filter( 'tabify_settings_update', array( $this, 'save_settings' ) );
+		add_action( 'tabify_settings', [ $this, 'display_gutenberg_warning' ] );
+		add_filter( 'tabify_settings_update', [ $this, 'save_settings' ] );
+	}
+
+	/**
+	 * Show warning if post type uses gutenberg
+	 *
+	 * @since 0.4.0
+	 */
+	public function display_gutenberg_warning( $section ) {
+		if (use_block_editor_for_post_type($section)) {
+			echo '<p class="gutenberg-error notice notice-error inline">' . __( 'This post type support Gutenberg which is not supported.', 'tabify-edit-screen' ) . '</p>';
+		}
 	}
 
 	/**

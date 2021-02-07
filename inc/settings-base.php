@@ -184,7 +184,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		echo '</span>';
 		echo '</p>';
 
-		do_action( 'tabify_settings', $this->type, $section );
+		do_action( 'tabify_settings', $section, $this->type );
 		echo '</div>';
 	}
 
