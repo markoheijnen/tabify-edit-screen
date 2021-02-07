@@ -97,8 +97,6 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 * @since 0.9.0
 	 */
 	public function head_action() {
-		global $wp_meta_boxes;
-
 		$screen = get_current_screen();
 
 		ob_end_clean();
@@ -114,6 +112,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 * @since 0.9.0
 	 */
 	public function add_missing_meta_boxes( $post_type ) {
+		global $wp_meta_boxes;
+
 		if ( is_array( $metaboxes = get_transient( 'tabify_detection_' . $post_type ) ) ) {
 			foreach ( $metaboxes as $id => $metabox ) {
 				if ( ! isset( $wp_meta_boxes[ $post_type ][ $metabox->context ][ $metabox->priority ][ $id ] ) ) {
