@@ -3,7 +3,7 @@ Contributors: CodeKitchen, markoheijnen, tara-van-der-wel
 Donate link: https://codekitchen.eu/donate
 Tags: tabs, edit, admin, post, page, posts, tabs plugin, admin tabs
 Requires at least: 3.7
-Tested up to: 5.6.1
+Tested up to: 5.6.2
 Stable tag: 1.0.0
 
 Enable tabs in the edit screen and manage them from the back-end.
@@ -49,7 +49,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 == Changelog ==
 
-= 1.0.0 ( 2021-02-07 ) =
+= 1.0.0 ( 2021-02-28 ) =
 * Fixed PHP and WordPress warnings
 * Arguments for filter tabify_default_metaboxes changed
 * Deprecated filter tabify_default_metaboxes_$post_type

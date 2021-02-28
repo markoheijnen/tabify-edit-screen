@@ -6,7 +6,7 @@
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/markoheijnen/tabify-edit-screen.svg)](http://isitmaintained.com/project/markoheijnen/tabify-edit-screen "Percentage of issues still open")
 
 Requires at least: 3.7
-Tested up to: 5.6.1
+Tested up to: 5.6.2
 Stable tag: 1.0.0
 
 Enable tabs in the edit screen and manage them from the back-end.
