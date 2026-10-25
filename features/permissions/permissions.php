@@ -45,7 +45,7 @@ class Tabify_Edit_Screen_Feature_Permissions {
 	 * @since 0.9.0
 	 */
 	public function settings_tab_title_box( $tab ) {
-		if ( $tab['permissions'] && is_array( $tab['permissions'] ) ) {
+		if ( ! empty( $tab['permissions'] ) && is_array( $tab['permissions'] ) ) {
 			$count = count( $tab['permissions'] );
 			$btn_permissions = sprintf( _n( '1 role', '%s roles', $count, 'tabify-edit-screen' ), $count );
 		}
@@ -65,9 +65,10 @@ class Tabify_Edit_Screen_Feature_Permissions {
 		echo '<div class="tabify-tab-permission-box">';
 
 		$all_roles = $this->get_roles();
+		$permissions = isset( $tab['permissions'] ) && is_array( $tab['permissions'] ) ? $tab['permissions'] : array();
 		foreach ( $all_roles as $key => $role ) {
 			$name    = 'tabify[' . $type . '][' . $section . '][tabs][' . $tab['id'] . '][permissions][]';
-			$checked = in_array( $key, $tab['permissions'] ) ? ' checked="checked"' : '';
+			$checked = in_array( $key, $permissions ) ? ' checked="checked"' : '';
 
 			echo '<label>';
 			echo '<input  name="' . $name . '" type="checkbox" value="' . $key . '"' . $checked . '/>';
@@ -84,19 +85,31 @@ class Tabify_Edit_Screen_Feature_Permissions {
 	 * @since 0.9.0
 	 */
 	public function posttype_tabs( $tabs, $post_type ) {
+		if ( ! is_array( $tabs ) ) {
+			return array();
+		}
+
 		foreach( $tabs as $index => $tab ) {
+			if ( ! is_array( $tab ) ) {
+				unset( $tabs[ $index ] );
+				continue;
+			}
+
 			if ( ! isset( $tab['permissions'] ) ) {
 				continue;
 			}
 
+			// Invalid restrictions must not grant access to a tab.
+			$permissions = is_array( $tab['permissions'] ) ? $tab['permissions'] : array();
 			$current_user = wp_get_current_user();
 			foreach ( $current_user->roles as $role ) {
-				if ( in_array( $role, $tab['permissions'] ) ) {
+				if ( in_array( $role, $permissions ) ) {
 					continue 2;
 				}
 			}
 
-			foreach ( $tab['items'] as $item ) {
+			$items = isset( $tab['items'] ) && is_array( $tab['items'] ) ? $tab['items'] : array();
+			foreach ( $items as $item ) {
 				if ( 'titlediv' == $item ) {
 					remove_post_type_support( $post_type, 'title' );
 				}

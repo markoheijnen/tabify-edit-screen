@@ -55,12 +55,12 @@ class Tabify_Edit_Screen_Edit_Screen {
 		$post_type = $screen->post_type;
 		$options   = get_option( 'tabify-edit-screen', array() );
 
-		if ( ! isset( $options['posttypes'][ $post_type ] ) ) {
+		if ( ! is_array( $options ) || ! isset( $options['posttypes'][ $post_type ] ) || ! is_array( $options['posttypes'][ $post_type ] ) ) {
 			return;
 		}
 
 		// Ability to change if the tabs should be showed or not.
-		$display_tabs = apply_filters( 'tabify_tab_posttype_show', (bool) $options['posttypes'][ $post_type ]['show'] );
+		$display_tabs = apply_filters( 'tabify_tab_posttype_show', ! empty( $options['posttypes'][ $post_type ]['show'] ) );
 
 		// Check if this post type is enabled.
 		if ( ! $display_tabs ) {
@@ -74,10 +74,12 @@ class Tabify_Edit_Screen_Edit_Screen {
 		$this->all_metaboxes = $this->get_meta_boxes( $post_type );
 
 		// Filter the tabs
-		$tabs = apply_filters( 'tabify_tab_posttype_tabs', $options['posttypes'][ $post_type ]['tabs'], $post_type );
+		$tabs = isset( $options['posttypes'][ $post_type ]['tabs'] ) && is_array( $options['posttypes'][ $post_type ]['tabs'] )
+			? $options['posttypes'][ $post_type ]['tabs'] : array();
+		$tabs = apply_filters( 'tabify_tab_posttype_tabs', $tabs, $post_type );
 
 		// Filter empty tabs
-		$tabs = array_filter( $tabs, array( $this, 'filter_empty_tabs' ) );
+		$tabs = is_array( $tabs ) ? array_filter( $tabs, array( $this, 'filter_empty_tabs' ) ) : array();
 
 		// Create Tabify_Edit_Screen_Tabs that is for displaying the UI.
 		$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $tabs );
@@ -175,9 +177,18 @@ class Tabify_Edit_Screen_Edit_Screen {
 		$metaboxes         = array();
 		$default_metaboxes = $this->get_default_items( $post_type );
 
+		if ( ! isset( $wp_meta_boxes[ $post_type ] ) || ! is_array( $wp_meta_boxes[ $post_type ] ) ) {
+			return $metaboxes;
+		}
+
 		foreach ( $wp_meta_boxes[ $post_type ] as $priorities ) {
 			foreach ( $priorities as $priority => $_metaboxes ) {
 				foreach ( $_metaboxes as $metabox ) {
+					// WordPress stores removed meta boxes as false.
+					if ( ! isset( $metabox['id'] ) ) {
+						continue;
+					}
+
 					if ( ! in_array( $metabox['id'], $default_metaboxes ) ) {
 						$metaboxes[ $metabox['id'] ] = $metabox['id'];
 					}
@@ -293,7 +304,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * @since 0.9.6
 	 */
 	public function filter_empty_tabs( $tab ) {
-		if ( isset( $tab['items'] ) ) {
+		if ( is_array( $tab ) && isset( $tab['items'] ) && is_array( $tab['items'] ) ) {
 			$tab['items'] = array_intersect( $tab['items'], $this->all_metaboxes );
 
 			return $tab['items'];

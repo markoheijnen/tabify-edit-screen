@@ -104,7 +104,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		$options       = $this->get_options( $this->type );
 		$default_items = $this->get_default_items( $section );
 
-		if ( ! isset( $options[ $section ] ) ) {
+		if ( ! isset( $options[ $section ]['tabs'] ) || ! is_array( $options[ $section ]['tabs'] ) || empty( $options[ $section ]['tabs'] ) ) {
 			$options[ $section ] = array (
 				'tabs' => array(
 					array(
@@ -134,14 +134,21 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		}
 
 		foreach ( $options[ $section ]['tabs'] as $tab ) {
+			if ( ! is_array( $tab ) ) {
+				continue;
+			}
+
 			$tab['id'] = $tab_id;
 
 			if ( ! isset( $tab['permissions'] ) ) {
 				$tab['permissions'] = array();
 			}
 
-			if ( $tab['title'] == '' ) {
+			if ( ! isset( $tab['title'] ) || ! is_string( $tab['title'] ) || $tab['title'] == '' ) {
 				$tab['title'] = __( 'Choose title', 'tabify-edit-screen' );
+			}
+			if ( ! isset( $tab['items'] ) || ! is_array( $tab['items'] ) ) {
+				$tab['items'] = array();
 			}
 
 			echo '<div class="menu-item-handle tabify_tab">';
@@ -250,7 +257,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 			}
 		}
 
-		if ( ! isset( $options[ $section ] )|| count( $options[ $section ]['tabs'] ) == ( $tab_id + 1 ) ) {
+		if ( ! isset( $options[ $section ]['tabs'] ) || ! is_array( $options[ $section ]['tabs'] ) || empty( $options[ $section ]['tabs'] ) || count( $options[ $section ]['tabs'] ) == ( $tab_id + 1 ) ) {
 			foreach ( $this->items[ $section ] as $item_id => $item_title ) {
 				if ( empty( $item_id ) ) {
 					continue;
@@ -302,7 +309,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		echo '<span class="item-order hide-if-js">';
 		echo '<select name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][items_tab][]">';
 
-		if ( isset( $options[ $section ] ) ) {
+		if ( isset( $options[ $section ]['tabs'] ) && is_array( $options[ $section ]['tabs'] ) ) {
 			$amount_tabs = count( $options[ $section ]['tabs'] );
 
 			for( $i = 0; $i < $amount_tabs; $i++ ) {
@@ -366,10 +373,13 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	protected function get_options( $type = null ) {
 		if ( ! $this->options ) {
 			$this->options = get_option( 'tabify-edit-screen', array() );
+			if ( ! is_array( $this->options ) ) {
+				$this->options = array();
+			}
 		}
 
-		if ( $type && isset( $this->options[ $type ] ) ) {
-			return $this->options[ $type ];
+		if ( $type ) {
+			return isset( $this->options[ $type ] ) && is_array( $this->options[ $type ] ) ? $this->options[ $type ] : array();
 		}
 
 		return $this->options;

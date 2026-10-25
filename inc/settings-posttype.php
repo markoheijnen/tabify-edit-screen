@@ -97,6 +97,10 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 			do_action( 'tabify_add_meta_boxes', $posttype );
 		}
 
+		if ( ! is_array( $wp_meta_boxes ) ) {
+			return $metaboxes;
+		}
+
 		foreach ( $wp_meta_boxes as $posttype => $context ) {
 			foreach ( $context as $priorities ) {
 				foreach ( $priorities as $priority => $_metaboxes ) {
@@ -126,7 +130,13 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @since 0.1.0
 	 */
 	public function save_settings( $options ) {
-		$options['posttypes'] = $this->escape( $options['posttypes'] );
+		if ( ! is_array( $options ) ) {
+			return array();
+		}
+
+		if ( isset( $options['posttypes'] ) ) {
+			$options['posttypes'] = $this->escape( $options['posttypes'] );
+		}
 
 		return $options;
 	}
@@ -141,6 +151,10 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @return array filtered options array
 	 */
 	private function escape( $posttypes ) {
+		if ( ! is_array( $posttypes ) ) {
+			return array();
+		}
+
 		$posttypes_keys   = array_keys( $posttypes );
 		$amount_posttypes = count( $posttypes );
 
@@ -160,7 +174,15 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 		for ( $i = 0; $i < $amount_posttypes; $i++ ) {
 			$key = $posttypes_keys[ $i ];
 
+			if ( ! is_array( $posttypes[ $key ] ) ) {
+				unset( $posttypes[ $key ] );
+				continue;
+			}
+
 			$posttypes[ $key ]['show'] = isset( $posttypes[ $key ]['show'] );
+			if ( ! isset( $posttypes[ $key ]['tabs'] ) || ! is_array( $posttypes[ $key ]['tabs'] ) ) {
+				$posttypes[ $key ]['tabs'] = array();
+			}
 			$amount_tabs               = count( $posttypes[ $key ]['tabs'] );
 
 			for ( $j = 0; $j < $amount_tabs; $j++ ) {
@@ -168,10 +190,18 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 					continue;
 				}
 
+				if ( ! is_array( $posttypes[ $key ]['tabs'][ $j ] ) ) {
+					unset( $posttypes[ $key ]['tabs'][ $j ] );
+					continue;
+				}
+
+				if ( ! isset( $posttypes[ $key ]['tabs'][ $j ]['title'] ) || ! is_string( $posttypes[ $key ]['tabs'][ $j ]['title'] ) ) {
+					$posttypes[ $key ]['tabs'][ $j ]['title'] = '';
+				}
 				$posttypes[ $key ]['tabs'][ $j ]['title'] = stripslashes( $posttypes[ $key ]['tabs'][ $j ]['title'] );
 				$posttypes[ $key ]['tabs'][ $j ]['title'] = wp_kses( $posttypes[ $key ]['tabs'][ $j ]['title'], $kses_allowed_html );
 
-				if ( ! isset( $posttypes[ $key ]['tabs'][ $j ]['items'] ) || count( $posttypes[ $key ]['tabs'][ $j ]['items'] ) == 0 ) {
+				if ( ! isset( $posttypes[ $key ]['tabs'][ $j ]['items'] ) || ! is_array( $posttypes[ $key ]['tabs'][ $j ]['items'] ) || empty( $posttypes[ $key ]['tabs'][ $j ]['items'] ) ) {
 					if ( $posttypes[ $key ]['tabs'][ $j ]['title'] == '' ) {
 						unset( $posttypes[ $key ]['tabs'][ $j ] );
 					}

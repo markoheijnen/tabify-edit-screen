@@ -159,6 +159,10 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 		$metaboxes = array();
 
+		if ( ! isset( $wp_meta_boxes[ $post_type ] ) || ! is_array( $wp_meta_boxes[ $post_type ] ) ) {
+			return $metaboxes;
+		}
+
 		foreach ( $wp_meta_boxes[ $post_type ] as $context => $priorities ) {
 			foreach ( $priorities as $priority => $_metaboxes ) {
 				foreach ( $_metaboxes as $metabox ) {
