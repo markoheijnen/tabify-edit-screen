@@ -20,9 +20,16 @@ tools:
 build:
     nodes:
         analysis:
+            environment:
+                php:
+                    version: '8.2'
             dependencies:
-                before:
-                    - composer require --dev johnpbloch/wordpress
+                # Replace inferred commands so the image's Composer 1 is never used.
+                override:
+                    - curl --fail --silent --show-error --location https://getcomposer.org/download/latest-2.x/composer.phar --output /tmp/tabify-composer.phar
+                    - php /tmp/tabify-composer.phar require --dev --no-update --no-interaction johnpbloch/wordpress
+                    - php /tmp/tabify-composer.phar config allow-plugins.johnpbloch/wordpress-core-installer true
+                    - php /tmp/tabify-composer.phar update --no-interaction --prefer-dist
             tests:
                 override:
                     - php-scrutinizer-run
