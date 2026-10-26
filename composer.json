@@ -1,0 +1,19 @@
+{
+	"name": "markoheijnen/tabify-edit-screen",
+	"description": "Tabs for WordPress classic edit screens",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require-dev": {
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^1.1"
+	},
+	"scripts": {
+		"test": "phpunit"
+	},
+	"config": {
+		"platform": {
+			"php": "8.0.30"
+		},
+		"sort-packages": true
+	}
+}

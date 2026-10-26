@@ -1,124 +1,57 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-if [ $# -lt 3 ]; then
-	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version]"
+if [ "$#" -lt 3 ]; then
+	printf 'Usage: %s <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-db-create]\n' "$0" >&2
 	exit 1
 fi
 
 DB_NAME=$1
 DB_USER=$2
 DB_PASS=$3
-DB_HOST=${4-localhost}
-WP_VERSION=${5-latest}
+DB_HOST=${4:-localhost}
+WP_VERSION=${5:-latest}
+SKIP_DB_CREATE=${6:-false}
+WP_TESTS_DIR=${WP_TESTS_DIR:-/tmp/wordpress-tests-lib}
+WP_CORE_DIR=${WP_CORE_DIR:-/tmp/wordpress}
+TASK_TMP=$(mktemp -d "${TMPDIR:-/tmp}/tabify-wp-tests.XXXXXX")
+trap 'rm -rf "$TASK_TMP"' EXIT
 
-WP_TESTS_DIR=${WP_TESTS_DIR-/tmp/wordpress-tests-lib}
-WP_CORE_DIR=${WP_CORE_DIR-/tmp/wordpress/}
+case "$WP_VERSION" in
+	latest) ARCHIVE_URL='https://wordpress.org/latest.tar.gz' ;;
+	*[!0-9.]*|'') printf 'Use latest or a numbered WordPress release.\n' >&2; exit 1 ;;
+	*) ARCHIVE_URL="https://wordpress.org/wordpress-$WP_VERSION.tar.gz" ;;
+esac
 
-download() {
-    if [ `which curl` ]; then
-        curl -s "$1" > "$2";
-    elif [ `which wget` ]; then
-        wget -nv -O "$2" "$1"
-    fi
-}
+mkdir -p "$WP_CORE_DIR" "$WP_TESTS_DIR"
+curl --fail --silent --show-error --location "$ARCHIVE_URL" --output "$TASK_TMP/wordpress.tar.gz"
+tar -xzf "$TASK_TMP/wordpress.tar.gz" --strip-components=1 -C "$WP_CORE_DIR"
+INSTALLED_VERSION=$(php -r 'require $argv[1] . "/wp-includes/version.php"; echo $wp_version;' "$WP_CORE_DIR")
 
-if [[ $WP_VERSION =~ [0-9]+\.[0-9]+(\.[0-9]+)? ]]; then
-	WP_TESTS_TAG="tags/$WP_VERSION"
-elif [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
-	WP_TESTS_TAG="trunk"
-else
-	# http serves a single offer, whereas https serves multiple. we only want one
-	download http://api.wordpress.org/core/version-check/1.7/ /tmp/wp-latest.json
-	grep '[0-9]+\.[0-9]+(\.[0-9]+)?' /tmp/wp-latest.json
-	LATEST_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
-	if [[ -z "$LATEST_VERSION" ]]; then
-		echo "Latest WordPress version could not be found"
+for directory in includes data; do
+	svn export --quiet --force "https://develop.svn.wordpress.org/tags/$INSTALLED_VERSION/tests/phpunit/$directory/" "$WP_TESTS_DIR/$directory"
+done
+curl --fail --silent --show-error --location "https://develop.svn.wordpress.org/tags/$INSTALLED_VERSION/wp-tests-config-sample.php" --output "$TASK_TMP/wp-tests-config.php"
+
+php "$(dirname "$0")/configure-wp-tests.php" "$TASK_TMP/wp-tests-config.php" "$WP_TESTS_DIR/wp-tests-config.php" "$WP_CORE_DIR" "$DB_NAME" "$DB_USER" "$DB_PASS" "$DB_HOST"
+
+if [ "$SKIP_DB_CREATE" != true ]; then
+	if [[ ! "$DB_NAME" =~ ^[a-zA-Z0-9_]+$ ]]; then
+		printf 'Database names may contain only letters, numbers, and underscores.\n' >&2
 		exit 1
 	fi
-	WP_TESTS_TAG="tags/$LATEST_VERSION"
-fi
-
-set -ex
-
-install_wp() {
-
-	if [ -d $WP_CORE_DIR ]; then
-		return;
-	fi
-
-	mkdir -p $WP_CORE_DIR
-
-	if [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
-		mkdir -p /tmp/wordpress-nightly
-		download https://wordpress.org/nightly-builds/wordpress-latest.zip  /tmp/wordpress-nightly/wordpress-nightly.zip
-		unzip -q /tmp/wordpress-nightly/wordpress-nightly.zip -d /tmp/wordpress-nightly/
-		mv /tmp/wordpress-nightly/wordpress/* $WP_CORE_DIR
-	else
-		if [ $WP_VERSION == 'latest' ]; then
-			local ARCHIVE_NAME='latest'
+	DB_ARGS=(--user="$DB_USER")
+	if [[ "$DB_HOST" == *:* ]]; then
+		DB_ARGS+=(--host="${DB_HOST%%:*}")
+		DB_PORT_OR_SOCKET=${DB_HOST#*:}
+		if [[ "$DB_PORT_OR_SOCKET" =~ ^[0-9]+$ ]]; then
+			DB_ARGS+=(--port="$DB_PORT_OR_SOCKET" --protocol=tcp)
 		else
-			local ARCHIVE_NAME="wordpress-$WP_VERSION"
+			DB_ARGS+=(--socket="$DB_PORT_OR_SOCKET")
 		fi
-		download https://wordpress.org/${ARCHIVE_NAME}.tar.gz  /tmp/wordpress.tar.gz
-		tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C $WP_CORE_DIR
-	fi
-
-	if [[ $WP_VERSION == '3.7' || $WP_VERSION == '3.8' ]]; then
-		download https://raw.github.com/markoheijnen/wp-mysqli/master/db-legacy.php ${WP_CORE_DIR}wp-content/db.php
 	else
-		download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php ${WP_CORE_DIR}wp-content/db.php
+		DB_ARGS+=(--host="$DB_HOST")
 	fi
-}
-
-install_test_suite() {
-	# portable in-place argument for both GNU sed and Mac OSX sed
-	if [[ $(uname -s) == 'Darwin' ]]; then
-		local ioption='-i .bak'
-	else
-		local ioption='-i'
-	fi
-
-	# set up testing suite if it doesn't yet exist
-	if [ ! -d $WP_TESTS_DIR ]; then
-		# set up testing suite
-		mkdir -p $WP_TESTS_DIR
-		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
-	fi
-
-	cd $WP_TESTS_DIR
-
-	if [ ! -f wp-tests-config.php ]; then
-		download https://develop.svn.wordpress.org/${WP_TESTS_TAG}/wp-tests-config-sample.php "$WP_TESTS_DIR"/wp-tests-config.php
-		sed $ioption "s:dirname( __FILE__ ) . '/src/':'$WP_CORE_DIR':" "$WP_TESTS_DIR"/wp-tests-config.php
-		sed $ioption "s/youremptytestdbnamehere/$DB_NAME/" "$WP_TESTS_DIR"/wp-tests-config.php
-		sed $ioption "s/yourusernamehere/$DB_USER/" "$WP_TESTS_DIR"/wp-tests-config.php
-		sed $ioption "s/yourpasswordhere/$DB_PASS/" "$WP_TESTS_DIR"/wp-tests-config.php
-		sed $ioption "s|localhost|${DB_HOST}|" "$WP_TESTS_DIR"/wp-tests-config.php
-	fi
-
-}
-
-install_db() {
-	# parse DB_HOST for port or socket references
-	local PARTS=(${DB_HOST//\:/ })
-	local DB_HOSTNAME=${PARTS[0]};
-	local DB_SOCK_OR_PORT=${PARTS[1]};
-	local EXTRA=""
-
-	if ! [ -z $DB_HOSTNAME ] ; then
-		if [ $(echo $DB_SOCK_OR_PORT | grep -e '^[0-9]\{1,\}$') ]; then
-			EXTRA=" --host=$DB_HOSTNAME --port=$DB_SOCK_OR_PORT --protocol=tcp"
-		elif ! [ -z $DB_SOCK_OR_PORT ] ; then
-			EXTRA=" --socket=$DB_SOCK_OR_PORT"
-		elif ! [ -z $DB_HOSTNAME ] ; then
-			EXTRA=" --host=$DB_HOSTNAME --protocol=tcp"
-		fi
-	fi
-
-	# create database
-	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
-}
-
-install_wp
-install_test_suite
-install_db
+	MYSQL_PWD="$DB_PASS" mysql "${DB_ARGS[@]}" --execute="CREATE DATABASE IF NOT EXISTS \`$DB_NAME\`;"
+fi
+printf 'WordPress %s tests installed in %s\n' "$INSTALLED_VERSION" "$WP_TESTS_DIR"

@@ -4,22 +4,10 @@ class Test_Plugin extends WP_UnitTestCase {
 	private $readme_data;
 
 	public function test_tested_up_to() {
+		global $wp_version;
 		$readme_data = $this->get_readme();
-
-		try {
-			wp_version_check();
-		}
-		catch (Exception $e) {
-			$this->markTestSkipped( "Couldn't access WordPress.org" );
-		}
-
-		$cur = get_preferred_from_update_core();
-
-		if ( isset( $cur->current ) ) {
-			list( $display_version ) = explode( '-', $cur->current );
-
-			$this->assertTrue( version_compare( $readme_data['tested_up_to'], $display_version, '>=' ) );
-		}
+		$current_series = implode( '.', array_slice( explode( '.', $wp_version ), 0, 2 ) );
+		$this->assertTrue( version_compare( $readme_data['tested_up_to'], $current_series, '>=' ) );
 	}
 
 	public function test_stable_tag() {

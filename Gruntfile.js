@@ -30,6 +30,9 @@ module.exports = function(grunt) {
 							'!build/**',
 							'!Gruntfile.js',
 							'!node_modules/**',
+							'!vendor/**',
+							'!composer.json',
+							'!composer.lock',
 							'!phpunit.xml',
 							'!tests/**'
 						],

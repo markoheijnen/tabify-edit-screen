@@ -1,5 +1,10 @@
 <?php
 
+$polyfills = dirname( __DIR__ ) . '/vendor/yoast/phpunit-polyfills';
+if ( ! defined( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH' ) && is_dir( $polyfills ) ) {
+	define( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH', $polyfills );
+}
+
 $_tests_dir = getenv('WP_TESTS_DIR');
 
 if ( ! $_tests_dir ) {

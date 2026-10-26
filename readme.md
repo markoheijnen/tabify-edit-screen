@@ -1,12 +1,12 @@
 # Tabify Edit Screen
 
-[![Build Status](https://travis-ci.org/markoheijnen/tabify-edit-screen.svg?branch=master)](https://travis-ci.org/markoheijnen/tabify-edit-screen)
+[![Tests](https://github.com/markoheijnen/tabify-edit-screen/actions/workflows/tests.yml/badge.svg)](https://github.com/markoheijnen/tabify-edit-screen/actions/workflows/tests.yml)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/markoheijnen/tabify-edit-screen/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/markoheijnen/tabify-edit-screen/?branch=master)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/markoheijnen/tabify-edit-screen.svg)](http://isitmaintained.com/project/markoheijnen/tabify-edit-screen "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/markoheijnen/tabify-edit-screen.svg)](http://isitmaintained.com/project/markoheijnen/tabify-edit-screen "Percentage of issues still open")
 
 Requires at least: 3.7
-Tested up to: 5.6.2
+Tested up to: 7.1
 Stable tag: 1.0.0
 
 Enable tabs in the edit screen and manage them from the back-end.
@@ -44,3 +44,5 @@ Before there was a filter 'tabify_plugin_support' which still exists but shouldn
 
 ### What happen with new metaboxes?
 At this moment new metaboxes are places on the last tab. You can go to the settings screen to reorder the metabox. You can change which tab it should go like with meta boxes that don't show up like Types or WordPress SEO. You do this with the filter 'tabify_unattached_metaboxes_index'.
+
+See [tests/README.md](tests/README.md) for integration and browser test instructions.
