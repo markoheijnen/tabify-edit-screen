@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-26T08:49:51+00:00\n"
+"POT-Creation-Date: 2026-10-26T09:47:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: tabify-edit-screen\n"
@@ -34,106 +34,107 @@ msgstr ""
 msgid "https://codekitchen.eu"
 msgstr ""
 
-#: features/detection/detection.php:34
+#: features/detection/detection.php:54
 msgid "You are not allowed to refresh these meta boxes. Reload the settings page and try again."
 msgstr ""
 
-#: features/detection/detection.php:64
+#: features/detection/detection.php:90
 msgid "Checking for meta boxes…"
 msgstr ""
 
-#: features/detection/detection.php:65
+#: features/detection/detection.php:91
 msgid "Meta boxes refreshed. Save your changes to keep new assignments."
 msgstr ""
 
-#: features/detection/detection.php:66
+#: features/detection/detection.php:92
 msgid "No meta boxes were found on the edit screen."
 msgstr ""
 
-#: features/detection/detection.php:67
+#: features/detection/detection.php:93
 msgid "Meta boxes could not be refreshed. Try again or reload this page."
 msgstr ""
 
-#: features/detection/detection.php:68
+#: features/detection/detection.php:94
 msgid "No editable screen is available for this post type."
 msgstr ""
 
-#: features/detection/detection.php:114
+#: features/detection/detection.php:157
 msgid "Refresh meta boxes"
 msgstr ""
 
-#: features/permissions/permissions.php:35
-#: features/permissions/permissions.php:53
+#: features/permissions/permissions.php:43
+#: features/permissions/permissions.php:64
 msgid "Everyone"
 msgstr ""
 
-#: features/permissions/permissions.php:36
-#: features/permissions/permissions.php:50
+#: features/permissions/permissions.php:44
 msgid "1 role"
+msgstr ""
+
+#. translators: %s: Number of selected roles.
+#: features/permissions/permissions.php:46
+#: features/permissions/permissions.php:62
+msgid "%s role"
 msgid_plural "%s roles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: features/permissions/permissions.php:37
-msgid "%s role"
-msgstr ""
-
-#: inc/settings-base.php:88
+#: inc/settings-base.php:130
 msgid "Choose a post type, enable tabs, then create tabs and drag meta boxes into them. Save your changes when you are done."
 msgstr ""
 
-#: inc/settings-base.php:116
+#: inc/settings-base.php:158
 msgid "Others"
 msgstr ""
 
-#: inc/settings-base.php:153
-#: inc/settings-base.php:377
-#: inc/settings-page.php:106
+#: inc/settings-base.php:194
+#: inc/settings-base.php:413
+#: inc/settings-page.php:129
 msgid "Choose title"
 msgstr ""
 
-#: inc/settings-base.php:192
+#: inc/settings-base.php:229
 msgid "Show tabs in this post type:"
 msgstr ""
 
-#: inc/settings-base.php:195
+#: inc/settings-base.php:232
 msgid "Off"
 msgstr ""
 
-#: inc/settings-base.php:195
+#: inc/settings-base.php:232
 msgid "On"
 msgstr ""
 
-#: inc/settings-base.php:223
-#: inc/settings-page.php:43
+#: inc/settings-base.php:260
+#: inc/settings-page.php:57
 msgid "Remove"
 msgstr ""
 
 #. translators: %s: Meta-box ID.
-#: inc/settings-base.php:261
+#: inc/settings-base.php:297
 msgid "Unavailable meta box: %s"
 msgstr ""
 
-#: inc/settings-base.php:355
+#: inc/settings-base.php:391
 msgid "Create a new tab"
 msgstr ""
 
-#: inc/settings-page.php:24
+#: inc/settings-page.php:38
 msgid "Tabify edit screen"
 msgstr ""
 
-#: inc/settings-page.php:44
+#: inc/settings-page.php:58
 msgid "Cancel"
 msgstr ""
 
-#: inc/settings-page.php:45
+#: inc/settings-page.php:59
 msgid "Move meta boxes to"
 msgstr ""
 
-#: inc/settings-page.php:59
+#: inc/settings-page.php:73
 msgid "Post types"
 msgstr ""
 
-#: inc/settings-posttype.php:25
+#: inc/settings-posttype.php:40
 msgid "This post type support Gutenberg which is not supported."
 msgstr ""

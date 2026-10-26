@@ -1,6 +1,19 @@
 <?php
+/**
+ * Meta-box detection.
+ *
+ * @package Tabify_Edit_Screen
+ */
 
+/**
+ * Detect and cache meta boxes from editable screens.
+ */
 class Tabify_Edit_Screen_Feature_Detection {
+	/**
+	 * Output-buffer depth before detection started.
+	 *
+	 * @var int|null
+	 */
 	private $buffer_level;
 
 	/**
@@ -16,6 +29,11 @@ class Tabify_Edit_Screen_Feature_Detection {
 		add_action( 'tabify_unattached_metaboxes', array( $this, 'unattached_metaboxes' ) );
 	}
 
+	/**
+	 * Enqueue detection on the settings page.
+	 *
+	 * @param WP_Screen $screen Current admin screen.
+	 */
 	public function head_action_begin_settings_page( $screen ) {
 		if ( 'settings_page_tabify-edit-screen' === $screen->base && current_user_can( 'manage_options' ) ) {
 			$this->enqueue_script();
@@ -24,13 +42,15 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 	/**
 	 * Collect boxes from a real edit screen, including when tabs are disabled.
+	 *
+	 * @param WP_Screen $screen Current admin screen.
 	 */
 	public function head_action_begin_edit_page( $screen ) {
 		if ( ! in_array( $screen->base, array( 'post', 'media' ), true ) || ! isset( $_GET['test_metaboxes'] ) ) {
 			return;
 		}
 
-		if ( ! current_user_can( 'manage_options' ) || ! isset( $_GET['_tabify_nonce'] ) || ! is_string( $_GET['_tabify_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_tabify_nonce'] ), 'tabify_detect_' . $screen->post_type ) ) {
+		if ( ! current_user_can( 'manage_options' ) || ! isset( $_GET['_tabify_nonce'] ) || ! is_string( $_GET['_tabify_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_tabify_nonce'] ) ), 'tabify_detect_' . $screen->post_type ) ) {
 			wp_send_json_error( __( 'You are not allowed to refresh these meta boxes. Reload the settings page and try again.', 'tabify-edit-screen' ), 403 );
 		}
 
@@ -42,47 +62,62 @@ class Tabify_Edit_Screen_Feature_Detection {
 		add_action( 'admin_head', array( $this, 'head_action' ), 110 );
 	}
 
+	/**
+	 * Enqueue detection assets and request context.
+	 */
 	private function enqueue_script() {
-		wp_register_script( 'tabify-edit-screen-detection', plugins_url( '/detection.js', __FILE__ ), array( 'jquery' ), '1.1.0' );
+		wp_register_script( 'tabify-edit-screen-detection', plugins_url( '/detection.js', __FILE__ ), array( 'jquery' ), '1.1.0', false );
 		wp_enqueue_script( 'tabify-edit-screen-detection' );
 
-		$posttype_links = array();
+		$posttype_links  = array();
 		$needs_detection = array();
-		$posttypes = apply_filters( 'tabify_posttypes', get_post_types( array( 'show_ui' => true ), 'objects' ) );
+		$posttypes       = apply_filters( 'tabify_posttypes', get_post_types( array( 'show_ui' => true ), 'objects' ) );
 
 		foreach ( $posttypes as $posttype ) {
 			$url = $this->get_detection_url( $posttype );
 			if ( $url ) {
-				$posttype_links[ $posttype->name ] = $url;
+				$posttype_links[ $posttype->name ]  = $url;
 				$needs_detection[ $posttype->name ] = false === $this->get_cached_metaboxes( $posttype->name );
 			}
 		}
 
-		wp_localize_script( 'tabify-edit-screen-detection', 'tabify_detection', array(
-			'posttype_links'  => $posttype_links,
-			'needs_detection' => $needs_detection,
-			'loading'        => __( 'Checking for meta boxes…', 'tabify-edit-screen' ),
-			'complete'       => __( 'Meta boxes refreshed. Save your changes to keep new assignments.', 'tabify-edit-screen' ),
-			'empty'          => __( 'No meta boxes were found on the edit screen.', 'tabify-edit-screen' ),
-			'failed'         => __( 'Meta boxes could not be refreshed. Try again or reload this page.', 'tabify-edit-screen' ),
-			'unavailable'    => __( 'No editable screen is available for this post type.', 'tabify-edit-screen' ),
-		) );
+		wp_localize_script(
+			'tabify-edit-screen-detection',
+			'tabify_detection',
+			array(
+				'posttype_links'  => $posttype_links,
+				'needs_detection' => $needs_detection,
+				'loading'         => __( 'Checking for meta boxes…', 'tabify-edit-screen' ),
+				'complete'        => __( 'Meta boxes refreshed. Save your changes to keep new assignments.', 'tabify-edit-screen' ),
+				'empty'           => __( 'No meta boxes were found on the edit screen.', 'tabify-edit-screen' ),
+				'failed'          => __( 'Meta boxes could not be refreshed. Try again or reload this page.', 'tabify-edit-screen' ),
+				'unavailable'     => __( 'No editable screen is available for this post type.', 'tabify-edit-screen' ),
+			)
+		);
 	}
 
+	/**
+	 * Find an editable screen for a post type.
+	 *
+	 * @param WP_Post_Type $posttype Post-type object.
+	 * @return string|false Detection URL, or false when unavailable.
+	 */
 	private function get_detection_url( $posttype ) {
 		if ( ! current_user_can( $posttype->cap->edit_posts ) ) {
 			return false;
 		}
 
-		$posts = get_posts( array(
-			'post_type'        => $posttype->name,
-			'orderby'          => 'ID',
-			'order'            => 'DESC',
-			'posts_per_page'   => 1,
-			'post_status'      => 'any',
-			'suppress_filters' => false,
-		) );
-		$url = $posts ? get_edit_post_link( $posts[0], 'raw' ) : false;
+		$posts = get_posts(
+			array(
+				'post_type'        => $posttype->name,
+				'orderby'          => 'ID',
+				'order'            => 'DESC',
+				'posts_per_page'   => 1,
+				'post_status'      => 'any',
+				'suppress_filters' => false,
+			)
+		);
+		$url   = $posts ? get_edit_post_link( $posts[0], 'raw' ) : false;
 
 		if ( ! $url ) {
 			if ( 'attachment' === $posttype->name ) {
@@ -100,12 +135,20 @@ class Tabify_Edit_Screen_Feature_Detection {
 			$url = add_query_arg( 'lang', $language, $url );
 		}
 
-		return add_query_arg( array(
-			'test_metaboxes' => 'true',
-			'_tabify_nonce' => wp_create_nonce( 'tabify_detect_' . $posttype->name ),
-		), $url );
+		return add_query_arg(
+			array(
+				'test_metaboxes' => 'true',
+				'_tabify_nonce'  => wp_create_nonce( 'tabify_detect_' . $posttype->name ),
+			),
+			$url
+		);
 	}
 
+	/**
+	 * Print the refresh controls.
+	 *
+	 * @param string $type Settings group.
+	 */
 	public function settings_toolbar( $type ) {
 		if ( 'posttypes' !== $type ) {
 			return;
@@ -119,7 +162,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 * Return freshly registered boxes instead of replaying an expired transient.
 	 */
 	public function head_action() {
-		$screen = get_current_screen();
+		$screen    = get_current_screen();
 		$metaboxes = $this->get_metaboxes( $screen->post_type );
 		$this->cache_metaboxes( $screen->post_type, $metaboxes );
 
@@ -130,6 +173,12 @@ class Tabify_Edit_Screen_Feature_Detection {
 		wp_send_json( $metaboxes );
 	}
 
+	/**
+	 * Build a cache key for the current context.
+	 *
+	 * @param string $post_type Post-type name.
+	 * @return string Transient key.
+	 */
 	private function get_cache_key( $post_type ) {
 		$context = array(
 			'generation' => get_option( 'tabify_detection_generation', '1' ),
@@ -142,6 +191,12 @@ class Tabify_Edit_Screen_Feature_Detection {
 		return 'tabify_detection_' . $post_type . '_' . md5( wp_json_encode( $context ) );
 	}
 
+	/**
+	 * Read validated detection results.
+	 *
+	 * @param string $post_type Post-type name.
+	 * @return array|false Cached boxes, or false when missing or invalid.
+	 */
 	private function get_cached_metaboxes( $post_type ) {
 		$metaboxes = get_transient( $this->get_cache_key( $post_type ) );
 		if ( ! is_array( $metaboxes ) ) {
@@ -157,12 +212,20 @@ class Tabify_Edit_Screen_Feature_Detection {
 		return $metaboxes;
 	}
 
+	/**
+	 * Cache detection results for one week.
+	 *
+	 * @param string $post_type Post-type name.
+	 * @param array  $metaboxes Detected box metadata.
+	 */
 	private function cache_metaboxes( $post_type, $metaboxes ) {
 		set_transient( $this->get_cache_key( $post_type ), $metaboxes, WEEK_IN_SECONDS );
 	}
 
 	/**
 	 * Restore cached boxes on settings screens without replacing live callbacks.
+	 *
+	 * @param string $post_type Post-type name.
 	 */
 	public function add_missing_meta_boxes( $post_type ) {
 		global $wp_meta_boxes;
@@ -182,13 +245,19 @@ class Tabify_Edit_Screen_Feature_Detection {
 	/**
 	 * Keep detection current when a configured edit screen is visited normally.
 	 */
-	public function unattached_metaboxes( $unattached_metaboxes ) {
+	public function unattached_metaboxes() {
 		$screen = get_current_screen();
 		if ( $screen && $screen->post_type ) {
 			$this->cache_metaboxes( $screen->post_type, $this->get_metaboxes( $screen->post_type ) );
 		}
 	}
 
+	/**
+	 * Collect registered meta-box metadata.
+	 *
+	 * @param string $post_type Post-type name.
+	 * @return array Detected boxes.
+	 */
 	private function get_metaboxes( $post_type ) {
 		global $wp_meta_boxes;
 

@@ -1,23 +1,28 @@
 <?php
+/**
+ * Plugin entry point.
+ *
+ * @package Tabify_Edit_Screen
+ *
+ * Plugin Name: Tabify Edit Screen
+ * Description: Enables tabs in the edit screen and manage them from the back-end
+ * Version: 1.0.0
+ *
+ * Plugin URI: https://codekitchen.eu/products/tabify-edit-screen/
+ *
+ * Author: CodeKitchen B.V.
+ * Author URI: https://codekitchen.eu
+ * Donate link: https://codekitchen.eu/donate
+ *
+ * Text Domain: tabify-edit-screen
+ * Domain Path: /languages
+ */
+
 /*
-	Plugin Name: Tabify Edit Screen
-	Description: Enables tabs in the edit screen and manage them from the back-end
-	Version: 1.0.0
-
-	Plugin URI: https://codekitchen.eu/products/tabify-edit-screen/
-
-	Author: CodeKitchen B.V.
-	Author URI: https://codekitchen.eu
-	Donate link: https://codekitchen.eu/donate
-
-	Text Domain: tabify-edit-screen
-	Domain Path: /languages
-*/
-
-/*  Copyright 2013-2016 Tabify Edit Screen (email : info@markoheijnen.com)
+	Copyright 2013-2016 Tabify Edit Screen (email : info@markoheijnen.com)
 
 	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License, version 2, as 
+	it under the terms of the GNU General Public License, version 2, as
 	published by the Free Software Foundation.
 
 	This program is distributed in the hope that it will be useful,
@@ -30,11 +35,17 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * Load the plugin and its optional features.
+ */
 class Tabify_Edit_Screen {
 
-	public  $version = '1.0.0';
-
-	private $loaded_features = array();
+	/**
+	 * Plugin version.
+	 *
+	 * @var string
+	 */
+	public $version = '1.0.0';
 
 	/**
 	 * Register cache invalidation and admin hooks.
@@ -66,8 +77,8 @@ class Tabify_Edit_Screen {
 	 * @since 0.9.0
 	 */
 	public function load() {
-		include 'inc/edit-screen.php';
-		include 'inc/settings-page.php';
+		require __DIR__ . '/inc/edit-screen.php';
+		require __DIR__ . '/inc/settings-page.php';
 
 		new Tabify_Edit_Screen_Edit_Screen();
 		new Tabify_Edit_Screen_Settings_Page();
@@ -81,7 +92,7 @@ class Tabify_Edit_Screen {
 	 * @since 0.4.0
 	 */
 	public function load_translation() {
-		load_plugin_textdomain( 'tabify-edit-screen', false, basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'tabify-edit-screen', false, basename( __DIR__ ) . '/languages' );
 	}
 
 	/**
@@ -90,25 +101,24 @@ class Tabify_Edit_Screen {
 	 * @since 0.9.0
 	 */
 	public function load_features() {
-		$features = array(
-			'detection',
-			'permissions'
+		$feature_files = array(
+			'detection'      => 'features/detection/detection.php',
+			'permissions'    => 'features/permissions/permissions.php',
+			'plugin-support' => 'features/plugin-support/plugin-support.php',
 		);
+		$features      = array( 'detection', 'permissions' );
 
 		if ( apply_filters( 'tabify_plugin_support', false ) ) {
 			$features[] = 'plugin-support';
 		}
 
 		foreach ( $features as $feature ) {
-			$this->loaded_features[] = $feature;
-
 			$class_name = 'Tabify_Edit_Screen_Feature_' . str_replace( '-', '_', $feature );
 
-			include 'features/' . $feature . '/' . $feature . '.php';
-			new $class_name;
+			require __DIR__ . '/' . $feature_files[ $feature ];
+			new $class_name();
 		}
 	}
-
 }
 
 $GLOBALS['tabify_edit_screen'] = new Tabify_Edit_Screen();

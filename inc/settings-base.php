@@ -1,29 +1,68 @@
 <?php
+/**
+ * Shared settings rendering.
+ *
+ * @package Tabify_Edit_Screen
+ */
 
+/**
+ * Render and retrieve settings shared by settings sections.
+ */
 abstract class Tabify_Edit_Screen_Settings_Base {
+	/**
+	 * Settings group name.
+	 *
+	 * @var string
+	 */
 	private $type;
+
+	/**
+	 * Available settings sections.
+	 *
+	 * @var array
+	 */
 	private $sections;
-	private $base_url;
+
+	/**
+	 * Section navigation.
+	 *
+	 * @var Tabify_Edit_Screen_Tabs
+	 */
 	private $tabs;
 
+	/**
+	 * Cached plugin options.
+	 *
+	 * @var array|null
+	 */
 	private $options;
 
-	protected $items    = array();
+	/**
+	 * Available items by section.
+	 *
+	 * @var array
+	 */
+	protected $items = array();
+
+	/**
+	 * Items shown on every tab.
+	 *
+	 * @var array
+	 */
 	protected $defaults = array();
 
 	/**
 	 * Set properties and load the sections and tabs
 	 *
-	 * @param string $type Where the settings are for
+	 * @param string $type Where the settings are for.
 	 *
 	 * @since 0.4.0
 	 */
 	public function __construct( $type ) {
 		$this->type     = $type;
 		$this->sections = $this->load_sections();
-		$this->base_url = remove_query_arg( array( 'type', 'section' ), $_SERVER["REQUEST_URI"] );
 
-		$this->tabs     = new Tabify_Edit_Screen_Tabs( $this->sections, 'vertical', 'subtab' );
+		$this->tabs = new Tabify_Edit_Screen_Tabs( $this->sections, 'vertical', 'subtab' );
 	}
 
 	/**
@@ -59,6 +98,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * @since 0.4.0
 	 */
 	public function get_sections_menu() {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The tab renderer escapes its attributes and titles.
 		echo $this->tabs->get_tabs_with_container();
 	}
 
@@ -68,6 +108,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * @return array All the metaboxes id's in an array
 	 *
 	 * @since 0.4.0
+	 *
+	 * @param string $id Section identifier.
 	 */
 	public function get_default_items( $id ) {
 		$defaults = apply_filters( 'tabify_default_metaboxes', $this->defaults, $id, $this->type );
@@ -101,7 +143,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Get the HTML for one pacticular section
 	 *
-	 * @param string $section The section name
+	 * @param string $section The section name.
 	 *
 	 * @since 1.0.0
 	 */
@@ -110,21 +152,20 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		$default_items = $this->get_default_items( $section );
 
 		if ( ! isset( $options[ $section ]['tabs'] ) || ! is_array( $options[ $section ]['tabs'] ) || empty( $options[ $section ]['tabs'] ) ) {
-			$options[ $section ] = array (
+			$options[ $section ] = array(
 				'tabs' => array(
 					array(
 						'title' => __( 'Others', 'tabify-edit-screen' ),
-						'items' => array()
-					)
-				)
+						'items' => array(),
+					),
+				),
 			);
 		}
 
-		if ( $section == $this->tabs->get_current_tab() ) {
-			echo '<div class="tabifybox tabifybox-' . $section . '">';
-		}
-		else {
-			echo '<div class="tabifybox tabifybox-hide tabifybox-' . $section . '" style="display: none;">';
+		if ( (string) $section === $this->tabs->get_current_tab() ) {
+			echo '<div class="tabifybox tabifybox-' . esc_attr( $section ) . '">';
+		} else {
+			echo '<div class="tabifybox tabifybox-hide tabifybox-' . esc_attr( $section ) . '" style="display: none;">';
 		}
 
 		$this->get_section_settings( $section );
@@ -149,7 +190,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 				$tab['permissions'] = array();
 			}
 
-			if ( ! isset( $tab['title'] ) || ! is_string( $tab['title'] ) || $tab['title'] == '' ) {
+			if ( ! isset( $tab['title'] ) || ! is_string( $tab['title'] ) || '' === $tab['title'] ) {
 				$tab['title'] = __( 'Choose title', 'tabify-edit-screen' );
 			}
 			if ( ! isset( $tab['items'] ) || ! is_array( $tab['items'] ) ) {
@@ -163,9 +204,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 
 			echo '</div>';
 
-			$tab_id++;
+			++$tab_id;
 		}
-
 
 		echo '</div>';
 
@@ -175,24 +215,21 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Get the settings HTML for one pacticular section
 	 *
-	 * @param string $section The section name
+	 * @param string $section The section name.
 	 *
 	 * @since 1.0.0
 	 */
 	private function get_section_settings( $section ) {
 		$options = $this->get_options( $this->type );
 
-		$checked = '';
-		if ( isset( $options[ $section ]['show'] ) && $options[ $section ]['show'] == 1 ) {
-			$checked = ' checked="checked"';
-		}
+		$enabled = ! empty( $options[ $section ]['show'] );
 
 		echo '<div class="tabifybox-options">';
 		echo '<p id="show-type">';
-		_e( 'Show tabs in this post type:', 'tabify-edit-screen' );
+		esc_html_e( 'Show tabs in this post type:', 'tabify-edit-screen' );
 		echo ' <span class="switch">';
-		echo '<input type="checkbox" name="tabify[' . $this->type . '][' . $section . '][show]" value="1" class="switch-checkbox" id="switch-' . $this->type . '-' . $section . '"' . $checked . '>';
-		echo '<label data-tg-off="' .  __( 'Off', 'tabify-edit-screen' ) . '" data-tg-on="' .  __( 'On', 'tabify-edit-screen' ) . '" for="switch-' . $this->type . '-' . $section . '" class="switch-label"></label>';
+		echo '<input type="checkbox" name="tabify[' . esc_attr( $this->type ) . '][' . esc_attr( $section ) . '][show]" value="1" class="switch-checkbox" id="switch-' . esc_attr( $this->type ) . '-' . esc_attr( $section ) . '"' . checked( $enabled, true, false ) . '>';
+		echo '<label data-tg-off="' . esc_attr__( 'Off', 'tabify-edit-screen' ) . '" data-tg-on="' . esc_attr__( 'On', 'tabify-edit-screen' ) . '" for="switch-' . esc_attr( $this->type ) . '-' . esc_attr( $section ) . '" class="switch-label"></label>';
 		echo '</span>';
 		echo '</p>';
 
@@ -203,24 +240,24 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Get the html for one pacticular section
 	 *
-	 * @param string $section The section name
-	 * @param string $title The title
-	 * @param array $tab Tab information
-	 * @param boolean $remove
+	 * @param string  $section The section name.
+	 * @param string  $title The title.
+	 * @param array   $tab Tab information.
+	 * @param boolean $remove Whether the tab can be removed.
 	 *
 	 * @since 0.4.0
 	 */
 	private function get_section_tab_title( $section, $title, $tab, $remove ) {
-		echo '<h2><span class="hide-if-no-js">' . $title . '</span><input type="text" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab['id'] . '][title]" value="' . esc_html( $title ) . '" class="hide-if-js" /></h2>';
+		echo '<h2><span class="hide-if-no-js">' . wp_kses_post( $title ) . '</span><input type="text" name="tabify[' . esc_attr( $this->type ) . '][' . esc_attr( $section ) . '][tabs][' . esc_attr( $tab['id'] ) . '][title]" value="' . esc_attr( $title ) . '" class="hide-if-js" /></h2>';
 
 		echo '<div class="tabify-title-box">';
 			do_action( 'tabify_settings_tab_title_box', $tab, $section, $this->type );
 
 			echo '<a href="#" class="tabify-remove-tab hide-if-no-js"';
-			if ( ! $remove ) {
-				echo ' style="display: none;"';
-			}
-			echo '>' . __( 'Remove', 'tabify-edit-screen' ) . '</a>';
+		if ( ! $remove ) {
+			echo ' style="display: none;"';
+		}
+			echo '>' . esc_html__( 'Remove', 'tabify-edit-screen' ) . '</a>';
 		echo '</div>';
 
 		echo '<div class="clear"></div>';
@@ -230,10 +267,10 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Get the html for the section sortable list
 	 *
-	 * @param string $section The section name
-	 * @param array $items List of all items in the section
-	 * @param integer $tab_id The id of the tab the list is in
-	 * @param array $default_items List of items that are always shown
+	 * @param string  $section The section name.
+	 * @param array   $items List of all items in the section.
+	 * @param integer $tab_id The id of the tab the list is in.
+	 * @param array   $default_items List of items that are always shown.
 	 *
 	 * @since 1.0.0
 	 */
@@ -242,7 +279,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		$options = $this->get_options( $this->type );
 
 		echo '<ul>';
-		if ( isset( $items ) ) {
+		if ( is_array( $items ) ) {
 			foreach ( $items as  $item_id ) {
 				if ( empty( $item_id ) ) {
 					continue;
@@ -253,9 +290,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 					$item_title = $this->items[ $section ][ $item_id ];
 
 					$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
-					$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
-				}
-				else {
+					$item_title = apply_filters( 'tabify_items_title_' . $item_id, $item_title );
+				} else {
 					// Keep assignments for conditional or translated boxes when saving.
 					/* translators: %s: Meta-box ID. */
 					$item_title = sprintf( __( 'Unavailable meta box: %s', 'tabify-edit-screen' ), $item_id );
@@ -267,14 +303,14 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 			}
 		}
 
-		if ( ! isset( $options[ $section ]['tabs'] ) || ! is_array( $options[ $section ]['tabs'] ) || empty( $options[ $section ]['tabs'] ) || count( $options[ $section ]['tabs'] ) == ( $tab_id + 1 ) ) {
+		if ( ! isset( $options[ $section ]['tabs'] ) || ! is_array( $options[ $section ]['tabs'] ) || empty( $options[ $section ]['tabs'] ) || count( $options[ $section ]['tabs'] ) === ( $tab_id + 1 ) ) {
 			foreach ( $this->items[ $section ] as $item_id => $item_title ) {
 				if ( empty( $item_id ) ) {
 					continue;
 				}
 
 				$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
-				$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
+				$item_title = apply_filters( 'tabify_items_title_' . $item_id, $item_title );
 
 				$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
 			}
@@ -286,52 +322,50 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Show the items for the sortable list
 	 *
-	 * @param integer $item_id The id of the item in the list
-	 * @param string $item_title The title of the item
-	 * @param integer $tab_id The id of the tab the list is in
-	 * @param string $section The section name
-	 * @param array $default_items List of items that are always shown
+	 * @param string  $item_id The id of the item in the list.
+	 * @param string  $item_title The title of the item.
+	 * @param integer $tab_id The id of the tab the list is in.
+	 * @param string  $section The section name.
+	 * @param array   $default_items List of items that are always shown.
 	 *
 	 * @since 0.4.0
 	 */
 	protected function list_show_items( $item_id, $item_title, $tab_id, $section, $default_items ) {
 		$options = $this->get_options( $this->type );
 
-		// Most likely a meta box that doesn't exist anymore
+		// Most likely a meta box that doesn't exist anymore.
 		if ( empty( $item_title ) ) {
 			return;
 		}
 
-		$item_title = strip_tags( $item_title );
+		$item_title = wp_strip_all_tags( $item_title );
 
-		if ( in_array( $item_id, $default_items ) ) {
-			echo '<li id="' . $section . '-' . $item_id . '" class="tabifybox-hide">';
-		}
-		else {
-			echo '<li id="' . $section . '-' . $item_id . '">';
+		if ( in_array( $item_id, $default_items, true ) ) {
+			echo '<li id="' . esc_attr( $section ) . '-' . esc_attr( $item_id ) . '" class="tabifybox-hide">';
+		} else {
+			echo '<li id="' . esc_attr( $section ) . '-' . esc_attr( $item_id ) . '">';
 		}
 
 		echo '<div class="menu-item-bar"><div class="menu-item-handle">';
-		echo '<span class="item-title">' . $item_title . '</span>';
+		echo '<span class="item-title">' . esc_html( $item_title ) . '</span>';
 
-		echo '<input type="hidden" name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][items][]" value="' . $item_id . '" />';
+		echo '<input type="hidden" name="tabify[' . esc_attr( $this->type ) . '][' . esc_attr( $section ) . '][tabs][' . esc_attr( (string) $tab_id ) . '][items][]" value="' . esc_attr( $item_id ) . '" />';
 
 		echo '<span class="item-order hide-if-js">';
-		echo '<select name="tabify[' . $this->type . '][' . $section . '][tabs][' . $tab_id . '][items_tab][]">';
+		echo '<select name="tabify[' . esc_attr( $this->type ) . '][' . esc_attr( $section ) . '][tabs][' . esc_attr( (string) $tab_id ) . '][items_tab][]">';
 
 		if ( isset( $options[ $section ]['tabs'] ) && is_array( $options[ $section ]['tabs'] ) ) {
 			$amount_tabs = count( $options[ $section ]['tabs'] );
 
-			for( $i = 0; $i < $amount_tabs; $i++ ) {
+			for ( $i = 0; $i < $amount_tabs; $i++ ) {
 				if ( ! isset( $options[ $section ]['tabs'][ $i ] ) ) {
 					continue;
 				}
 
-				if ( $i == $tab_id ) {
-					echo '<option value="' . $i . '" selected="selected">' . esc_html( $options[ $section ]['tabs'][ $i ]['title'] ) . '</option>';
-				}
-				else {
-					echo '<option value="' . $i . '">' . esc_html( $options[ $section ]['tabs'][ $i ]['title'] ) . '</option>';
+				if ( $i === $tab_id ) {
+					echo '<option value="' . esc_attr( (string) $i ) . '" selected="selected">' . esc_html( $options[ $section ]['tabs'][ $i ]['title'] ) . '</option>';
+				} else {
+					echo '<option value="' . esc_attr( (string) $i ) . '">' . esc_html( $options[ $section ]['tabs'][ $i ]['title'] ) . '</option>';
 				}
 			}
 		}
@@ -346,13 +380,15 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * Display general buttons.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $position Toolbar position.
 	 */
 	private function print_buttons( $position = 'bottom' ) {
 		$create_id = 'top' === $position ? 'create_tab' : 'create_tab_bottom';
 		$save_name = 'top' === $position ? 'submit_top' : 'submit';
 
 		echo '<p class="submit tabify-settings-toolbar">';
-		echo '<input type="submit" id="' . $create_id . '" name="create_tab" class="tabify-create-tab button button-secondary" value="' . esc_attr__( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
+		echo '<input type="submit" id="' . esc_attr( $create_id ) . '" name="create_tab" class="tabify-create-tab button button-secondary" value="' . esc_attr__( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
 		submit_button( '', 'primary', $save_name, false );
 		if ( 'top' === $position ) {
 			do_action( 'tabify_settings_toolbar', $this->type );
@@ -369,7 +405,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	private function print_backbone_template() {
 		$tab = array(
 			'id'          => '{{ data.tab_id }}',
-			'permissions' => array()
+			'permissions' => array(),
 		);
 
 		echo '<script type="text/template" id="tmpl-new-tab">';
@@ -385,6 +421,9 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * Get the options of the current type
 	 *
 	 * @since 0.4.0
+	 *
+	 * @param string|null $type Optional settings group.
+	 * @return array Plugin or group options.
 	 */
 	protected function get_options( $type = null ) {
 		if ( ! $this->options ) {
@@ -400,5 +439,4 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 
 		return $this->options;
 	}
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/test-compatibility.php';
+require_once dirname( __DIR__ ) . '/inc/settings-page.php';
 
 class Tabify_Tests_Settings_UI extends WP_UnitTestCase {
 	public function set_up() {
@@ -22,5 +23,78 @@ class Tabify_Tests_Settings_UI extends WP_UnitTestCase {
 		$this->assertSame( 2, substr_count( $html, 'name="create_tab"' ) );
 		$this->assertLessThan( strpos( $html, 'class="tabifybox ' ), strpos( $html, 'id="create_tab"' ) );
 		$this->assertSame( 1, substr_count( $html, 'id="create_tab"' ) );
+	}
+
+	private function submit_settings( $options, $extra = array() ) {
+		$previous_post    = $_POST;
+		$previous_request = $_REQUEST;
+		$previous_server  = $_SERVER;
+		try {
+			new Tabify_Edit_Screen_Settings_Posttypes();
+			$page                                 = new Tabify_Edit_Screen_Settings_Page();
+			$_SERVER['REQUEST_METHOD']            = 'POST';
+			$_POST                                = array_merge( array( 'tabify' => wp_slash( $options ) ), $extra );
+			$_REQUEST['tabify_edit_screen_nonce'] = wp_create_nonce( plugin_basename( dirname( __DIR__ ) . '/inc/settings-page.php' ) );
+			$method                               = new ReflectionMethod( $page, 'update_settings' );
+			if ( PHP_VERSION_ID < 80100 ) {
+				$method->setAccessible( true );
+			}
+			$method->invoke( $page );
+		} finally {
+			$_POST    = $previous_post;
+			$_REQUEST = $previous_request;
+			$_SERVER  = $previous_server;
+		}
+	}
+
+	public function test_settings_request_is_unslashed_exactly_once() {
+		$title   = "O'Reilly \\ manuals";
+		$options = array(
+			'posttypes' => array(
+				'post' => array(
+					'show' => 1,
+					'tabs' => array(
+						array(
+							'title' => $title,
+							'items' => array( 'sample' ),
+						),
+					),
+				),
+			),
+		);
+		$this->submit_settings( $options );
+		$saved = get_option( 'tabify-edit-screen' );
+		$this->assertSame( $title, $saved['posttypes']['post']['tabs'][0]['title'] );
+	}
+
+	public function test_malformed_request_does_not_replace_existing_settings() {
+		$previous = array( 'posttypes' => array() );
+		update_option( 'tabify-edit-screen', $previous );
+		$this->submit_settings( 'invalid' );
+		$this->assertSame( $previous, get_option( 'tabify-edit-screen' ) );
+	}
+
+	public function test_array_section_cannot_create_a_tab() {
+		$options = array(
+			'posttypes' => array(
+				'post' => array(
+					'tabs' => array(
+						array(
+							'title' => 'Main',
+							'items' => array( 'sample' ),
+						),
+					),
+				),
+			),
+		);
+		$this->submit_settings(
+			$options,
+			array(
+				'create_tab' => '1',
+				'subtab'     => array( 'post' ),
+			)
+		);
+		$saved = get_option( 'tabify-edit-screen' );
+		$this->assertCount( 1, $saved['posttypes']['post']['tabs'] );
 	}
 }
