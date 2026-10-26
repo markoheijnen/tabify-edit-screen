@@ -27,4 +27,12 @@ class Tabify_Tests_Tabs extends WP_UnitTestCase {
 			$_wp_admin_css_colors = $previous;
 		}
 	}
+
+	public function test_classic_tabs_do_not_run_in_the_block_editor() {
+		get_current_screen()->is_block_editor( true );
+		update_option( 'tabify-edit-screen', array( 'posttypes' => array( 'post' => array( 'show' => true, 'tabs' => array() ) ) ) );
+		$screen = new Tabify_Edit_Screen_Edit_Screen();
+		$this->assertNull( $screen->show_tabs() );
+		$this->assertFalse( has_filter( 'admin_body_class', array( $screen, 'add_admin_body_class' ) ) );
+	}
 }

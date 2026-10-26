@@ -49,6 +49,9 @@ class Tabify_Edit_Screen_Edit_Screen {
 		if ( ! $screen || 'post' != $screen->base ) {
 			return;
 		}
+		if ( method_exists( $screen, 'is_block_editor' ) && $screen->is_block_editor() ) {
+			return;
+		}
 
 		$this->tab_location = apply_filters( 'tabify_tab_location', $this->tab_location, 'posttype' );
 
