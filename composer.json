@@ -4,16 +4,30 @@
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpstan/phpstan": "^2.1",
 		"phpunit/phpunit": "^9.6",
+		"szepeviktor/phpstan-wordpress": "^2.0",
+		"wp-coding-standards/wpcs": "^3.3",
 		"yoast/phpunit-polyfills": "^1.1"
 	},
 	"scripts": {
-		"test": "phpunit"
+		"test": "phpunit",
+		"phpcs": "phpcs",
+		"phpcbf": "phpcbf",
+		"phpstan": "phpstan analyse --no-progress --memory-limit=512M",
+		"check": [
+			"@phpcs",
+			"@phpstan"
+		]
 	},
 	"config": {
 		"platform": {
 			"php": "8.0.30"
 		},
-		"sort-packages": true
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }

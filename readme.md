@@ -54,3 +54,5 @@ Detected results expire after a week and are invalidated after plugin activation
 Tabify targets classic edit screens. The block editor is not supported. Some boxes appear only on particular posts; a scan of one edit screen cannot discover every conditional field group.
 
 See [tests/README.md](tests/README.md) for integration and browser test instructions and the remaining WPML/ACF verification.
+
+Run `composer check` for PHPStan and WordPress coding standards; see [tests/README.md](tests/README.md) for setup and automatic formatting.

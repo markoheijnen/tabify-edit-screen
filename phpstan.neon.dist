@@ -1,0 +1,13 @@
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+	level: 5
+	# Validate external settings and hooks even when their PHPDoc claims a valid type.
+	treatPhpDocTypesAsCertain: false
+	phpVersion: 80000
+	paths:
+		- tabify-edit-screen.php
+		- inc
+		- features
+	tmpDir: .phpstan-cache

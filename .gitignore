@@ -5,3 +5,5 @@ vendor
 .phpunit.result.cache
 test-results
 playwright-report
+.phpstan-cache
+.phpcs-cache

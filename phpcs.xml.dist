@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruleset name="Tabify Edit Screen">
+	<description>WordPress coding standards for the plugin's PHP source.</description>
+	<arg value="sp"/>
+	<arg name="extensions" value="php"/>
+	<file>tabify-edit-screen.php</file>
+	<file>inc</file>
+	<file>features</file>
+	<rule ref="WordPress">
+		<!-- Retain the plugin's existing entry point and public include paths. -->
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	</rule>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="tabify-edit-screen"/>
+				<element value="default"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

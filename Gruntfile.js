@@ -34,6 +34,10 @@ module.exports = function(grunt) {
 							'!composer.json',
 							'!composer.lock',
 							'!phpunit.xml',
+							'!phpcs.xml.dist',
+							'!phpstan.neon.dist',
+							'!.phpstan-cache/**',
+							'!.phpcs-cache',
 							'!tests/**'
 						],
 						dest: BUILD_DIR
