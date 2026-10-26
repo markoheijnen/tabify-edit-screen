@@ -50,6 +50,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 == Changelog ==
 
 = 1.1.0 ( unreleased ) =
+* Separate detected meta boxes by language and user, and preserve unavailable assignments when saving.
 * Refresh meta boxes from the settings screen, including before tabs are enabled.
 * Refresh expired detection data and invalidate it after plugin and theme changes.
 * Put tab creation and saving controls above and below the settings.

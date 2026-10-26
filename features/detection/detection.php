@@ -80,6 +80,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 			'order'            => 'DESC',
 			'posts_per_page'   => 1,
 			'post_status'      => 'any',
+			'suppress_filters' => false,
 		) );
 		$url = $posts ? get_edit_post_link( $posts[0], 'raw' ) : false;
 
@@ -92,6 +93,11 @@ class Tabify_Edit_Screen_Feature_Detection {
 				return false;
 			}
 			$url = add_query_arg( 'post_type', $posttype->name, admin_url( 'post-new.php' ) );
+		}
+
+		$language = apply_filters( 'wpml_current_language', null );
+		if ( is_string( $language ) && '' !== $language ) {
+			$url = add_query_arg( 'lang', $language, $url );
 		}
 
 		return add_query_arg( array(
@@ -127,6 +133,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 	private function get_cache_key( $post_type ) {
 		$context = array(
 			'generation' => get_option( 'tabify_detection_generation', '1' ),
+			'locale'     => get_locale(),
+			'language'   => apply_filters( 'wpml_current_language', null ),
 			'user'       => get_current_user_id(),
 		);
 		$context = apply_filters( 'tabify_detection_context', $context, $post_type );

@@ -255,6 +255,11 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 					$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
 					$item_title = apply_filters( 'tabify_items_title_' . $item_id , $item_title );
 				}
+				else {
+					// Keep assignments for conditional or translated boxes when saving.
+					/* translators: %s: Meta-box ID. */
+					$item_title = sprintf( __( 'Unavailable meta box: %s', 'tabify-edit-screen' ), $item_id );
+				}
 
 				$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
 

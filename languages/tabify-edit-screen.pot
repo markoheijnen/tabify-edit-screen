@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-26T08:49:07+00:00\n"
+"POT-Creation-Date: 2026-10-26T08:49:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: tabify-edit-screen\n"
@@ -58,7 +58,7 @@ msgstr ""
 msgid "No editable screen is available for this post type."
 msgstr ""
 
-#: features/detection/detection.php:108
+#: features/detection/detection.php:114
 msgid "Refresh meta boxes"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgid "Others"
 msgstr ""
 
 #: inc/settings-base.php:153
-#: inc/settings-base.php:372
+#: inc/settings-base.php:377
 #: inc/settings-page.php:106
 msgid "Choose title"
 msgstr ""
@@ -109,7 +109,12 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: inc/settings-base.php:350
+#. translators: %s: Meta-box ID.
+#: inc/settings-base.php:261
+msgid "Unavailable meta box: %s"
+msgstr ""
+
+#: inc/settings-base.php:355
 msgid "Create a new tab"
 msgstr ""
 

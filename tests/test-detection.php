@@ -125,10 +125,18 @@ class Tabify_Tests_Detection extends WP_UnitTestCase {
 		$this->assertSame( array(), $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
 	}
 
-	public function test_environment_changes_invalidate_cached_results() {
+	public function test_environment_changes_invalidate_all_language_variants() {
+		$language = 'en';
+		$filter = function() use ( &$language ) { return $language; };
+		add_filter( 'wpml_current_language', $filter );
+		$this->invoke_private( 'cache_metaboxes', array( 'post', array() ) );
+		$language = 'fr';
 		$this->invoke_private( 'cache_metaboxes', array( 'post', array() ) );
 		$this->assertSame( array(), $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
+
 		do_action( 'activated_plugin', 'example/example.php', false );
+		$this->assertFalse( $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
+		$language = 'en';
 		$this->assertFalse( $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
 		foreach ( array( 'deactivated_plugin', 'switch_theme', 'upgrader_process_complete' ) as $hook ) {
 			$this->assertNotFalse( has_action( $hook, array( $GLOBALS['tabify_edit_screen'], 'invalidate_detection_cache' ) ) );
@@ -147,17 +155,32 @@ class Tabify_Tests_Detection extends WP_UnitTestCase {
 		$this->assertFalse( $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
 	}
 
-	public function test_cache_is_separate_for_users() {
+	public function test_cache_is_separate_for_languages_locales_and_users() {
+		$language = 'en';
+		add_filter( 'wpml_current_language', function() use ( &$language ) { return $language; } );
+		$original_user = get_current_user_id();
+		$english = $this->invoke_private( 'get_cache_key', array( 'post' ) );
 		$this->invoke_private( 'cache_metaboxes', array( 'post', array() ) );
+		$language = 'fr';
+		$this->assertNotSame( $english, $this->invoke_private( 'get_cache_key', array( 'post' ) ) );
+		$this->assertFalse( $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
+		$language = 'en';
+		$this->assertSame( array(), $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
+
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
+		$this->assertFalse( $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
+		wp_set_current_user( $original_user );
+		add_filter( 'locale', function() { return 'fr_FR'; } );
 		$this->assertFalse( $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
 	}
 
-	public function test_detection_links_validate_nonce() {
+	public function test_detection_links_keep_language_and_validate_nonce() {
 		$post_id = self::factory()->post->create();
+		add_filter( 'wpml_current_language', function() { return 'fr'; } );
 		$url = $this->invoke_private( 'get_detection_url', array( get_post_type_object( 'post' ) ) );
 		parse_str( wp_parse_url( $url, PHP_URL_QUERY ), $query );
 		$this->assertSame( (string) $post_id, $query['post'] );
+		$this->assertSame( 'fr', $query['lang'] );
 		$this->assertNotFalse( wp_verify_nonce( $query['_tabify_nonce'], 'tabify_detect_post' ) );
 	}
 
@@ -179,6 +202,20 @@ class Tabify_Tests_Detection extends WP_UnitTestCase {
 		delete_transient( $this->invoke_private( 'get_cache_key', array( 'post' ) ) );
 		$this->invoke_private( 'enqueue_script' );
 		$this->assertNotFalse( strpos( wp_scripts()->get_data( 'tabify-edit-screen-detection', 'data' ), '"post":true' ) );
+	}
+
+	public function test_saving_another_language_keeps_unavailable_assignments() {
+		$options = array( 'posttypes' => array( 'post' => array( 'tabs' => array(
+			array( 'title' => 'Translated fields', 'items' => array( 'acf-other-language' ) ),
+		) ) ) );
+		update_option( 'tabify-edit-screen', $options );
+		$settings = new Tabify_Tests_Compatibility_Settings( 'posttypes' );
+		ob_start();
+		$settings->get_sections_box();
+		$html = ob_get_clean();
+		$this->assertNotFalse( strpos( $html, 'value="acf-other-language"' ) );
+		$this->assertNotFalse( strpos( $html, 'Unavailable meta box: acf-other-language' ) );
+		$this->assertNotFalse( strpos( $html, 'name="tabify[posttypes][post][tabs][0][items][]"' ) );
 	}
 
 	public function test_refresh_control_is_available_in_toolbar() {

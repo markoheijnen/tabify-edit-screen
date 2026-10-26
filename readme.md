@@ -49,8 +49,8 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 
 The settings page detects meta boxes from an editable post, or a new-post screen when no editable post exists. Detection also works before tabs are enabled. Use **Refresh meta boxes** to check the selected post type again after adding fields or changing conditional rules, then save your tab assignments.
 
-Detected results expire after a week and are invalidated after plugin activation, deactivation, updates, and theme changes. Results are kept separately for each user.
+Detected results expire after a week and are invalidated after plugin activation, deactivation, updates, and theme changes. Results are kept separately for each language and user. Assignments for boxes that are currently unavailable are preserved when saving settings.
 
 Tabify targets classic edit screens. The block editor is not supported. Some boxes appear only on particular posts; a scan of one edit screen cannot discover every conditional field group.
 
-See [tests/README.md](tests/README.md) for integration and browser test instructions.
+See [tests/README.md](tests/README.md) for integration and browser test instructions and the remaining WPML/ACF verification.
