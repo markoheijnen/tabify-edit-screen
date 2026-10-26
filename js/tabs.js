@@ -18,7 +18,7 @@ jQuery(function($) {
 					$( ".tabify-tab", obj ).removeClass( 'nav-tab-active' );
 					$( this, obj ).addClass( 'nav-tab-active' );
 
-					var id = evt.target.id.replace( 'tab-', "");
+					var id = this.id.replace( 'tab-', "");
 					tabify_show_tab( id, $( this ).closest('.tabify-tabs') );
 				});
 

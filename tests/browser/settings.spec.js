@@ -7,3 +7,11 @@ test('moving a meta box between tabs updates its submitted assignment', async ({
 	await expect(page.locator('.tabifybox-post .tabify_tab').nth(1).locator('#post-sample')).toHaveCount(1);
 	await expect(page.locator('#post-sample input')).toHaveAttribute('name', 'tabify[posttypes][post][tabs][1][items][]');
 });
+
+test('clicking a nested tab label shows the corresponding post type', async ({ page }) => {
+	await mount(page);
+	await page.locator('#tab-page span').click();
+	await expect(page.locator('.tabifybox-page')).toBeVisible();
+	await expect(page.locator('.tabifybox-post')).toBeHidden();
+	await expect(page.locator('#tabify-submenu .current_tab')).toHaveValue('page');
+});
