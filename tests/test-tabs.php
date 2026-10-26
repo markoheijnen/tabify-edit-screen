@@ -85,4 +85,42 @@ class Tabify_Tests_Tabs extends WP_UnitTestCase {
 		$this->assertStringNotContainsString( 'onclick=', $html );
 		$this->assertStringNotContainsString( '<script>', $html );
 	}
+	public function test_malformed_request_uri_is_ignored() {
+		$previous_server = $_SERVER;
+		try {
+			$_SERVER['REQUEST_URI'] = array( 'invalid' );
+			$tabs                   = new Tabify_Edit_Screen_Tabs( array( 'main' => 'Main' ) );
+			$this->assertStringContainsString( 'id="tab-main"', $tabs->get_tabs_with_container() );
+		} finally {
+			$_SERVER = $previous_server;
+		}
+	}
+
+	public function test_invalid_items_keep_explicit_display_settings() {
+		$tabs = new Tabify_Edit_Screen_Tabs( null, 'vertical', 'section', false );
+		$html = $tabs->get_tabs_with_container();
+		$this->assertStringContainsString( 'class="tabify-tabs tab-vertical js-disabled"', $html );
+		$this->assertStringContainsString( 'name="section"', $html );
+	}
+
+	public function test_slashed_string_tab_is_preserved_in_navigation() {
+		$previous_request = $_REQUEST;
+		try {
+			$tab_name        = "writer's-tab";
+			$_REQUEST['tab'] = wp_slash( $tab_name );
+			$tabs            = new Tabify_Edit_Screen_Tabs(
+				array(
+					'main'    => 'Main',
+					$tab_name => 'Writer',
+				)
+			);
+			$this->assertSame( $tab_name, $tabs->get_current_tab() );
+			$screen = new Tabify_Edit_Screen_Edit_Screen();
+			$url    = $screen->redirect_add_current_tab( 'https://example.org/edit' );
+			parse_str( wp_parse_url( $url, PHP_URL_QUERY ), $query );
+			$this->assertSame( $tab_name, $query['tab'] );
+		} finally {
+			$_REQUEST = $previous_request;
+		}
+	}
 }

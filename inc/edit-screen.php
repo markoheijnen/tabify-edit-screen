@@ -62,7 +62,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 	public function redirect_add_current_tab( $location ) {
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- This read-only value preserves tab navigation after a save.
 		if ( isset( $_REQUEST['tab'] ) && is_string( $_REQUEST['tab'] ) ) {
-			$tab      = sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) );
+			$tab      = sanitize_text_field( (string) wp_unslash( $_REQUEST['tab'] ) );
 			$location = esc_url_raw( add_query_arg( 'tab', $tab, $location ) );
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
@@ -143,7 +143,14 @@ class Tabify_Edit_Screen_Edit_Screen {
 							add_action(
 								'tabify_custom_javascript',
 								function () use ( $class, $metabox_id ) {
-									echo 'jQuery(' . wp_json_encode( '#' . $metabox_id, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) . ').addClass(' . wp_json_encode( $class, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) . ');';
+									$selector = wp_json_encode( '#' . $metabox_id, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT );
+									$classes  = wp_json_encode( $class, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT );
+									if ( false === $selector || false === $classes ) {
+										return;
+									}
+
+									// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Both values are JSON strings encoded with HTML-safe flags.
+									echo 'jQuery(' . $selector . ').addClass(' . $classes . ');';
 								}
 							);
 						} else {
@@ -184,6 +191,11 @@ class Tabify_Edit_Screen_Edit_Screen {
 			return;
 		}
 
+		$tabs = $this->editscreen_tabs;
+		if ( null === $tabs ) {
+			return;
+		}
+
 		foreach ( $this->all_metaboxes as $metabox_id ) {
 			$last_index                 = $tab_index;
 			$unattached_metaboxes_index = apply_filters( 'tabify_unattached_metaboxes_index', $last_index, get_post_type() );
@@ -194,7 +206,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 
 			$class = 'tabifybox tabifybox-' . $unattached_metaboxes_index;
 
-			if ( $this->editscreen_tabs->get_current_tab() !== (string) $unattached_metaboxes_index ) {
+			if ( $tabs->get_current_tab() !== (string) $unattached_metaboxes_index ) {
 				$class .= ' tabifybox-hide';
 			}
 
@@ -278,7 +290,13 @@ class Tabify_Edit_Screen_Edit_Screen {
 			add_action(
 				'tabify_custom_javascript',
 				function () use ( $tabs ) {
-					echo '$(\'#post\').prepend(' . wp_json_encode( $tabs, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) . ');';
+					$markup = wp_json_encode( $tabs, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT );
+					if ( false === $markup ) {
+						return;
+					}
+
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The markup is a JSON string encoded with HTML-safe flags.
+					echo '$(\'#post\').prepend(' . $markup . ');';
 				}
 			);
 		}

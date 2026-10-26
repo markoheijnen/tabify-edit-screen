@@ -184,7 +184,7 @@ class Tabify_Tests_Compatibility extends WP_UnitTestCase {
 	}
 
 	public function test_settings_page_recovers_missing_and_invalid_tabs() {
-		$cases = array( 'invalid', array( 'posttypes' => array( 'post' => array() ) ) );
+		$cases = array( false, null, 42, 'invalid', array( 'posttypes' => array( 'post' => array() ) ) );
 		foreach ( array( null, false, 'invalid', array() ) as $tabs ) {
 			$cases[] = array( 'posttypes' => array( 'post' => array( 'show' => true, 'tabs' => $tabs ) ) );
 		}

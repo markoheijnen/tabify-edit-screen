@@ -50,7 +50,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 			return;
 		}
 
-		if ( ! current_user_can( 'manage_options' ) || ! isset( $_GET['_tabify_nonce'] ) || ! is_string( $_GET['_tabify_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_tabify_nonce'] ) ), 'tabify_detect_' . $screen->post_type ) ) {
+		if ( ! current_user_can( 'manage_options' ) || ! isset( $_GET['_tabify_nonce'] ) || ! is_string( $_GET['_tabify_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( (string) wp_unslash( $_GET['_tabify_nonce'] ) ), 'tabify_detect_' . $screen->post_type ) ) {
 			wp_send_json_error( __( 'You are not allowed to refresh these meta boxes. Reload the settings page and try again.', 'tabify-edit-screen' ), 403 );
 		}
 

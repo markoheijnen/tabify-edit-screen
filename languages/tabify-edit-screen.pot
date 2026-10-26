@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-26T09:47:17+00:00\n"
+"POT-Creation-Date: 2026-10-26T10:12:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: tabify-edit-screen\n"
@@ -88,7 +88,7 @@ msgid "Others"
 msgstr ""
 
 #: inc/settings-base.php:194
-#: inc/settings-base.php:413
+#: inc/settings-base.php:411
 #: inc/settings-page.php:129
 msgid "Choose title"
 msgstr ""
@@ -111,11 +111,11 @@ msgid "Remove"
 msgstr ""
 
 #. translators: %s: Meta-box ID.
-#: inc/settings-base.php:297
+#: inc/settings-base.php:296
 msgid "Unavailable meta box: %s"
 msgstr ""
 
-#: inc/settings-base.php:391
+#: inc/settings-base.php:389
 msgid "Create a new tab"
 msgstr ""
 

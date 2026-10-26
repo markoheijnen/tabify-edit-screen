@@ -40,16 +40,16 @@ class Tabify_Edit_Screen_Tabs {
 	/**
 	 * Tab orientation.
 	 *
-	 * @var string|null
+	 * @var string
 	 */
-	private $type;
+	private $type = 'horizontal';
 
 	/**
 	 * Whether tab changes use JavaScript.
 	 *
-	 * @var bool|null
+	 * @var bool
 	 */
-	private $javascript_support;
+	private $javascript_support = true;
 
 	/**
 	 * Construct method to set up all internal properties
@@ -62,19 +62,20 @@ class Tabify_Edit_Screen_Tabs {
 	 * @since 0.1.0
 	 */
 	public function __construct( $items, $type = 'horizontal', $get_arg = 'tab', $javascript_support = true ) {
+		$this->type               = $type;
+		$this->get_arg            = $get_arg;
+		$this->javascript_support = (bool) $javascript_support;
+
 		if ( is_array( $items ) ) {
-			$this->items              = apply_filters( 'tabify_tabs', $items, $this, $type );
-			$this->type               = $type;
-			$this->get_arg            = $get_arg;
-			$this->javascript_support = $javascript_support;
+			$this->items = apply_filters( 'tabify_tabs', $items, $this, $type );
 
 			// phpcs:disable WordPress.Security.NonceVerification.Recommended -- This read-only argument selects a tab.
 			if ( isset( $_REQUEST[ $this->get_arg ] ) && is_string( $_REQUEST[ $this->get_arg ] ) ) {
-				$this->active = sanitize_text_field( wp_unslash( $_REQUEST[ $this->get_arg ] ) );
+				$this->active = sanitize_text_field( (string) wp_unslash( $_REQUEST[ $this->get_arg ] ) );
 			}
 			// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
-			$request_uri    = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+			$request_uri    = isset( $_SERVER['REQUEST_URI'] ) && is_string( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( (string) wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 			$this->base_url = remove_query_arg( $this->get_arg, $request_uri );
 
 			if ( '' === $this->active || ! isset( $this->items[ $this->active ] ) ) {

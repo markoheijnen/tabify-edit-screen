@@ -279,28 +279,26 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		$options = $this->get_options( $this->type );
 
 		echo '<ul>';
-		if ( is_array( $items ) ) {
-			foreach ( $items as  $item_id ) {
-				if ( empty( $item_id ) ) {
-					continue;
-				}
-
-				$item_title = '';
-				if ( isset( $this->items[ $section ][ $item_id ] ) ) {
-					$item_title = $this->items[ $section ][ $item_id ];
-
-					$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
-					$item_title = apply_filters( 'tabify_items_title_' . $item_id, $item_title );
-				} else {
-					// Keep assignments for conditional or translated boxes when saving.
-					/* translators: %s: Meta-box ID. */
-					$item_title = sprintf( __( 'Unavailable meta box: %s', 'tabify-edit-screen' ), $item_id );
-				}
-
-				$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
-
-				unset( $this->items[ $section ][ $item_id ] );
+		foreach ( $items as $item_id ) {
+			if ( empty( $item_id ) ) {
+				continue;
 			}
+
+			$item_title = '';
+			if ( isset( $this->items[ $section ][ $item_id ] ) ) {
+				$item_title = $this->items[ $section ][ $item_id ];
+
+				$item_title = apply_filters( 'tabify_items_title', $item_title, $item_id );
+				$item_title = apply_filters( 'tabify_items_title_' . $item_id, $item_title );
+			} else {
+				// Keep assignments for conditional or translated boxes when saving.
+				/* translators: %s: Meta-box ID. */
+				$item_title = sprintf( __( 'Unavailable meta box: %s', 'tabify-edit-screen' ), $item_id );
+			}
+
+			$this->list_show_items( $item_id, $item_title, $tab_id, $section, $default_items );
+
+			unset( $this->items[ $section ][ $item_id ] );
 		}
 
 		if ( ! isset( $options[ $section ]['tabs'] ) || ! is_array( $options[ $section ]['tabs'] ) || empty( $options[ $section ]['tabs'] ) || count( $options[ $section ]['tabs'] ) === ( $tab_id + 1 ) ) {
@@ -426,11 +424,9 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * @return array Plugin or group options.
 	 */
 	protected function get_options( $type = null ) {
-		if ( ! $this->options ) {
-			$this->options = get_option( 'tabify-edit-screen', array() );
-			if ( ! is_array( $this->options ) ) {
-				$this->options = array();
-			}
+		if ( null === $this->options ) {
+			$options       = get_option( 'tabify-edit-screen', array() );
+			$this->options = is_array( $options ) ? $options : array();
 		}
 
 		if ( $type ) {
