@@ -50,6 +50,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 == Changelog ==
 
 = 1.1.0 ( unreleased ) =
+* Keep role permissions with their tabs when reordering or deleting tabs.
 * Skip classic tab initialization on block-editor screens.
 * Handle admin color palettes with fewer than four colors.
 * Switch tabs correctly when clicking HTML inside a tab title.

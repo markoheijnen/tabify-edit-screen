@@ -84,6 +84,7 @@ jQuery(function($) {
 		if( 0 == sender_children ) {
 			parent.hide( function(){
 				$(this).remove();
+				tabify_admin_fix_sortable();
 				tabify_admin_hide_delete();
 			});
 		}
@@ -141,14 +142,12 @@ jQuery(function($) {
 		$('.tabifybox:visible .tabify_tab').each(function() {
 			var parent_index = $(this).index();
 
-			var parts = $( 'h2 input', this ).attr('name').split( '][' );
-			parts[3]  = parent_index;
-			$( 'h2 input', this ).attr( 'name', parts.join( '][' ) );
-
-			$(this).find('.ui-sortable').children().each(function() {
-				var parts = $( 'input', this ).attr('name').split( '][' );
-				parts[3]  = parent_index;
-				$( 'input', this ).attr( 'name', parts.join( '][' ) );
+			$(this).find('input[name^="tabify["]').each(function() {
+				var parts = $( this ).attr('name').split( '][' );
+				if ( parts[2] === 'tabs' ) {
+					parts[3] = parent_index;
+					$( this ).attr( 'name', parts.join( '][' ) );
+				}
 			});
 		});
 	}
