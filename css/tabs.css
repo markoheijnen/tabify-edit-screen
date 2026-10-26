@@ -65,8 +65,15 @@
 	width: 100%;
 }
 
-#tabifyboxes #create_tab {
-	margin-right: 10px;
+.tabify-settings-toolbar {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.tabify-setup-help {
+	margin-top: 0;
 }
 
 .tabify-title-box {

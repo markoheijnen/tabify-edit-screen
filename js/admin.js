@@ -35,7 +35,7 @@ jQuery(function($) {
 		});
 	}
 
-	$( "#create_tab" ).on("click", function(evt) {
+	$( ".tabify-create-tab" ).on("click", function(evt) {
 		evt.preventDefault();
 
 		$('.tabifybox:visible .tabify-remove-tab').fadeIn();

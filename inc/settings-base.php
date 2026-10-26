@@ -84,6 +84,11 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	public function get_sections_box() {
 		$sections = $this->get_sections();
 
+		if ( 'posttypes' === $this->type ) {
+			echo '<p class="description tabify-setup-help">' . esc_html__( 'Choose a post type, enable tabs, then create tabs and drag meta boxes into them. Save your changes when you are done.', 'tabify-edit-screen' ) . '</p>';
+		}
+		$this->print_buttons( 'top' );
+
 		foreach ( $sections as $section => $label ) {
 			$this->get_section_box( $section );
 		}
@@ -337,10 +342,13 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 *
 	 * @since 1.0.0
 	 */
-	private function print_buttons() {
-		echo '<p class="submit">';
-		echo '<input type="submit" id="create_tab" name="create_tab" class="button button-secondary" value="' . __( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
-		submit_button( '', 'primary', 'submit', false );
+	private function print_buttons( $position = 'bottom' ) {
+		$create_id = 'top' === $position ? 'create_tab' : 'create_tab_bottom';
+		$save_name = 'top' === $position ? 'submit_top' : 'submit';
+
+		echo '<p class="submit tabify-settings-toolbar">';
+		echo '<input type="submit" id="' . $create_id . '" name="create_tab" class="tabify-create-tab button button-secondary" value="' . esc_attr__( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
+		submit_button( '', 'primary', $save_name, false );
 		echo '</p>';
 	}
 

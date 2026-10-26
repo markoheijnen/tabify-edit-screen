@@ -93,7 +93,7 @@ class Tabify_Edit_Screen_Tabs {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		wp_register_script( 'tabify-edit-screen', plugins_url( '/js/tabs' . $suffix . '.js', dirname( __FILE__ ) ), $required, '1.1.0' );
-		wp_register_style( 'tabify-edit-screen', plugins_url( '/css/tabs' . $suffix . '.css', dirname( __FILE__ ) ), array(), '1.0' );
+		wp_register_style( 'tabify-edit-screen', plugins_url( '/css/tabs' . $suffix . '.css', dirname( __FILE__ ) ), array(), '1.1.0' );
 
 		wp_enqueue_script( 'tabify-edit-screen' );
 		wp_enqueue_style( 'tabify-edit-screen' );

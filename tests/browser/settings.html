@@ -17,12 +17,13 @@ body { font: 14px Arial, sans-serif; margin: 24px; }
 <a class="tabify-tab" id="tab-page" href="#page"><span>Pages</span></a>
 </div></div>
 <div id="tabifyboxes">
+<p class="submit tabify-settings-toolbar"><input type="submit" id="create_tab" name="create_tab" class="tabify-create-tab" value="Create a new tab"><button type="submit" id="submit_top">Save changes</button></p>
 <div class="tabifybox tabifybox-post"><div class="tabify_control tabify_control_tabs">
 <div class="menu-item-handle tabify_tab"><h2><span>Main</span><input class="hide-if-js" name="tabify[posttypes][post][tabs][0][title]" value="Main"></h2><a href="#" class="tabify-remove-tab">Remove</a><div class="tabify-tab-permission-box"><input type="checkbox" name="tabify[posttypes][post][tabs][0][permissions][]" value="administrator" checked></div><ul><li id="post-sample"><div class="menu-item-bar"><div class="menu-item-handle"><span class="item-title">Sample</span><input type="hidden" name="tabify[posttypes][post][tabs][0][items][]" value="sample"></div></div></li></ul></div>
 <div class="menu-item-handle tabify_tab"><h2><span>Details</span><input class="hide-if-js" name="tabify[posttypes][post][tabs][1][title]" value="Details"></h2><a href="#" class="tabify-remove-tab">Remove</a><div class="tabify-tab-permission-box"><input type="checkbox" name="tabify[posttypes][post][tabs][1][permissions][]" value="editor" checked></div><ul></ul></div>
 </div></div>
 <div class="tabifybox tabifybox-page"><div class="tabify_control tabify_control_tabs"><div class="menu-item-handle tabify_tab"><h2><span>Pages</span><input name="tabify[posttypes][page][tabs][0][title]" value="Pages" class="hide-if-js"></h2><a href="#" class="tabify-remove-tab">Remove</a><ul></ul></div></div></div>
-<p class="submit tabify-settings-toolbar"><input type="submit" id="create_tab" name="create_tab" class="tabify-create-tab" value="Create a new tab"><button type="submit" id="submit">Save changes</button></p>
+<p class="submit tabify-settings-toolbar"><input type="submit" id="create_tab_bottom" name="create_tab" class="tabify-create-tab" value="Create a new tab"><button type="submit" id="submit">Save changes</button></p>
 </div></form>
 <script type="text/template" id="tmpl-new-tab"><div class="menu-item-handle tabify_tab"><h2><span>Choose title</span><input name="tabify[posttypes][{{ data.section }}][tabs][{{ data.tab_id }}][title]" value="Choose title" class="hide-if-js"></h2><a href="#" class="tabify-remove-tab">Remove</a><div class="tabify-tab-permission-box"><input type="checkbox" name="tabify[posttypes][{{ data.section }}][tabs][{{ data.tab_id }}][permissions][]" value="editor"></div><ul></ul></div></script>
 </body></html>

@@ -26,14 +26,14 @@ test('reordering tabs keeps role permissions with the corresponding tab', async 
 	await expect(page.locator('#post-sample input')).toHaveAttribute('name', 'tabify[posttypes][post][tabs][1][items][]');
 });
 
-test('deleting an empty middle tab keeps unique indices', async ({ page }) => {
+test('both add buttons work and deleting an empty middle tab keeps unique indices', async ({ page }) => {
 	await mount(page);
 	await page.locator('#create_tab').click();
 	const tabs = page.locator('.tabifybox-post .tabify_tab');
 	await expect(tabs).toHaveCount(3);
 	await tabs.nth(1).getByText('Remove', { exact: true }).click();
 	await expect(tabs).toHaveCount(2);
-	await page.locator('#create_tab').click();
+	await page.locator('#create_tab_bottom').click();
 	await expect(tabs).toHaveCount(3);
 	for (let i = 0; i < 3; i++) {
 		await expect(tabs.nth(i).locator('h2 input')).toHaveAttribute('name', `tabify[posttypes][post][tabs][${i}][title]`);
