@@ -37,15 +37,26 @@ class Tabify_Edit_Screen {
 	private $loaded_features = array();
 
 	/**
-	 * Construct method to add hooks when on the admin side
+	 * Register cache invalidation and admin hooks.
 	 *
 	 * @since 0.1.0
 	 */
 	public function __construct() {
+		foreach ( array( 'activated_plugin', 'deactivated_plugin', 'switch_theme', 'upgrader_process_complete' ) as $hook ) {
+			add_action( $hook, array( $this, 'invalidate_detection_cache' ) );
+		}
+
 		if ( is_admin() ) {
 			add_action( 'plugins_loaded', array( $this, 'load' ) );
 			add_action( 'plugins_loaded', array( $this, 'load_translation' ) );
 		}
+	}
+
+	/**
+	 * Invalidate every detection variant, including during CLI/background updates.
+	 */
+	public function invalidate_detection_cache() {
+		update_option( 'tabify_detection_generation', wp_generate_password( 12, false ), false );
 	}
 
 

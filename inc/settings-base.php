@@ -349,6 +349,9 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 		echo '<p class="submit tabify-settings-toolbar">';
 		echo '<input type="submit" id="' . $create_id . '" name="create_tab" class="tabify-create-tab button button-secondary" value="' . esc_attr__( 'Create a new tab', 'tabify-edit-screen' ) . '" />';
 		submit_button( '', 'primary', $save_name, false );
+		if ( 'top' === $position ) {
+			do_action( 'tabify_settings_toolbar', $this->type );
+		}
 		echo '</p>';
 	}
 

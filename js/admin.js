@@ -13,6 +13,7 @@ jQuery(function($) {
 
 	// Initialize sortables
 	initialize_sortable_ul();
+	$( document ).on( 'tabify:metaboxes-updated', initialize_sortable_ul );
 	function initialize_sortable_ul() {
 		$( ".tabify_control_tabs ul" ).sortable({
 			//items : ".steps",

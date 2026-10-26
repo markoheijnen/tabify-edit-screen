@@ -50,6 +50,8 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 == Changelog ==
 
 = 1.1.0 ( unreleased ) =
+* Refresh meta boxes from the settings screen, including before tabs are enabled.
+* Refresh expired detection data and invalidate it after plugin and theme changes.
 * Put tab creation and saving controls above and below the settings.
 * Keep role permissions with their tabs when reordering or deleting tabs.
 * Skip classic tab initialization on block-editor screens.

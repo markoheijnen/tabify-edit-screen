@@ -11,7 +11,7 @@ composer test
 
 The installer downloads the matching core and test library over HTTPS. Set `WP_CORE_DIR` and `WP_TESTS_DIR` to use dedicated directories. Pass `true` as its sixth argument when the database already exists. The test suite drops tables in the configured test database; use a separate database from any working site.
 
-CI runs the suite with MySQL, PHP 8.0–8.5, and WordPress 6.9/latest. Tests cover PHP compatibility, permissions, and settings rendering.
+CI runs the suite with MySQL, PHP 8.0–8.5, and WordPress 6.9/latest. Tests cover live detection before tabs are enabled, expired and malformed cache entries, environment invalidation, nonce/capability checks, user isolation, cached box restoration, permissions, and settings rendering.
 
 When Docker/MySQL is unavailable, the official SQLite Database Integration drop-in can run the suite locally. Put the drop-in in the temporary WordPress installation's `wp-content/db.php`, and define `FQDB` in its `wp-tests-config.php` to point to a disposable SQLite file. This provides local WordPress integration coverage; CI retains MySQL coverage.
 
@@ -26,4 +26,4 @@ npm test
 
 To use an installed Chrome instead, run `PLAYWRIGHT_CHANNEL=chrome npm --prefix tests/browser test` from the repository root.
 
-These tests run the production JavaScript with jQuery and jQuery UI in a settings-page fixture. They exercise moving meta boxes between tabs; PHP integration tests verify settings rendering.
+These tests run the production JavaScript with jQuery and jQuery UI in a settings-page fixture. Network responses are controlled so success, failure, retry, duplicate requests, and concurrent post-type requests are reproducible. They also exercise dragging boxes, sorting tabs with role restrictions, and adding/deleting tabs. PHP integration tests separately verify the generated controls and detection responses.

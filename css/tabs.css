@@ -72,6 +72,10 @@
 	gap: 8px;
 }
 
+.tabify-detection-status {
+	flex-basis: 100%;
+}
+
 .tabify-setup-help {
 	margin-top: 0;
 }
