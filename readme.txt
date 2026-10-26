@@ -50,6 +50,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 == Changelog ==
 
 = 1.1.0 ( unreleased ) =
+* Handle admin color palettes with fewer than four colors.
 * Switch tabs correctly when clicking HTML inside a tab title.
 * Improve PHP 8 compatibility and expand integration and browser test coverage.
 

@@ -117,7 +117,11 @@ class Tabify_Edit_Screen_Tabs {
 			$color = 'fresh';
 		}
 
-		$background = $_wp_admin_css_colors[$color]->colors[3];
+		if ( empty( $_wp_admin_css_colors[ $color ]->colors ) ) {
+			return;
+		}
+		$colors = $_wp_admin_css_colors[ $color ]->colors;
+		$background = isset( $colors[3] ) ? $colors[3] : end( $colors );
 
 		wp_add_inline_style(
 			'tabify-edit-screen',
