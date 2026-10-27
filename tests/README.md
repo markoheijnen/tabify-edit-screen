@@ -1,5 +1,16 @@
 # Tests
 
+## Build assets
+
+Run `npm ci` to install the pinned build dependencies, or `npm update` to update them within the configured ranges. Then run:
+
+```sh
+npm run build:css   # Generate css/tabs.min.css beside tabs.css
+npm run build       # Generate both CSS and JavaScript minified assets locally
+```
+
+Generate both CSS and JavaScript when using this checkout through a symlink in WordPress. WordPress loads the `.min` assets unless `SCRIPT_DEBUG` is enabled. Generated local assets are ignored by Git. `npm run build:release` retains the existing release workflow, including translation downloads, and writes the packaged plugin to `build/`.
+
 ## Static analysis and coding standards
 
 Install the pinned development tools with `composer install`, then run:

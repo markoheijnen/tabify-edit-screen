@@ -30,9 +30,13 @@ module.exports = function(grunt) {
 							'!build/**',
 							'!Gruntfile.js',
 							'!node_modules/**',
+							'!css/*.min.css',
+							'!js/*.min.js',
 							'!vendor/**',
 							'!composer.json',
 							'!composer.lock',
+							'!package.json',
+							'!package-lock.json',
 							'!phpunit.xml',
 							'!phpcs.xml.dist',
 							'!phpstan.neon.dist',
@@ -46,13 +50,20 @@ module.exports = function(grunt) {
 			}
 		},
 		cssmin: {
+			local: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: SOURCE_DIR,
+				ext: '.min.css',
+				src: ['css/*.css', '!css/*.min.css']
+			},
 			core: {
 				expand: true,
 				cwd: SOURCE_DIR,
 				dest: BUILD_DIR,
 				ext: '.min.css',
 				src: [
-					'css/*.css',
+					'css/*.css', '!css/*.min.css'
 				]
 			},
 		},
@@ -78,11 +89,20 @@ module.exports = function(grunt) {
 			}
 		},
 		uglify: {
+			local: {
+				files: [{
+					expand: true,
+					cwd: 'js',
+					src: ['**/*.js', '!**/*.min.js'],
+					dest: 'js',
+					ext: '.min.js'
+				}]
+			},
 			core: {
 				files: [{
 					expand: true,
 					cwd: 'js',
-					src: '**/*.js',
+					src: ['**/*.js', '!**/*.min.js'],
 					dest: BUILD_DIR + '/js',
 					ext: '.min.js'
 				}]
@@ -98,6 +118,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-glotpress');
 	grunt.loadNpmTasks('grunt-wp-i18n');
+
+	// Generate assets next to their sources for a symlinked development checkout.
+	grunt.registerTask('assets', ['cssmin:local', 'uglify:local']);
 
 
 	// Pre-commit task.

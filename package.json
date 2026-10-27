@@ -8,22 +8,18 @@
 	},
 	"author": "CodeKitchen B.V.",
 	"license": "GPL-2.0+",
+	"scripts": {
+		"build": "grunt assets",
+		"build:css": "grunt cssmin:local",
+		"build:release": "grunt build"
+	},
 	"devDependencies": {
-		"grunt": "~1.0.1",
-		"grunt-contrib-clean": "~1.0.0",
+		"grunt": "^1.6.3",
+		"grunt-contrib-clean": "^2.0.1",
 		"grunt-contrib-copy": "~1.0.0",
-		"grunt-contrib-cssmin": "~1.0.2",
-		"grunt-contrib-uglify": "~2.0.0",
+		"grunt-contrib-cssmin": "^5.0.0",
+		"grunt-contrib-uglify": "^5.2.2",
 		"grunt-glotpress": "~0.2.2",
-		"grunt-wp-i18n": "~0.5.4",
-
-
-
-		"grunt-contrib-concat": "~1.0.0",
-		"grunt-contrib-imagemin": "~1.0.0",
-		"grunt-contrib-jshint": "~1.0.0",
-		"grunt-contrib-qunit": "~1.2.0",
-		"grunt-cssjanus": "~0.3.2",
-		"grunt-jsvalidate": "~0.2.2"
+		"grunt-wp-i18n": "^1.0.4"
 	}
 }
