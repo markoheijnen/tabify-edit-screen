@@ -12,7 +12,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	/**
 	 * Items shown on every tab.
 	 *
-	 * @var array
+	 * @var array<string>
 	 */
 	protected $defaults = array( 'titlediv', 'submitdiv' );
 
@@ -34,6 +34,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @since 0.4.0
 	 *
 	 * @param string $section Post-type name.
+	 *
+	 * @return void
 	 */
 	public function display_gutenberg_warning( $section ) {
 		if ( use_block_editor_for_post_type( $section ) ) {
@@ -45,6 +47,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * Set the items property when needed.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	protected function load_items() {
 		if ( $this->items ) {
@@ -59,7 +63,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	/**
 	 * Loads all the posttypes as sections
 	 *
-	 * @return array $posttypes List of post types
+	 * @return array<string,string> Post-type labels keyed by name.
 	 *
 	 * @since 0.4.0
 	 */
@@ -73,7 +77,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 
 		$posttypes = array();
 		foreach ( $posttypes_objects as $posttype_object ) {
-			if ( is_object( $posttype_object ) ) {
+			if ( is_object( $posttype_object ) && isset( $posttype_object->name, $posttype_object->label ) && is_string( $posttype_object->name ) && is_string( $posttype_object->label ) ) {
 				$posttypes[ $posttype_object->name ] = $posttype_object->label;
 			}
 		}
@@ -84,7 +88,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	/**
 	 * Gets all the metaboxes that are registered
 	 *
-	 * @return array $metaboxes List of metaboxes for all post types
+	 * @return array<string,array<string,string>> Meta-box titles keyed by post type and ID.
 	 *
 	 * @since 0.1.0
 	 */
@@ -139,7 +143,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 *
 	 * @param mixed $options list of options to be escaped.
 	 *
-	 * @return array $options The escaped options
+	 * @return array<array-key,mixed> Sanitized plugin options.
 	 *
 	 * @since 0.1.0
 	 */
@@ -162,7 +166,7 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 *
 	 * @param mixed $posttypes Raw options array.
 	 *
-	 * @return array filtered options array
+	 * @return array<array-key,array<array-key,mixed>> Sanitized options for each post type.
 	 */
 	private function escape( $posttypes ) {
 		if ( ! is_array( $posttypes ) ) {
@@ -259,6 +263,8 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @param string $post_type The post type or which meta boxes need to be loaded.
 	 *
 	 * @since 0.1.0
+	 *
+	 * @return void
 	 */
 	private function load_default_metaboxes( $post_type ) {
 		if ( 'attachment' === $post_type ) {
@@ -321,12 +327,14 @@ class Tabify_Edit_Screen_Settings_Posttypes extends Tabify_Edit_Screen_Settings_
 	 * @param string $post_type The post type or which meta boxes need to be loaded.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	private function load_taxonomy_metaboxes( $post_type ) {
 		foreach ( get_object_taxonomies( $post_type ) as $tax_name ) {
 			$taxonomy = get_taxonomy( $tax_name );
 
-			if ( ! $taxonomy->show_ui ) {
+			if ( ! $taxonomy || ! $taxonomy->show_ui ) {
 				continue;
 			}
 

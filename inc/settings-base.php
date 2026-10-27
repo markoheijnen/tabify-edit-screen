@@ -19,7 +19,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Available settings sections.
 	 *
-	 * @var array
+	 * @var array<string,string>
 	 */
 	private $sections;
 
@@ -33,21 +33,21 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Cached plugin options.
 	 *
-	 * @var array|null
+	 * @var array<array-key,mixed>|null
 	 */
 	private $options;
 
 	/**
 	 * Available items by section.
 	 *
-	 * @var array
+	 * @var array<string,array<string,string>>
 	 */
 	protected $items = array();
 
 	/**
 	 * Items shown on every tab.
 	 *
-	 * @var array
+	 * @var array<string>
 	 */
 	protected $defaults = array();
 
@@ -69,13 +69,15 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * Set the items property when needed.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	abstract protected function load_items();
 
 	/**
 	 * Set properties and load the sections and tabs
 	 *
-	 * @return array The sections
+	 * @return array<string,string> Section labels keyed by name.
 	 *
 	 * @since 0.4.0
 	 */
@@ -84,7 +86,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Get sections
 	 *
-	 * @return array The sections
+	 * @return array<string,string> Section labels keyed by name.
 	 *
 	 * @since 0.4.0
 	 */
@@ -96,6 +98,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * Get the sections as a tab menu
 	 *
 	 * @since 0.4.0
+	 *
+	 * @return void
 	 */
 	public function get_sections_menu() {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The tab renderer escapes its attributes and titles.
@@ -105,7 +109,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Get all the metaboxes that should always be showed
 	 *
-	 * @return array All the metaboxes id's in an array
+	 * @return array<string> Items shown on every tab.
 	 *
 	 * @since 0.4.0
 	 *
@@ -122,6 +126,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * Echo all the items
 	 *
 	 * @since 0.4.0
+	 *
+	 * @return void
 	 */
 	public function get_sections_box() {
 		$sections = $this->get_sections();
@@ -146,6 +152,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * @param string $section The section name.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	private function get_section_box( $section ) {
 		$options       = $this->get_options( $this->type );
@@ -218,6 +226,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * @param string $section The section name.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	private function get_section_settings( $section ) {
 		$options = $this->get_options( $this->type );
@@ -240,12 +250,14 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Get the html for one pacticular section
 	 *
-	 * @param string  $section The section name.
-	 * @param string  $title The title.
-	 * @param array   $tab Tab information.
-	 * @param boolean $remove Whether the tab can be removed.
+	 * @param string              $section The section name.
+	 * @param string              $title The title.
+	 * @param array<string,mixed> $tab Tab information.
+	 * @param boolean             $remove Whether the tab can be removed.
 	 *
 	 * @since 0.4.0
+	 *
+	 * @return void
 	 */
 	private function get_section_tab_title( $section, $title, $tab, $remove ) {
 		echo '<h2><span class="hide-if-no-js">' . wp_kses_post( $title ) . '</span><input type="text" name="tabify[' . esc_attr( $this->type ) . '][' . esc_attr( $section ) . '][tabs][' . esc_attr( $tab['id'] ) . '][title]" value="' . esc_attr( $title ) . '" class="hide-if-js" /></h2>';
@@ -267,12 +279,14 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Get the html for the section sortable list
 	 *
-	 * @param string  $section The section name.
-	 * @param array   $items List of all items in the section.
-	 * @param integer $tab_id The id of the tab the list is in.
-	 * @param array   $default_items List of items that are always shown.
+	 * @param string        $section The section name.
+	 * @param array<string> $items List of all items in the section.
+	 * @param integer       $tab_id The id of the tab the list is in.
+	 * @param array<string> $default_items List of items that are always shown.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	private function get_section_box_list( $section, $items, $tab_id, $default_items ) {
 		$this->load_items();
@@ -320,13 +334,15 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	/**
 	 * Show the items for the sortable list
 	 *
-	 * @param string  $item_id The id of the item in the list.
-	 * @param string  $item_title The title of the item.
-	 * @param integer $tab_id The id of the tab the list is in.
-	 * @param string  $section The section name.
-	 * @param array   $default_items List of items that are always shown.
+	 * @param string        $item_id The id of the item in the list.
+	 * @param string        $item_title The title of the item.
+	 * @param integer       $tab_id The id of the tab the list is in.
+	 * @param string        $section The section name.
+	 * @param array<string> $default_items List of items that are always shown.
 	 *
 	 * @since 0.4.0
+	 *
+	 * @return void
 	 */
 	protected function list_show_items( $item_id, $item_title, $tab_id, $section, $default_items ) {
 		$options = $this->get_options( $this->type );
@@ -380,6 +396,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * @since 1.0.0
 	 *
 	 * @param string $position Toolbar position.
+	 *
+	 * @return void
 	 */
 	private function print_buttons( $position = 'bottom' ) {
 		$create_id = 'top' === $position ? 'create_tab' : 'create_tab_bottom';
@@ -399,6 +417,8 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * New tabify tab template
 	 *
 	 * @since 0.4.0
+	 *
+	 * @return void
 	 */
 	private function print_backbone_template() {
 		$tab = array(
@@ -421,7 +441,7 @@ abstract class Tabify_Edit_Screen_Settings_Base {
 	 * @since 0.4.0
 	 *
 	 * @param string|null $type Optional settings group.
-	 * @return array Plugin or group options.
+	 * @return array<array-key,mixed> Plugin or group options.
 	 */
 	protected function get_options( $type = null ) {
 		if ( null === $this->options ) {

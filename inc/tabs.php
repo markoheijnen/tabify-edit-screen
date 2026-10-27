@@ -33,7 +33,7 @@ class Tabify_Edit_Screen_Tabs {
 	/**
 	 * Tab labels and configuration.
 	 *
-	 * @var array
+	 * @var array<array-key,string|array<string,mixed>>
 	 */
 	private $items = array();
 
@@ -136,7 +136,8 @@ class Tabify_Edit_Screen_Tabs {
 
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_script( 'tabify-edit-screen', plugins_url( '/js/tabs' . $suffix . '.js', __DIR__ ), $required, '1.1.0', false );
+		$script_url = plugins_url( '/js/tabs' . $suffix . '.js', __DIR__ );
+		wp_register_script( 'tabify-edit-screen', '' !== $script_url ? $script_url : false, $required, '1.1.0', false );
 		wp_register_style( 'tabify-edit-screen', plugins_url( '/css/tabs' . $suffix . '.css', __DIR__ ), array(), '1.1.0' );
 
 		wp_enqueue_script( 'tabify-edit-screen' );
@@ -151,6 +152,8 @@ class Tabify_Edit_Screen_Tabs {
 	 * Update switch background color for active state
 	 *
 	 * @since 0.9.6
+	 *
+	 * @return void
 	 */
 	private function add_active_state_style() {
 		global $_wp_admin_css_colors;
@@ -195,6 +198,7 @@ class Tabify_Edit_Screen_Tabs {
 		$return = '';
 
 		foreach ( $this->items as $key => $args ) {
+			$key = (string) $key;
 			if ( ! is_array( $args ) ) {
 				$args = array(
 					'title' => $args,

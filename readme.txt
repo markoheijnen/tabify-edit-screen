@@ -50,7 +50,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 == Changelog ==
 
 = 1.1.0 ( unreleased ) =
-* Add PHPStan analysis and enforce WordPress PHP coding standards in CI.
+* Add PHPStan level 8 analysis and enforce WordPress PHP coding standards in CI.
 * Separate detected meta boxes by language and user, and preserve unavailable assignments when saving.
 * Refresh meta boxes from the settings screen, including before tabs are enabled.
 * Refresh expired detection data and invalidate it after plugin and theme changes.

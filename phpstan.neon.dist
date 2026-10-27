@@ -2,7 +2,7 @@ includes:
 	- vendor/szepeviktor/phpstan-wordpress/extension.neon
 
 parameters:
-	level: 5
+	level: 8
 	# Validate external settings and hooks even when their PHPDoc claims a valid type.
 	treatPhpDocTypesAsCertain: false
 	phpVersion: 80000

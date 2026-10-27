@@ -28,6 +28,8 @@ class Tabify_Edit_Screen_Feature_Permissions {
 	 * Enqueue script for the settings page
 	 *
 	 * @since 0.9.0
+	 *
+	 * @return void
 	 */
 	public function enqueue_scripts() {
 		$screen = get_current_screen();
@@ -36,7 +38,8 @@ class Tabify_Edit_Screen_Feature_Permissions {
 			return;
 		}
 
-		wp_register_script( 'tabify-edit-screen-permissions', plugins_url( '/permissions.js', __FILE__ ), array( 'jquery' ), '1.0', false );
+		$script_url = plugins_url( '/permissions.js', __FILE__ );
+		wp_register_script( 'tabify-edit-screen-permissions', '' !== $script_url ? $script_url : false, array( 'jquery' ), '1.0', false );
 		wp_enqueue_script( 'tabify-edit-screen-permissions' );
 
 		$data = array(
@@ -53,7 +56,9 @@ class Tabify_Edit_Screen_Feature_Permissions {
 	 *
 	 * @since 0.9.0
 	 *
-	 * @param array $tab Tab configuration.
+	 * @param array<string,mixed> $tab Tab configuration.
+	 *
+	 * @return void
 	 */
 	public function settings_tab_title_box( $tab ) {
 		if ( ! empty( $tab['permissions'] ) && is_array( $tab['permissions'] ) ) {
@@ -72,9 +77,11 @@ class Tabify_Edit_Screen_Feature_Permissions {
 	 *
 	 * @since 0.9.0
 	 *
-	 * @param array  $tab Tab configuration.
-	 * @param string $section Section name.
-	 * @param string $type Settings group.
+	 * @param array<string,mixed> $tab Tab configuration.
+	 * @param string              $section Section name.
+	 * @param string              $type Settings group.
+	 *
+	 * @return void
 	 */
 	public function settings_tab_title_after( $tab, $section, $type ) {
 		echo '<div class="tabify-tab-permission-box">';
@@ -101,7 +108,7 @@ class Tabify_Edit_Screen_Feature_Permissions {
 	 *
 	 * @param mixed  $tabs Configured tabs.
 	 * @param string $post_type Post-type name.
-	 * @return array Accessible tabs.
+	 * @return array<array-key,array<string,mixed>> Accessible tabs.
 	 */
 	public function posttype_tabs( $tabs, $post_type ) {
 		if ( ! is_array( $tabs ) ) {
@@ -151,6 +158,8 @@ class Tabify_Edit_Screen_Feature_Permissions {
 	 * Get the roles of WordPress
 	 *
 	 * @since 0.9.0
+	 *
+	 * @return array<string,array<string,mixed>> Role definitions keyed by role name.
 	 */
 	private function get_roles() {
 		if ( function_exists( 'wp_roles' ) ) {

@@ -65,6 +65,8 @@ class Tabify_Edit_Screen {
 
 	/**
 	 * Invalidate every detection variant, including during CLI/background updates.
+	 *
+	 * @return void
 	 */
 	public function invalidate_detection_cache() {
 		update_option( 'tabify_detection_generation', wp_generate_password( 12, false ), false );
@@ -75,6 +77,8 @@ class Tabify_Edit_Screen {
 	 * Load functionality
 	 *
 	 * @since 0.9.0
+	 *
+	 * @return void
 	 */
 	public function load() {
 		require __DIR__ . '/inc/edit-screen.php';
@@ -90,6 +94,8 @@ class Tabify_Edit_Screen {
 	 * Load Translations
 	 *
 	 * @since 0.4.0
+	 *
+	 * @return void
 	 */
 	public function load_translation() {
 		load_plugin_textdomain( 'tabify-edit-screen', false, basename( __DIR__ ) . '/languages' );
@@ -99,6 +105,8 @@ class Tabify_Edit_Screen {
 	 * Load features
 	 *
 	 * @since 0.9.0
+	 *
+	 * @return void
 	 */
 	public function load_features() {
 		$feature_files = array(

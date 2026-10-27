@@ -115,6 +115,66 @@ class Tabify_Tests_Detection extends WP_UnitTestCase {
 		$this->assertFalse( $GLOBALS['wp_meta_boxes']['post']['normal']['default']['removed'] );
 	}
 
+	public function test_sorted_cache_restores_missing_boxes_without_replacing_live_or_removed_boxes() {
+		$boxes = array();
+		foreach ( array( 'missing', 'live', 'removed' ) as $id ) {
+			$boxes[ $id ] = (object) array(
+				'title'    => 'Cached title',
+				'context'  => 'normal',
+				'priority' => 'sorted',
+			);
+		}
+		$this->invoke_private( 'cache_metaboxes', array( 'post', $boxes ) );
+		add_meta_box( 'live', 'Live title', '__return_true', 'post', 'normal', 'default' );
+		remove_meta_box( 'removed', 'post', 'normal' );
+
+		$this->detection->add_missing_meta_boxes( 'post' );
+
+		$this->assertSame( 'Cached title', $GLOBALS['wp_meta_boxes']['post']['normal']['default']['missing']['title'] );
+		$this->assertSame( '__return_true', $GLOBALS['wp_meta_boxes']['post']['normal']['default']['live']['callback'] );
+		$this->assertFalse( $GLOBALS['wp_meta_boxes']['post']['normal']['default']['removed'] );
+	}
+
+	public function test_unserializable_context_does_not_share_a_fallback_cache() {
+		$resource     = fopen( 'php://memory', 'r+' );
+		$filter       = function ( $context ) use ( $resource ) {
+			$context['resource'] = $resource;
+			return $context;
+		};
+		$fallback_key = 'tabify_detection_post_' . md5( '' );
+		$cached       = array(
+			'old' => (object) array(
+				'title'    => 'Old',
+				'context'  => 'normal',
+				'priority' => 'default',
+			),
+		);
+		set_transient( $fallback_key, $cached, WEEK_IN_SECONDS );
+		add_filter( 'tabify_detection_context', $filter );
+		try {
+			$this->assertFalse( $this->invoke_private( 'get_cache_key', array( 'post' ) ) );
+			$this->assertFalse( $this->invoke_private( 'get_cached_metaboxes', array( 'post' ) ) );
+			$this->invoke_private( 'cache_metaboxes', array( 'post', array() ) );
+			$this->assertEquals( $cached, get_transient( $fallback_key ) );
+		} finally {
+			remove_filter( 'tabify_detection_context', $filter );
+			fclose( $resource );
+		}
+	}
+
+	public function test_detection_requires_a_post_type_screen() {
+		$previous_screen = get_current_screen();
+		$this->expectOutputString( '' );
+		try {
+			$GLOBALS['current_screen'] = null;
+			$this->detection->head_action();
+			set_current_screen( 'front' );
+			$this->detection->head_action();
+		} finally {
+			$GLOBALS['current_screen'] = $previous_screen;
+		}
+	}
+
 	public function test_invalid_cached_metadata_requires_detection() {
 		$key = $this->invoke_private( 'get_cache_key', array( 'post' ) );
 		foreach ( array( 'invalid', array( 'bad' => false ), array( 'bad' => (object) array( 'title' => 'Missing location' ) ) ) as $value ) {

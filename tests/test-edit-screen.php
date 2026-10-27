@@ -3,6 +3,12 @@
 require_once __DIR__ . '/test-compatibility.php';
 
 class Tabify_Tests_Edit_Screen extends WP_UnitTestCase {
+	public function test_output_before_tab_initialization_is_empty() {
+		$this->expectOutputString( '' );
+		$screen = new Tabify_Edit_Screen_Edit_Screen();
+		$screen->output_tabs();
+	}
+
 	public function test_generated_javascript_contains_valid_json_and_assigns_unattached_boxes() {
 		$previous_post  = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
 		$previous_boxes = isset( $GLOBALS['wp_meta_boxes'] ) ? $GLOBALS['wp_meta_boxes'] : array();
@@ -54,6 +60,8 @@ class Tabify_Tests_Edit_Screen extends WP_UnitTestCase {
 			$this->assertStringContainsString( '\u003Cstrong\u003E', $script );
 			$this->assertStringContainsString( 'jQuery("#titlediv").addClass("tabifybox tabifybox-0");', $script );
 			$this->assertContains( 'tabifybox tabifybox-0', apply_filters( 'postbox_classes_post_extra', array() ) );
+			$this->assertTrue( $screen->filter_empty_tabs( array( 'items' => array( 'extra' ) ) ) );
+			$this->assertFalse( $screen->filter_empty_tabs( array( 'items' => array( 'unavailable' ) ) ) );
 		} finally {
 			$GLOBALS['post']          = $previous_post;
 			$GLOBALS['wp_meta_boxes'] = $previous_boxes;

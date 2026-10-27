@@ -166,6 +166,37 @@ class Tabify_Tests_Compatibility extends WP_UnitTestCase {
 		}
 	}
 
+	public function test_post_type_filter_keeps_valid_objects_and_skips_malformed_entries() {
+		$filter = function () {
+			return array(
+				get_post_type_object( 'post' ),
+				(object) array(
+					'name'  => 'custom',
+					'label' => 'Custom',
+				),
+				(object) array(),
+				(object) array(
+					'name'  => 'invalid',
+					'label' => array(),
+				),
+				false,
+			);
+		};
+		add_filter( 'tabify_posttypes', $filter );
+		try {
+			$settings = new Tabify_Edit_Screen_Settings_Posttypes();
+			$this->assertSame(
+				array(
+					'post'   => get_post_type_object( 'post' )->label,
+					'custom' => 'Custom',
+				),
+				$this->invoke_private( $settings, 'get_sections' )
+			);
+		} finally {
+			remove_filter( 'tabify_posttypes', $filter );
+		}
+	}
+
 	public function test_permissions_controls_accept_missing_and_invalid_permissions() {
 		$permissions = new Tabify_Edit_Screen_Feature_Permissions();
 		$tabs = array( array( 'id' => 0 ), array( 'id' => 0, 'permissions' => 'invalid' ) );

@@ -3,14 +3,29 @@
 require_once __DIR__ . '/test-compatibility.php';
 require_once dirname( __DIR__ ) . '/inc/settings-page.php';
 
+class Tabify_Tests_Custom_Settings_Screen {
+	public function get_sections_menu() {
+		echo 'Custom settings menu';
+	}
+
+	public function get_sections_box() {
+		echo 'Custom settings fields';
+	}
+}
+
 class Tabify_Tests_Settings_UI extends WP_UnitTestCase {
+	private $previous_title;
+
 	public function set_up() {
 		parent::set_up();
+		$this->previous_title = isset( $GLOBALS['title'] ) ? $GLOBALS['title'] : null;
+		$GLOBALS['title']     = 'Tabify edit screen';
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 		set_current_screen( 'post' );
 	}
 
 	public function tear_down() {
+		$GLOBALS['title'] = $this->previous_title;
 		set_current_screen( 'front' );
 		parent::tear_down();
 	}
@@ -23,6 +38,46 @@ class Tabify_Tests_Settings_UI extends WP_UnitTestCase {
 		$this->assertSame( 2, substr_count( $html, 'name="create_tab"' ) );
 		$this->assertLessThan( strpos( $html, 'class="tabifybox ' ), strpos( $html, 'id="create_tab"' ) );
 		$this->assertSame( 1, substr_count( $html, 'id="create_tab"' ) );
+	}
+
+	public function test_invalid_settings_classes_do_not_break_the_page() {
+		foreach ( array( 'stdClass', 'Tabify_Missing_Settings_Class' ) as $class_name ) {
+			$filter = function ( $tabs ) use ( $class_name ) {
+				$tabs['posttypes']['class'] = $class_name;
+				return $tabs;
+			};
+			add_filter( 'tabify_settings_tabs', $filter );
+			ob_start();
+			try {
+				$page = new Tabify_Edit_Screen_Settings_Page();
+				$page->edit_screen();
+				$html = ob_get_contents();
+			} finally {
+				ob_end_clean();
+				remove_filter( 'tabify_settings_tabs', $filter );
+			}
+			$this->assertStringNotContainsString( 'id="tabify-settings"', $html );
+			$this->assertStringEndsWith( '</form></div>', $html );
+		}
+	}
+
+	public function test_custom_settings_class_can_render_without_extending_the_base() {
+		$filter = function ( $tabs ) {
+			$tabs['posttypes']['class'] = 'Tabify_Tests_Custom_Settings_Screen';
+			return $tabs;
+		};
+		add_filter( 'tabify_settings_tabs', $filter );
+		ob_start();
+		try {
+			$page = new Tabify_Edit_Screen_Settings_Page();
+			$page->edit_screen();
+			$html = ob_get_contents();
+		} finally {
+			ob_end_clean();
+			remove_filter( 'tabify_settings_tabs', $filter );
+		}
+		$this->assertStringContainsString( 'Custom settings menu', $html );
+		$this->assertStringContainsString( 'Custom settings fields', $html );
 	}
 
 	private function submit_settings( $options, $extra = array() ) {

@@ -33,6 +33,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 * Enqueue detection on the settings page.
 	 *
 	 * @param WP_Screen $screen Current admin screen.
+	 *
+	 * @return void
 	 */
 	public function head_action_begin_settings_page( $screen ) {
 		if ( 'settings_page_tabify-edit-screen' === $screen->base && current_user_can( 'manage_options' ) ) {
@@ -44,6 +46,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 * Collect boxes from a real edit screen, including when tabs are disabled.
 	 *
 	 * @param WP_Screen $screen Current admin screen.
+	 *
+	 * @return void
 	 */
 	public function head_action_begin_edit_page( $screen ) {
 		if ( ! in_array( $screen->base, array( 'post', 'media' ), true ) || ! isset( $_GET['test_metaboxes'] ) ) {
@@ -64,9 +68,12 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 	/**
 	 * Enqueue detection assets and request context.
+	 *
+	 * @return void
 	 */
 	private function enqueue_script() {
-		wp_register_script( 'tabify-edit-screen-detection', plugins_url( '/detection.js', __FILE__ ), array( 'jquery' ), '1.1.0', false );
+		$script_url = plugins_url( '/detection.js', __FILE__ );
+		wp_register_script( 'tabify-edit-screen-detection', '' !== $script_url ? $script_url : false, array( 'jquery' ), '1.1.0', false );
 		wp_enqueue_script( 'tabify-edit-screen-detection' );
 
 		$posttype_links  = array();
@@ -148,6 +155,8 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 * Print the refresh controls.
 	 *
 	 * @param string $type Settings group.
+	 *
+	 * @return void
 	 */
 	public function settings_toolbar( $type ) {
 		if ( 'posttypes' !== $type ) {
@@ -160,9 +169,15 @@ class Tabify_Edit_Screen_Feature_Detection {
 
 	/**
 	 * Return freshly registered boxes instead of replaying an expired transient.
+	 *
+	 * @return void
 	 */
 	public function head_action() {
-		$screen    = get_current_screen();
+		$screen = get_current_screen();
+		if ( ! $screen || '' === $screen->post_type ) {
+			return;
+		}
+
 		$metaboxes = $this->get_metaboxes( $screen->post_type );
 		$this->cache_metaboxes( $screen->post_type, $metaboxes );
 
@@ -177,7 +192,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 * Build a cache key for the current context.
 	 *
 	 * @param string $post_type Post-type name.
-	 * @return string Transient key.
+	 * @return string|false Transient key, or false for an unserializable context.
 	 */
 	private function get_cache_key( $post_type ) {
 		$context = array(
@@ -187,45 +202,67 @@ class Tabify_Edit_Screen_Feature_Detection {
 			'user'       => get_current_user_id(),
 		);
 		$context = apply_filters( 'tabify_detection_context', $context, $post_type );
+		$encoded = wp_json_encode( $context );
+		if ( false === $encoded ) {
+			return false;
+		}
 
-		return 'tabify_detection_' . $post_type . '_' . md5( wp_json_encode( $context ) );
+		return 'tabify_detection_' . $post_type . '_' . md5( $encoded );
 	}
 
 	/**
 	 * Read validated detection results.
 	 *
 	 * @param string $post_type Post-type name.
-	 * @return array|false Cached boxes, or false when missing or invalid.
+	 * @return array<array-key,object{title:string,context:string,priority:string}>|false Cached boxes, or false when missing or invalid.
 	 */
 	private function get_cached_metaboxes( $post_type ) {
-		$metaboxes = get_transient( $this->get_cache_key( $post_type ) );
+		$key = $this->get_cache_key( $post_type );
+		if ( false === $key ) {
+			return false;
+		}
+
+		$metaboxes = get_transient( $key );
 		if ( ! is_array( $metaboxes ) ) {
 			return false;
 		}
 
-		foreach ( $metaboxes as $metabox ) {
+		$validated = array();
+		foreach ( $metaboxes as $id => $metabox ) {
 			if ( ! is_object( $metabox ) || ! isset( $metabox->title, $metabox->context, $metabox->priority ) || ! is_string( $metabox->title ) || ! is_string( $metabox->context ) || ! is_string( $metabox->priority ) ) {
 				return false;
 			}
+			$validated[ $id ] = (object) array(
+				'title'    => $metabox->title,
+				'context'  => $metabox->context,
+				'priority' => $metabox->priority,
+			);
 		}
 
-		return $metaboxes;
+		return $validated;
 	}
 
 	/**
 	 * Cache detection results for one week.
 	 *
-	 * @param string $post_type Post-type name.
-	 * @param array  $metaboxes Detected box metadata.
+	 * @param string                                                               $post_type Post-type name.
+	 * @param array<array-key,object{title:string,context:string,priority:string}> $metaboxes Detected box metadata.
+	 *
+	 * @return void
 	 */
 	private function cache_metaboxes( $post_type, $metaboxes ) {
-		set_transient( $this->get_cache_key( $post_type ), $metaboxes, WEEK_IN_SECONDS );
+		$key = $this->get_cache_key( $post_type );
+		if ( false !== $key ) {
+			set_transient( $key, $metaboxes, WEEK_IN_SECONDS );
+		}
 	}
 
 	/**
 	 * Restore cached boxes on settings screens without replacing live callbacks.
 	 *
 	 * @param string $post_type Post-type name.
+	 *
+	 * @return void
 	 */
 	public function add_missing_meta_boxes( $post_type ) {
 		global $wp_meta_boxes;
@@ -236,14 +273,21 @@ class Tabify_Edit_Screen_Feature_Detection {
 		}
 
 		foreach ( $metaboxes as $id => $metabox ) {
-			if ( ! isset( $wp_meta_boxes[ $post_type ][ $metabox->context ][ $metabox->priority ][ $id ] ) ) {
-				add_meta_box( $id, $metabox->title, '__return_false', $post_type, $metabox->context, $metabox->priority );
+			$priority = $metabox->priority;
+			if ( ! in_array( $priority, array( 'high', 'core', 'default', 'low' ), true ) ) {
+				// WordPress's sorted bucket is an edit-screen ordering detail.
+				$priority = 'default';
+			}
+			if ( ! isset( $wp_meta_boxes[ $post_type ][ $metabox->context ][ $metabox->priority ][ $id ] ) && ! isset( $wp_meta_boxes[ $post_type ][ $metabox->context ][ $priority ][ $id ] ) ) {
+				add_meta_box( (string) $id, $metabox->title, '__return_false', $post_type, $metabox->context, $priority );
 			}
 		}
 	}
 
 	/**
 	 * Keep detection current when a configured edit screen is visited normally.
+	 *
+	 * @return void
 	 */
 	public function unattached_metaboxes() {
 		$screen = get_current_screen();
@@ -256,7 +300,7 @@ class Tabify_Edit_Screen_Feature_Detection {
 	 * Collect registered meta-box metadata.
 	 *
 	 * @param string $post_type Post-type name.
-	 * @return array Detected boxes.
+	 * @return array<array-key,object{title:string,context:string,priority:string}> Detected box metadata.
 	 */
 	private function get_metaboxes( $post_type ) {
 		global $wp_meta_boxes;

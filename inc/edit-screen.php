@@ -22,7 +22,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 	/**
 	 * Meta boxes not yet assigned to a tab.
 	 *
-	 * @var array
+	 * @var array<string,string>
 	 */
 	private $all_metaboxes = array();
 
@@ -76,6 +76,8 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * It will also will add the required classes to all the metaboxes
 	 *
 	 * @since 0.1.0
+	 *
+	 * @return void
 	 */
 	public function show_tabs() {
 		$screen = get_current_screen();
@@ -119,7 +121,8 @@ class Tabify_Edit_Screen_Edit_Screen {
 		$tabs = is_array( $tabs ) ? array_filter( $tabs, array( $this, 'filter_empty_tabs' ) ) : array();
 
 		// Create Tabify_Edit_Screen_Tabs that is for displaying the UI.
-		$this->editscreen_tabs = new Tabify_Edit_Screen_Tabs( $tabs );
+		$screen_tabs           = new Tabify_Edit_Screen_Tabs( $tabs );
+		$this->editscreen_tabs = $screen_tabs;
 
 		// Load the tabs on the edit screen.
 		$this->load_tabs();
@@ -128,7 +131,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 		foreach ( $tabs as $tab_index => $tab ) {
 			$class = 'tabifybox tabifybox-' . $tab_index;
 
-			if ( $this->editscreen_tabs->get_current_tab() !== (string) $tab_index ) {
+			if ( $screen_tabs->get_current_tab() !== (string) $tab_index ) {
 				$class .= ' tabifybox-hide';
 			}
 
@@ -180,6 +183,8 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * @since 1.0.0
 	 *
 	 * @param int $tab_index Last configured tab index.
+	 *
+	 * @return void
 	 */
 	private function show_unattached_metaboxes( $tab_index ) {
 		$show = apply_filters( 'tabify_unattached_metaboxes_show', true, get_post_type() );
@@ -226,7 +231,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 *
 	 * @param string $post_type Post type name.
 	 *
-	 * @return array $metaboxes List of metaboxes
+	 * @return array<string,string> Meta-box IDs keyed by ID.
 	 *
 	 * @since 1.0.0
 	 */
@@ -279,13 +284,20 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * Check where tabs should be loaded and fire the right action and callback for it
 	 *
 	 * @since 0.5.0
+	 *
+	 * @return void
 	 */
 	private function load_tabs() {
+		$screen_tabs = $this->editscreen_tabs;
+		if ( null === $screen_tabs ) {
+			return;
+		}
+
 		if ( 'after_title' === $this->tab_location ) {
 			add_action( 'edit_form_after_title', array( $this, 'output_tabs' ), 9 );
 		} else { // Default tab placement.
 			$tabs  = $this->submit_button();
-			$tabs .= $this->editscreen_tabs->get_tabs_with_container();
+			$tabs .= $screen_tabs->get_tabs_with_container();
 
 			add_action(
 				'tabify_custom_javascript',
@@ -306,12 +318,19 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * Outputs the tabs
 	 *
 	 * @since 0.5.0
+	 *
+	 * @return void
 	 */
 	public function output_tabs() {
+		$tabs = $this->editscreen_tabs;
+		if ( null === $tabs ) {
+			return;
+		}
+
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WordPress get_submit_button() returns escaped markup.
 		echo $this->submit_button();
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The tab renderer escapes its attributes and titles.
-		echo $this->editscreen_tabs->get_tabs_with_container();
+		echo $tabs->get_tabs_with_container();
 	}
 
 	/**
@@ -359,6 +378,8 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * Generate the javascript for the edit screen
 	 *
 	 * @since 0.1.0
+	 *
+	 * @return void
 	 */
 	public function generate_javascript() {
 		echo '<script type="text/javascript">';
@@ -372,15 +393,13 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 * Filter out tabs that don't have any meta boxes to show
 	 *
 	 * @param mixed $tab Tab information.
-	 * @return array|false Assigned items, or false for malformed tabs.
+	 * @return bool Whether the tab contains available meta boxes.
 	 *
 	 * @since 0.9.6
 	 */
 	public function filter_empty_tabs( $tab ) {
 		if ( is_array( $tab ) && isset( $tab['items'] ) && is_array( $tab['items'] ) ) {
-			$tab['items'] = array_intersect( $tab['items'], $this->all_metaboxes );
-
-			return $tab['items'];
+			return (bool) array_intersect( $tab['items'], $this->all_metaboxes );
 		}
 
 		return false;
@@ -391,7 +410,7 @@ class Tabify_Edit_Screen_Edit_Screen {
 	 *
 	 * @param string $post_type The post type.
 	 *
-	 * @return array List of default items
+	 * @return array<string> Items shown on every tab.
 	 *
 	 * @since 0.9.6
 	 */

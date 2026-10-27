@@ -33,6 +33,8 @@ class Tabify_Edit_Screen_Settings_Page {
 	 * Adds a option page to manage all the tabs
 	 *
 	 * @since 0.1.0
+	 *
+	 * @return void
 	 */
 	public function admin_menu() {
 		add_options_page( __( 'Tabify edit screen', 'tabify-edit-screen' ), __( 'Tabify edit screen', 'tabify-edit-screen' ), 'manage_options', 'tabify-edit-screen', array( $this, 'edit_screen' ) );
@@ -42,6 +44,8 @@ class Tabify_Edit_Screen_Settings_Page {
 	 * Option page that handles the form request
 	 *
 	 * @since 0.1.0
+	 *
+	 * @return void
 	 */
 	public function edit_screen() {
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -50,7 +54,8 @@ class Tabify_Edit_Screen_Settings_Page {
 
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_script( 'tabify-edit-screen-admin', plugins_url( '/js/admin' . $suffix . '.js', __DIR__ ), array( 'jquery', 'wp-backbone', 'jquery-ui-sortable', 'jquery-touch-punch' ), '1.1.0', false );
+		$script_url = plugins_url( '/js/admin' . $suffix . '.js', __DIR__ );
+		wp_register_script( 'tabify-edit-screen-admin', '' !== $script_url ? $script_url : false, array( 'jquery', 'wp-backbone', 'jquery-ui-sortable', 'jquery-touch-punch' ), '1.1.0', false );
 		wp_enqueue_script( 'tabify-edit-screen-admin' );
 
 		$data = array(
@@ -84,30 +89,35 @@ class Tabify_Edit_Screen_Settings_Page {
 		}
 
 		if ( isset( $tabs[ $this->tabs->get_current_tab() ] ) ) {
-			$class_name      = $tabs[ $this->tabs->get_current_tab() ]['class'];
-			$settings_screen = new $class_name();
+			$class_name = $tabs[ $this->tabs->get_current_tab() ]['class'];
+			if ( is_string( $class_name ) && class_exists( $class_name ) ) {
+				$settings_screen = new $class_name();
+				if ( is_callable( array( $settings_screen, 'get_sections_menu' ) ) && is_callable( array( $settings_screen, 'get_sections_box' ) ) ) {
+					$this->update_settings();
 
-			$this->update_settings();
+					echo '<div id="tabify-settings">';
+					echo '<div id="tabify-submenu">';
+					$settings_screen->get_sections_menu();
+					echo '</div>';
 
-			echo '<div id="tabify-settings">';
-				echo '<div id="tabify-submenu">';
-				$settings_screen->get_sections_menu();
-				echo '</div>';
-
-				echo '<div id="tabifyboxes">';
-				$settings_screen->get_sections_box();
-				echo '</div>';
-			echo '</div>';
-
-			echo '</form>';
-			echo '</div>';
+					echo '<div id="tabifyboxes">';
+					$settings_screen->get_sections_box();
+					echo '</div>';
+					echo '</div>';
+				}
+			}
 		}
+
+		echo '</form>';
+		echo '</div>';
 	}
 
 	/**
 	 * Updates settings on POST
 	 *
 	 * @since 0.2.0
+	 *
+	 * @return void
 	 */
 	private function update_settings() {
 		if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || 'POST' !== $_SERVER['REQUEST_METHOD'] || ! isset( $_POST['tabify'] ) || ! is_array( $_POST['tabify'] ) ) {
