@@ -49,4 +49,4 @@ These tests run the production JavaScript with jQuery and jQuery UI in a setting
 
 Language context is simulated through WPML's documented `wpml_current_language` filter. This verifies that one language cannot reuse another language's detected boxes and that detection links retain the selected language. Saving settings also preserves configured IDs that are currently unavailable.
 
-Issue #69 still needs an end-to-end check against current WPML and ACF releases. Translated field groups may use different meta-box IDs; cache isolation does not map those IDs automatically. Keep that issue open until a real translated-field-group installation is tested.
+Issue #69 is closed as not planned, with further WPML/ACF investigation deferred. The original behavior remains unverified against current WPML and ACF releases. Translated field groups may use different meta-box IDs; cache isolation does not map those IDs automatically.
