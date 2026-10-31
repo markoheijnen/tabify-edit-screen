@@ -1,0 +1,35 @@
+<!doctype html>
+<html class="js"><head><meta charset="utf-8"><title>Tabify edit screen fixture</title>
+<style>
+body { font: 14px Arial, sans-serif; margin: 24px; }
+.nav-tab-wrapper { margin-bottom: 12px; }
+.nav-tab { display: inline-block; padding: 8px 14px; border: 1px solid #c3c4c7; text-decoration: none; }
+.nav-tab-active { background: #f0f0f1; font-weight: 600; }
+.tabifybox { border: 1px solid #c3c4c7; padding: 12px; }
+.tabifybox-hide { display: none; }
+.wp-editor-wrap { position: relative; border: 1px solid #c3c4c7; }
+.wp-editor-tools { position: absolute; top: 0; left: 0; right: 0; height: 65px; padding-top: 20px; box-sizing: border-box; }
+.wp-editor-container { position: relative; border-top: 1px solid #c3c4c7; }
+.quicktags-toolbar { position: absolute; top: 0; left: 0; right: 0; height: 37px; }
+.wp-editor-area { display: block; width: 100%; height: 200px; margin-top: 37px; box-sizing: border-box; }
+</style></head><body>
+<div id="poststuff"><div id="post-body"><div id="post-body-content">
+	<div class="tabify-tabs tab-horizontal">
+		<input class="current_tab" name="tab" value="0" type="hidden">
+		<a class="tabify-tab nav-tab nav-tab-active" id="tab-0" href="#0">Main</a>
+		<a class="tabify-tab nav-tab" id="tab-1" href="#1">Description</a>
+	</div>
+
+	<div class="tabifybox tabifybox-0" id="box-main"><p>Main panel</p></div>
+
+	<div class="tabifybox tabifybox-1 tabifybox-hide" id="box-description">
+		<div id="wp-content-wrap" class="wp-editor-wrap html-active">
+			<div class="wp-editor-tools"><div class="wp-media-buttons"><button type="button">Add Media</button></div></div>
+			<div class="wp-editor-container">
+				<div class="quicktags-toolbar"><input type="button" value="b"><input type="button" value="i"></div>
+				<textarea class="wp-editor-area"></textarea>
+			</div>
+		</div>
+	</div>
+</div></div></div>
+</body></html>

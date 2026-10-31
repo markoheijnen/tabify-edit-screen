@@ -59,6 +59,7 @@ At this moment new metaboxes are places on the last tab. You can go to the setti
 * Skip classic tab initialization on block-editor screens.
 * Handle admin color palettes with fewer than four colors.
 * Switch tabs correctly when clicking HTML inside a tab title.
+* Recalculate the editor layout after a tab switch so no empty band is left between the media buttons and the editor toolbars.
 * Improve PHP 8 compatibility and expand integration and browser test coverage.
 
 = 1.0.0 ( 2021-02-28 ) =
