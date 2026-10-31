@@ -33,8 +33,26 @@ jQuery(function($) {
 							if( checkbox.attr('type') != 'checkbox' || checkbox.is(':checked') ) {
 								$(this).show();
 							}
-						}).promise().done( function(){ tabify_fix_editors() } );
+						}).promise().done( function(){
+							tabify_fix_editors();
+							tabify_refresh_editor_layout();
+						} );
 					}
+				}
+
+				/**
+				 * Ask WordPress to recalculate the editor layout once the meta boxes are visible.
+				 *
+				 * Core measures the editor toolbars while the meta box is still hidden, so
+				 * .wp-editor-wrap keeps a padding-top computed from a hidden element (197px instead
+				 * of 65px). The result is an empty band between the media buttons and the editor
+				 * toolbars. Core only recomputes that padding on a resize event
+				 * (wp-admin/js/editor-expand.js), which a tab switch never triggers.
+				 */
+				function tabify_refresh_editor_layout() {
+					window.setTimeout( function() {
+						$( window ).trigger( 'resize' );
+					}, 60 );
 				}
 
 				function tabify_fix_editors() {
